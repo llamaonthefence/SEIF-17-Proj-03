@@ -1,13 +1,23 @@
+import { ProfileModal } from "../index";
+import { useState } from "react";
 import { Image, Text, Heading, Flex, Box } from "@chakra-ui/react";
 function ProfileCard({
+  id,
   firstName,
   lastName,
   year,
   course,
   image,
   special,
+  skills,
+  languages,
+  bio,
   data,
 }) {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
   return (
     <>
       {/* ProfileCard Component */}
@@ -19,6 +29,8 @@ function ProfileCard({
         boxShadow="md"
         p="4"
         bg="whitesmoke"
+        onClick={openModal}
+        cursor="pointer"
       >
         {/* Profile Picture */}
         <Image
@@ -38,6 +50,22 @@ function ProfileCard({
           <Text>{special}</Text>
         </Flex>
       </Box>
+
+      {/* ProfileModal Component */}
+      <ProfileModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        id={id}
+        firstName={firstName}
+        lastName={lastName}
+        year={year}
+        course={course}
+        image={image}
+        special={special}
+        skills={skills}
+        langagues={languages}
+        bio={bio}
+      />
     </>
   );
 }

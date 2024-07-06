@@ -1,12 +1,37 @@
-import { Flex, Select } from "@chakra-ui/react";
+import { useState } from "react";
+import { Flex, Select, Button } from "@chakra-ui/react";
+import { IoIosCreate } from "react-icons/io";
+import { CreateJobFormModal } from "../index";
 
 function OpportunitiesQueryBar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
+      {/* OpportunitiesFormModal Component */}
+      <CreateJobFormModal isOpen={isOpen} closeModal={closeModal} />
+
       {/* OpportunitiesQueryBar Component */}
       <Flex bg="lightgray">
-        {/* Dropdown Lists Components */}
+        {/* Button & Dropdown Lists Components */}
         <Flex direction="columns" p={8} gap={8}>
+          <Button
+            leftIcon={<IoIosCreate />}
+            colorScheme="red"
+            variant="solid"
+            size="lg"
+            onClick={openModal}
+          >
+            Create Post
+          </Button>
           <Flex spacing={3} gap={8}>
             {/* All types Dropdown */}
             <Select
