@@ -10,15 +10,20 @@ function App() {
       <main className="App">
         <>
           <Navbar />
+          <div className="content-wrapper">
+          <div className="content">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/meet" element={<MeetPage />} />
             <Route path="/opportunities" element={<OpportunitiesPage />} />
             <Route path="/profile/*" element={<ProfilePage />} />
           </Routes>
-          <Footer />
+          </div>
+          </div>
+          <Footer className="footer"/>
         </>
       </main>
+
     </ChakraProvider>
   );
 }
