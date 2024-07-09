@@ -5,12 +5,12 @@ function Footer() {
     <>
       {/* Footer Component */}
       <Box
-        className="Footer"
-        height="200px"
-        alignContent="center"
+        as="footer"
+        className="footer"
+        height="50px"
         bgColor="grey"
       >
-        <h1 className="text-5xl font-bold">Footer</h1>
+        <h1 className="text-md font-bold">Footer</h1>
       </Box>
     </>
   );
