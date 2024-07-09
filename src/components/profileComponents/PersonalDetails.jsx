@@ -19,6 +19,8 @@ function PersonalDetails() {
         className="personal-details"
         w="90%"
         borderWidth='1px'
+        borderRadius='lg' 
+        overflow='hidden'
         m={10}
         p={5}
         >

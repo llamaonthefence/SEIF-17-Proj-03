@@ -7,7 +7,7 @@ function MeetPage() {
   const isCreatedPostPage = false;
   return (
     <>
-      <Stack bgColor="lightgray">
+      <Stack bgColor="#F3F0E8">
         <Stack bgColor="white" m={8} borderRadius="10px">
           {/* MeetQueryBar Component */}
           <MeetQueryBar />
