@@ -1,20 +1,22 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Text } from "@chakra-ui/react";
 
 function SkillsGrid({ skills = [] }) {
   return (
     // SkillsGrid Component
-    <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+    <Grid templateColumns="repeat(3, 1fr)" gap={2}>
       {skills.slice(0, 3).map((skill, index) => (
         <GridItem
           key={index}
           w="100%"
-          h="10"
-          bgColor="salmon"
+          bgColor="lightgray"
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="6px"
         >
-          {skill}
+          <Text fontSize="xs" py={1}>
+            {skill}
+          </Text>
         </GridItem>
       ))}
     </Grid>

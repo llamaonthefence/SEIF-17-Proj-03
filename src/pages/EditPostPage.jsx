@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Grid,
   GridItem,
@@ -9,11 +10,26 @@ import {
   Image,
   IconButton,
 } from "@chakra-ui/react";
-import { JobNav, EditJobGrid, PostFakeData } from "../components";
+import { JobNav, EditJobGrid } from "../components";
 import { FaSort, FaFilter } from "react-icons/fa";
+import { getAllJobs } from "../service/jobs";
 
 function EditPostPage() {
-  const datas = PostFakeData;
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    const fetchDatas = async () => {
+      try {
+        const data = await getAllJobs();
+        setDatas(data.jobs);
+      } catch (error) {
+        console.error("Error fetching datas:", error);
+        setDatas([]);
+      }
+    };
+
+    fetchDatas();
+  }, []);
+
   return (
     <>
       {/* ProfilePage Component */}

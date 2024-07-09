@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import { EditJobCard, Pagination } from "../index";
+import { Box, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import { EditJobCard, Pagination, JobCardModal } from "../index";
 
 function EditJobGrid({ datas }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +16,14 @@ function EditJobGrid({ datas }) {
     setCurrentPage(page);
   };
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  const openModal = (jobData) => {
+    setSelectedJob(jobData);
+    onOpen();
+  };
+
   return (
     <>
       {/* EditJobGrid Component*/}
@@ -25,18 +33,20 @@ function EditJobGrid({ datas }) {
           {currentData.map((data, index) => (
             <EditJobCard
               key={index}
-              id={data.id}
-              companyName={data.companyName}
-              jobRole={data.jobRole}
-              contract={data.contract}
-              place={data.place}
-              image={data.image}
-              salary={data.salary}
-              cert={data.cert}
               data={data}
+              openModal={openModal} // Pass the openModal function
             />
           ))}
         </SimpleGrid>
+
+        {/* JobCardModal */}
+        {selectedJob && (
+          <JobCardModal
+            isOpen={isOpen}
+            closeModal={onClose}
+            data={selectedJob}
+          />
+        )}
 
         {/* Pagination */}
         <Pagination

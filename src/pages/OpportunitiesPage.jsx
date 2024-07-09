@@ -35,12 +35,12 @@ function OpportunitiesPage() {
         className="OpportunitiesPage"
         templateAreas={`"nav main"`}
         gridTemplateRows={"100% 1fr 0px"}
-        gridTemplateColumns={"700px 1fr"}
-        h="960px"
+        gridTemplateColumns={"600px 1fr"}
+        h="auto"
         gap="0"
       >
         {/* Job Listing Grid on the left Nav area */}
-        <GridItem pl="2" bg="white" alignContent="start" area={"nav"}>
+        <GridItem pl="2" bg="white" alignContent="start" area={"nav"} h="auto">
           <JobGrid
             datas={datas}
             onJobSelect={handleJobCardClick}
@@ -49,7 +49,7 @@ function OpportunitiesPage() {
         </GridItem>
 
         {/* Job Selected Card on the Main area */}
-        <GridItem pl="2" bg="white" alignContent="center" area={"main"}>
+        <GridItem pl="2" bg="white" align="start" area={"main"} h="100%">
           <JobDetailedCard job={selectedJob} />
         </GridItem>
       </Grid>

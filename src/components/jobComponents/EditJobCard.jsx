@@ -1,23 +1,11 @@
 import { Text, Flex, Box, Spacer, IconButton, Icon } from "@chakra-ui/react";
 import { IoEyeSharp } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
-import { FaDollarSign } from "react-icons/fa";
-import { GiGraduateCap } from "react-icons/gi";
 import { FaTrashCan } from "react-icons/fa6";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { GiGraduateCap } from "react-icons/gi";
 
-function EditJobCard({
-  id,
-  companyName,
-  jobRole,
-  contract,
-  place,
-  image,
-  salary,
-  cert,
-  posted,
-  data,
-}) {
+function EditJobCard({ data, openModal }) {
   return (
     <>
       {/* EditJobCard Component */}
@@ -36,7 +24,7 @@ function EditJobCard({
         <Flex direction="column" align="start" gap="10" p={2} h="100%">
           <Flex w="100%">
             <Text fontSize="3xl" fontWeight="600">
-              {jobRole}
+              {data.title}
             </Text>
             <Spacer />
             <Flex gap={2}>
@@ -50,6 +38,7 @@ function EditJobCard({
                 color="black"
                 _hover={{ bg: "gray.200" }}
                 _active={{ bg: "gray.300" }}
+                onClick={() => openModal(data)} // Call openModal with job data
               />
               <IconButton
                 aria-label="Edit"
@@ -84,19 +73,19 @@ function EditJobCard({
           >
             <Flex direction="row" gap="4">
               <Text>Hybrid</Text>
-              <Text>{contract}</Text>
+              <Text>{data.contract}</Text>
             </Flex>
-            <Text>{place}</Text>
-            <Text>{"Skill1, Skill2, Skill3"}</Text>
+            <Text>{data.location}</Text>
+            <Text>{data.skills ? data.skills.join(", ") : ""}</Text>
           </Flex>
           <Flex direction="row" gap="4" fontSize="2xl" fontWeight="200">
             <Flex align="center">
               <Icon as={RiMoneyDollarCircleFill} mr={2} />
-              <Text>{salary}</Text>
+              <Text>{data.salary}</Text>
             </Flex>
             <Flex align="center">
               <Icon as={GiGraduateCap} mr={2} />
-              <Text>Cert</Text>
+              <Text>{data.cert}</Text>
             </Flex>
           </Flex>
         </Flex>
