@@ -1,8 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Navbar, Footer } from "./components";
 import {
+  SignInPage,
   MeetPage,
   OpportunitiesPage,
   HomePage,
@@ -13,15 +14,19 @@ import {
 import theme from "./util/theme";
 
 function App() {
+  const location = useLocation();
+  const isSignInPage = location.pathname === "/signin";
+  
   return (
     <ChakraProvider theme={theme}>
       <main className="App">
         <>
-          <Navbar />
+          {!isSignInPage && <Navbar />}
           <div className="content-wrapper">
             <div className="content">
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                  <Route path="/signin" element={<SignInPage />} />
                 <Route path="/meet" element={<MeetPage />} />
                 <Route path="/opportunities" element={<OpportunitiesPage />} />
                 <Route
@@ -36,7 +41,7 @@ function App() {
               </Routes>
             </div>
           </div>
-          <Footer className="footer" />
+          {!isSignInPage && <Footer className="footer"/>}
         </>
       </main>
     </ChakraProvider>
