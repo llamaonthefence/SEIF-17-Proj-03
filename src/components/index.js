@@ -20,7 +20,10 @@ export { default as CreatedPostSetting } from "./profileComponents/CreatedPostSe
 export { default as ProfileSetting } from "./profileComponents/ProfileSetting"
 
 // Job components
-export { default as CreateJobFormModal } from "./jobComponents/CreateJobFormModal"
+export { default as CreateJobForm } from "./jobComponents/CreateJobForm"
+export { default as JobNav } from "./jobComponents/JobNav"
+export { default as EditJobGrid } from "./jobComponents/EditJobGrid";
+export { default as EditJobCard } from "./jobComponents/EditJobCard";
 
 // test components
 export { default as ProfileFakeData} from "./testComponents/ProfileFakeData";
