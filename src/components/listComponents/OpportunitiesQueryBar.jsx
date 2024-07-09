@@ -1,13 +1,33 @@
-import { Flex, Select } from "@chakra-ui/react";
+import {
+  Flex,
+  Select,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from "@chakra-ui/react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 function OpportunitiesQueryBar() {
+  const navigate = useNavigate();
+
+  const handleNavigateCreatePost = () => {
+    navigate("/opportunities/create-post");
+  };
+
+  const handleNavigateEditPost = () => {
+    navigate("/opportunities/edit-post");
+  };
+
   return (
     <>
       {/* OpportunitiesQueryBar Component */}
-      <Flex bg="lightgray">
-        {/* Dropdown Lists Components */}
-        <Flex direction="columns" p={8} gap={8}>
-          <Flex spacing={3} gap={8}>
+      <Flex bg="#F3F0E8">
+        {/* Button & Dropdown Lists Components */}
+        <Flex direction="columns" p={8}>
+          <Flex spacing={3} gap={14}>
             {/* All types Dropdown */}
             <Select
               variant="outline"
@@ -72,6 +92,27 @@ function OpportunitiesQueryBar() {
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
             </Select>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<GiHamburgerMenu />}
+                variant="solid"
+                size="lg"
+                bgColor="white"
+                outlineWidth="1px"
+                outlineColor="lightgray"
+                outlineOffset="0px"
+              />
+              <MenuList>
+                <MenuItem onClick={handleNavigateCreatePost}>
+                  Add new opportunity
+                </MenuItem>
+                <MenuItem onClick={handleNavigateEditPost}>
+                  Edit opportunity
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </Flex>
       </Flex>

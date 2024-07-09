@@ -1,10 +1,34 @@
+import { useState, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { JobGrid, JobFakeData, OpportunitiesQueryBar } from "../components";
+import { JobGrid, OpportunitiesQueryBar, JobDetailedCard } from "../components";
+import { getAllJobs } from "../service/jobs";
 
 function OpportunitiesPage() {
-  const datas = JobFakeData;
+  const [datas, setDatas] = useState([]);
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  useEffect(() => {
+    const fetchDatas = async () => {
+      try {
+        const data = await getAllJobs();
+        setDatas(data.jobs);
+      } catch (error) {
+        console.error("Error fetching datas:", error);
+        setDatas([]);
+      }
+    };
+
+    fetchDatas();
+  }, []);
+
+  const handleJobCardClick = (job) => {
+    setSelectedJob(selectedJob === job ? null : job); // Toggle selection
+  };
+
   return (
     <>
+      {/* OpportunitiesQueryBar Component */}
+
       <OpportunitiesQueryBar />
       {/* OpportunitiesPage Component */}
       <Grid
@@ -12,21 +36,22 @@ function OpportunitiesPage() {
         templateAreas={`"nav main"`}
         gridTemplateRows={"100% 1fr 0px"}
         gridTemplateColumns={"700px 1fr"}
-        h="840px"
+        h="960px"
         gap="0"
       >
         {/* Job Listing Grid on the left Nav area */}
         <GridItem pl="2" bg="white" alignContent="start" area={"nav"}>
-          <JobGrid datas={datas} />
+          <JobGrid
+            datas={datas}
+            onJobSelect={handleJobCardClick}
+            selectedJob={selectedJob}
+          />
         </GridItem>
 
         {/* Job Selected Card on the Main area */}
-        <GridItem
-          pl="2"
-          bg="white"
-          alignContent="center"
-          area={"main"}
-        ></GridItem>
+        <GridItem pl="2" bg="white" alignContent="center" area={"main"}>
+          <JobDetailedCard job={selectedJob} />
+        </GridItem>
       </Grid>
     </>
   );
