@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Navbar, Footer } from "./components";
 import {
+  SignUpPage,
   SignInPage,
   MeetPage,
   OpportunitiesPage,
@@ -15,6 +16,7 @@ import theme from "./util/theme";
 
 function App() {
   const location = useLocation();
+  const isSignUpPage = location.pathname === "/signup";
   const isSignInPage = location.pathname === "/signin";
   
   return (
@@ -26,7 +28,8 @@ function App() {
             <div className="content">
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                  <Route path="/signin" element={<SignInPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/signin" element={<SignInPage />} />
                 <Route path="/meet" element={<MeetPage />} />
                 <Route path="/opportunities" element={<OpportunitiesPage />} />
                 <Route
