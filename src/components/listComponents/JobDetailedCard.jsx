@@ -10,7 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 
-function JobDetailedCard({ job }) {
+function JobDetailedCard({ job, isViewJobCardModal }) {
   if (!job) {
     return (
       <Center align="center" h="80vh">
@@ -47,9 +47,10 @@ function JobDetailedCard({ job }) {
       bgColor="white"
       py={20}
       px={8}
-      h="80vh"
+      h={isViewJobCardModal ? "70vh" : "80vh"}
       overflowY="auto"
       overflowX="hidden"
+      textAlign="left"
     >
       {/* Top Part */}
       <Flex direction="row" align="start" mb="8" w="75%">
@@ -58,8 +59,11 @@ function JobDetailedCard({ job }) {
           src={job.image || "https://fakeimg.pl/270x270"}
           alt={job.companyName}
           maxBlockSize="200px"
-          mb={"4"}
-          borderRadius="10px"
+          borderStyle="dashed"
+          borderRadius="5%"
+          borderWidth="1px"
+          borderColor="lightgray"
+          bgColor="white"
         />
 
         {/* Right Side */}
@@ -116,7 +120,15 @@ function JobDetailedCard({ job }) {
               Seniority
             </Text>
             <Text bg="lightgray" p="4" w="sm">
-              Senior
+              {job.seniority}
+            </Text>
+          </Flex>
+          <Flex direction="column" align="start" mb="4" w="100%">
+            <Text fontWeight="bold" mb="2">
+              Work Arrangement
+            </Text>
+            <Text bg="lightgray" p="4" w="sm">
+              {job.workArrangement}
             </Text>
           </Flex>
         </Flex>
@@ -144,18 +156,21 @@ function JobDetailedCard({ job }) {
 
       {/* Third Part - SkillsGrid */}
       <Box w="85%" mb={8}>
+        <Text fontWeight="bold" mb="2">
+          Tech Stacks
+        </Text>
         <SkillsGrid />
       </Box>
 
       {/* Divider */}
       <Divider mb="8" borderWidth="1px" borderColor="lightgray" />
 
-      {/* Fourth Part - Description */}
-      <Flex direction="column" mb="8">
+      {/* Fourth Part - Descriptions */}
+      <Flex direction="column" mb="8" align="start">
         <Text fontWeight="bold" mb="2">
-          Job Description
+          Job Descriptions
         </Text>
-        <Text>{job.description}</Text>
+        <Text>{job.descriptions}</Text>
       </Flex>
 
       {/* Bottom Part */}

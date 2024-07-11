@@ -1,6 +1,5 @@
 import { Grid, GridItem, Image, Divider, Box, Text } from "@chakra-ui/react";
 import formatDate from "../../util/formatDate";
-import { SkillsGrid } from "../index";
 
 function JobCard({ data, onJobSelect, selected }) {
   // SkillsGrid Component
@@ -37,9 +36,11 @@ function JobCard({ data, onJobSelect, selected }) {
     // JobCard Component
     <Box
       className="JobCard"
-      bgColor={selected ? "whitesmoke" : "white"}
+      bgColor="white"
       borderWidth="0.1em"
-      borderColor="grey"
+      borderColor="gray"
+      outline={selected ? "0.3em solid salmon" : "none"}
+      outlineOffset={selected ? "-0.3em" : "0"}
       borderRadius="10px"
       cursor="pointer"
       onClick={handleCardClick}
@@ -55,12 +56,23 @@ function JobCard({ data, onJobSelect, selected }) {
       >
         {/* Job Image */}
         <GridItem colSpan={1} rowSpan={4}>
-          <Image
-            src={data.image}
-            alt={data.companyName}
-            maxW="120px"
+          <Box
+            w="120px"
+            h="120px"
+            bgColor="white"
             borderRadius="10px"
-          />
+            overflow="hidden"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Image
+              src={data.image}
+              alt={data.companyName}
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </Box>
         </GridItem>
 
         {/* Job Details for company name */}
