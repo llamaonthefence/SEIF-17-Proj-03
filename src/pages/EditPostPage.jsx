@@ -10,7 +10,7 @@ import {
   Image,
   IconButton,
 } from "@chakra-ui/react";
-import { JobNav, EditJobGrid } from "../components";
+import { EditJobNav, EditJobGrid } from "../components";
 import { FaSort, FaFilter } from "react-icons/fa";
 import { getAllJobs } from "../service/jobs";
 
@@ -32,7 +32,7 @@ function EditPostPage() {
 
   return (
     <>
-      {/* ProfilePage Component */}
+      {/* EditJobPage Component */}
       <Grid
         className="EditPostPage"
         templateAreas={`"nav main"`}
@@ -41,7 +41,7 @@ function EditPostPage() {
         h="100%"
         bgColor="#F3F0E8"
       >
-        {/* Profile Setting navigation on the left "nav" area  */}
+        {/* Job Setting navigation on the left "nav" area  */}
         <GridItem pl="2" alignContent="start" area={"nav"} p={4} w="xl">
           <Box borderRight="1px solid lightgray" px={4}>
             <Flex bgColor="white" borderRadius="md" p={4} boxShadow="sm">
@@ -53,7 +53,7 @@ function EditPostPage() {
                 Edit
               </Button>
             </Flex>
-            <JobNav />
+            <EditJobNav />
           </Box>
         </GridItem>
 

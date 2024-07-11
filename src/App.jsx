@@ -18,12 +18,12 @@ function App() {
   const location = useLocation();
   const isSignUpPage = location.pathname === "/signup";
   const isSignInPage = location.pathname === "/signin";
-  
+
   return (
     <ChakraProvider theme={theme}>
       <main className="App">
         <>
-          {!isSignInPage && <Navbar />}
+          {!isSignInPage && !isSignUpPage && <Navbar />}
           <div className="content-wrapper">
             <div className="content">
               <Routes>
@@ -44,7 +44,7 @@ function App() {
               </Routes>
             </div>
           </div>
-          {!isSignInPage && <Footer className="footer"/>}
+          {!isSignInPage && !isSignUpPage && <Footer />}
         </>
       </main>
     </ChakraProvider>

@@ -10,7 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 
-function JobDetailedCard({ job }) {
+function JobDetailedCard({ job, isViewJobCardModal }) {
   if (!job) {
     return (
       <Center align="center" h="80vh">
@@ -47,7 +47,7 @@ function JobDetailedCard({ job }) {
       bgColor="white"
       py={20}
       px={8}
-      h="80vh"
+      h={isViewJobCardModal ? "70vh" : "80vh"}
       overflowY="auto"
       overflowX="hidden"
     >
@@ -151,7 +151,7 @@ function JobDetailedCard({ job }) {
       <Divider mb="8" borderWidth="1px" borderColor="lightgray" />
 
       {/* Fourth Part - Description */}
-      <Flex direction="column" mb="8">
+      <Flex direction="column" mb="8" align="start">
         <Text fontWeight="bold" mb="2">
           Job Description
         </Text>
