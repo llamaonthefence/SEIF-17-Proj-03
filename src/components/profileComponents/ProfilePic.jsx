@@ -37,10 +37,27 @@ function ProfilePicUpload() {
             cursor="pointer"
             _hover={{ borderColor: "blue.300" }}
         >
+        
+        {/* {profilePic ? (
+                    <img
+                        src={profilePic}
+                        alt="Profile"
+                        style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%"
+                        }}
+                    />
+                ) : ( */}
 
             <Center>
                 <Icon as={FaUserCircle} boxSize="25%" color="gray.400"/>
             </Center>
+            
+        {/* )} */}
+
+
 
             <Text>Upload Profile Pic</Text>
 
