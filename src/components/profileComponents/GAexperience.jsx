@@ -1,4 +1,4 @@
-import {Box, Heading, Grid, GridItem, Select, FormControl, FormLabel, Button} from "@chakra-ui/react";
+import {Box, Heading, Grid, GridItem, Select, FormControl, FormLabel, Button, Text} from "@chakra-ui/react";
 import React from "react";
 
 //using ChakraUI "controlled input"
@@ -6,10 +6,18 @@ import React from "react";
 function GAExp() {
     const [gaCourse, setGaCourse] = React.useState('')
     const [gradYear, setGradYear] = React.useState('')
+    const [gaCourseList, setGaCourseList] = React.useState([])
 
     const handleGaCourseChange = (event) => setGaCourse(event.target.value)
     const handleGradYearChange = (event) => setGradYear(event.target.value)
 
+    const handleAddGaCourse = () => {
+        if (gaCourse && gradYear) {
+            setGaCourseList([...gaCourseList, { gaCourse, gradYear}])
+            setGaCourse('')
+            setGradYear('')
+        }
+    }
 
     return (
         <Box 
@@ -28,7 +36,7 @@ function GAExp() {
         fontFamily="heading" 
         fontWeight="bold"
         textAlign="left"
-        >GA Experience</Heading>
+        >GA Experience(s)</Heading>
 
         <Grid templateColumns='repeat(2, 1fr)' gap={4}>
 
@@ -69,14 +77,28 @@ function GAExp() {
         </Grid> 
 
         <Button 
-        colorScheme='teal' 
+        colorScheme='red' 
         size='sm'
         display='flex'
-        justifyContent='flex-start'
-        mt={2}
+        justifyContent='center'
+        my={2}
+        w = "80%"
+        style={ {marginLeft: "10%", marginRight: "10%"} }
+        onClick={handleAddGaCourse}
         >
         Add
         </Button>
+
+            {gaCourseList.length > 0 && (
+                <Box>
+                    {gaCourseList.map((course, index) => (
+                        <Text key={index}>
+                            {`Course: ${course.gaCourse}, Graduation Year: ${course.gradYear}`}
+                        </Text>
+                    ))}
+
+                </Box>
+            )}
 
         </Box>
     )
