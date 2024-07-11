@@ -24,6 +24,7 @@ export { default as CreateJobForm } from "./jobComponents/CreateJobForm"
 export { default as JobNav } from "./jobComponents/JobNav"
 export { default as EditJobGrid } from "./jobComponents/EditJobGrid";
 export { default as EditJobCard } from "./jobComponents/EditJobCard";
+export { default as JobCardModal } from "./jobComponents/JobCardModal";
 
 // test components
 export { default as ProfileFakeData} from "./testComponents/ProfileFakeData";

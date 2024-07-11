@@ -6,6 +6,8 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  Spacer,
+  Box,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
@@ -26,14 +28,14 @@ function OpportunitiesQueryBar() {
       {/* OpportunitiesQueryBar Component */}
       <Flex bg="#F3F0E8">
         {/* Button & Dropdown Lists Components */}
-        <Flex direction="columns" p={8}>
-          <Flex spacing={3} gap={14}>
+        <Flex direction="columns" p={4}>
+          <Flex spacing={4} gap={12}>
             {/* All types Dropdown */}
             <Select
               variant="outline"
               placeholder="All types"
-              size="lg"
-              w={300}
+              size="md"
+              w="2xl"
               bg="white"
             >
               <option value="option1">Option 1</option>
@@ -45,8 +47,8 @@ function OpportunitiesQueryBar() {
             <Select
               variant="outline"
               placeholder="Paying $0"
-              size="lg"
-              w={300}
+              size="md"
+              w="50%"
               bg="white"
             >
               <option value="option1">Option 1</option>
@@ -58,8 +60,8 @@ function OpportunitiesQueryBar() {
             <Select
               variant="outline"
               placeholder="to $50k+"
-              size="lg"
-              w={300}
+              size="md"
+              w="50%"
               bg="white"
             >
               <option value="option1">Option 1</option>
@@ -71,8 +73,8 @@ function OpportunitiesQueryBar() {
             <Select
               variant="outline"
               placeholder="Listed anytime"
-              size="lg"
-              w={300}
+              size="md"
+              w="50%"
               bg="white"
             >
               <option value="option1">Option 1</option>
@@ -84,37 +86,40 @@ function OpportunitiesQueryBar() {
             <Select
               variant="outline"
               placeholder="Location"
-              size="lg"
-              w={300}
+              size="md"
+              w="50%"
               bg="white"
             >
               <option value="option1">Option 1</option>
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
             </Select>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<GiHamburgerMenu />}
-                variant="solid"
-                size="lg"
-                bgColor="white"
-                outlineWidth="1px"
-                outlineColor="lightgray"
-                outlineOffset="0px"
-              />
-              <MenuList>
-                <MenuItem onClick={handleNavigateCreatePost}>
-                  Add new opportunity
-                </MenuItem>
-                <MenuItem onClick={handleNavigateEditPost}>
-                  Edit opportunity
-                </MenuItem>
-              </MenuList>
-            </Menu>
           </Flex>
         </Flex>
+        <Spacer />
+        <Box alignContent="center" pr={12}>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<GiHamburgerMenu />}
+              variant="solid"
+              size="md"
+              bgColor="white"
+              outlineWidth="1px"
+              outlineColor="lightgray"
+              outlineOffset="0px"
+            />
+            <MenuList>
+              <MenuItem onClick={handleNavigateCreatePost}>
+                Add new opportunity
+              </MenuItem>
+              <MenuItem onClick={handleNavigateEditPost}>
+                Edit opportunity
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
       </Flex>
     </>
   );
