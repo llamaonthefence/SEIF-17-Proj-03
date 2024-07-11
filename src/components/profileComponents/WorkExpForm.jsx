@@ -27,9 +27,26 @@ function WorkDetails() {
         if (text.length <= 300) {
             setWorkDescription(text); 
             setRemainingChars(300 - text.length)
+        }}
+
+
+    const handleSubmit = () => {
+        //workExp object
+        const workExpItem = {
+            companyName, 
+            jobTitle,
+            fromDate,
+            toDate,
+            workDescription
         }
+        //pass workExpItem to WorkExp.jsx (parent)
+        onSave(workExpItem)
 
-
+        setCompanyName('')
+        setJobTitle('')
+        setFromDate('')
+        setToDate('')
+        setWorkDescription(''); 
     }
 
     return (
