@@ -1,29 +1,38 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Navbar, Footer } from "./components";
-import { MeetPage, OpportunitiesPage, HomePage, ProfilePage } from "./pages";
+import {
+  SignUpPage,
+  MeetPage,
+  OpportunitiesPage,
+  HomePage,
+  ProfilePage,
+} from "./pages";
 
 function App() {
+  const location = useLocation();
+  const isSignUpPage = location.pathname === "/signup";
+  
   return (
     <ChakraProvider>
       <main className="App">
         <>
-          <Navbar />
+          {!isSignUpPage && <Navbar />}
           <div className="content-wrapper">
-          <div className="content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/meet" element={<MeetPage />} />
-            <Route path="/opportunities" element={<OpportunitiesPage />} />
-            <Route path="/profile/*" element={<ProfilePage />} />
-          </Routes>
+            <div className="content">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/meet" element={<MeetPage />} />
+                <Route path="/opportunities" element={<OpportunitiesPage />} />
+                <Route path="/profile/*" element={<ProfilePage />} />
+              </Routes>
+            </div>
           </div>
-          </div>
-          <Footer className="footer"/>
+          {!isSignUpPage && <Footer className="footer"/>}
         </>
       </main>
-
     </ChakraProvider>
   );
 }
