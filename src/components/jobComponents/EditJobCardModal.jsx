@@ -232,12 +232,20 @@ function EditJobCardModal({ isOpen, closeModal, data }) {
 
                     <FormControl id="location" isRequired>
                       <FormLabel>Company HQ Location</FormLabel>
-                      <Input
-                        type="text"
+                      <Select
                         name="location"
                         value={formState.location}
                         onChange={handleChange}
-                      />
+                        w="lg"
+                      >
+                        <option value="">Select location type</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Southeast Asia">Southeast Asia</option>
+                        <option value="East Asia">East Asia</option>
+                        <option value="North America">North America</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Other">Other</option>
+                      </Select>
                     </FormControl>
 
                     <FormControl id="companySize" isRequired>
@@ -323,9 +331,11 @@ function EditJobCardModal({ isOpen, closeModal, data }) {
                           onChange={handleChange}
                         >
                           <option value="">Select employment type</option>
-                          <option value="Full-time">Full-time</option>
-                          <option value="Part-time">Part-time</option>
                           <option value="Contract">Contract</option>
+                          <option value="Permanent">Permanent</option>
+                          <option value="Part-Time">Part-Time</option>
+                          <option value="Full-Time">Full-Time</option>
+                          <option value="Temporary">Temporary</option>
                           <option value="Internship">Internship</option>
                         </Select>
                       </FormControl>

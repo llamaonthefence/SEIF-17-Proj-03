@@ -53,12 +53,13 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
       textAlign="left"
     >
       {/* Top Part */}
-      <Flex direction="row" align="start" mb="8" w="75%">
+      <Flex direction="row" align="start" mb="8">
         {/* Image */}
         <Image
           src={job.image || "https://fakeimg.pl/270x270"}
           alt={job.companyName}
           maxBlockSize="200px"
+          w="200px"
           borderStyle="dashed"
           borderRadius="5%"
           borderWidth="1px"
@@ -67,7 +68,7 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
         />
 
         {/* Right Side */}
-        <Flex direction="column" pl={4} w="100%" gap={4}>
+        <Flex direction="column" pl={4} w="70%" gap={4}>
           {/* Company Name */}
           <Text mb="1" bg="lightgray" p="4" w="100%">
             {job.companyName}

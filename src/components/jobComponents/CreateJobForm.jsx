@@ -37,6 +37,7 @@ function CreateJobForm() {
     descriptions: "",
     yoe: "",
     seniority: "",
+    region: "",
   };
 
   const [formState, setFormState] = useState(initialFormState);
@@ -146,12 +147,20 @@ function CreateJobForm() {
                   </FormControl>
                   <FormControl id="location" isRequired>
                     <FormLabel>Company HQ Location</FormLabel>
-                    <Input
-                      type="text"
+                    <Select
                       name="location"
                       value={formState.location}
                       onChange={handleChange}
-                    />
+                      w="lg"
+                    >
+                      <option value="">Select location type</option>
+                      <option value="Singapore">Singapore</option>
+                      <option value="Southeast Asia">Southeast Asia</option>
+                      <option value="East Asia">East Asia</option>
+                      <option value="North America">North America</option>
+                      <option value="Europe">Europe</option>
+                      <option value="Other">Other</option>
+                    </Select>
                   </FormControl>
                 </HStack>
 

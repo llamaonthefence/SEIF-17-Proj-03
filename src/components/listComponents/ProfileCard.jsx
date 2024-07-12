@@ -8,7 +8,7 @@ function ProfileCard({
   year,
   course,
   image,
-  special,
+  specialist,
   skills,
   languages,
   bio,
@@ -47,7 +47,7 @@ function ProfileCard({
             <Text>{course}</Text>
             <Text>{year}</Text>
           </Flex>
-          <Text>{special}</Text>
+          <Text>{specialist}</Text>
         </Flex>
       </Box>
 
@@ -61,7 +61,7 @@ function ProfileCard({
         year={year}
         course={course}
         image={image}
-        special={special}
+        specialist={specialist}
         skills={skills}
         langagues={languages}
         bio={bio}
