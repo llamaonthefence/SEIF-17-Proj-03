@@ -47,7 +47,7 @@ function ListGrid({ datas, isCreatedPostPage }) {
                 year={data.year}
                 course={data.course}
                 image={data.image}
-                specialist={data.specialist}
+                special={data.special}
                 skills={data.skills}
                 languages={data.languages}
                 bio={data.bio}

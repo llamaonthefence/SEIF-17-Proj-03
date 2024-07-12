@@ -9,7 +9,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2023",
-    specialist: "Backend Engineer",
+    special: "Backend Engineer",
   },
   {
     firstName: "Jane",
@@ -20,7 +20,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2022",
-    specialist: "UI/UX Designer",
+    special: "UI/UX Designer",
   },
   {
     firstName: "Michael",
@@ -31,7 +31,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2023",
-    specialist: "Data Analyst",
+    special: "Data Analyst",
   },
   {
     firstName: "Emily",
@@ -42,7 +42,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2022",
-    specialist: "Frontend Developer",
+    special: "Frontend Developer",
   },
   {
     firstName: "Daniel",
@@ -53,7 +53,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "UI Designer",
+    special: "UI Designer",
   },
   {
     firstName: "Jessica",
@@ -64,7 +64,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2020",
-    specialist: "Data Scientist at BikeDance",
+    special: "Data Scientist at BikeDance",
   },
   {
     firstName: "David",
@@ -75,7 +75,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2019",
-    specialist: "Backend Developer at MCS",
+    special: "Backend Developer at MCS",
   },
   {
     firstName: "Sophia",
@@ -86,7 +86,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2019",
-    specialist: "UI Manager at Sainypse",
+    special: "UI Manager at Sainypse",
   },
   {
     firstName: "James",
@@ -97,7 +97,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2018",
-    specialist: "Data Engineer at TicketMuster",
+    special: "Data Engineer at TicketMuster",
   },
   {
     firstName: "Olivia",
@@ -108,7 +108,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2017",
-    specialist: "Backend Engineering Lead at Dadas",
+    special: "Backend Engineering Lead at Dadas",
   },
   {
     firstName: "William",
@@ -119,7 +119,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Fullstack Developer",
+    special: "Fullstack Developer",
   },
   {
     firstName: "Ava",
@@ -130,18 +130,18 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "UX Researcher",
+    special: "UX Researcher",
   },
   {
     firstName: "Alexander",
-    lastName: "Hamilton",
-    email: "alexander.hamilton@example.com",
+    lastName: "Martinez",
+    email: "alexander.martinez@example.com",
     phoneNumber: "123-456-7802",
-    githubLink: "https://github.com/alexanderhamilton",
+    githubLink: "https://github.com/alexandermartinez",
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Financial Engineer",
+    special: "Machine Learning Engineer",
   },
   {
     firstName: "Isabella",
@@ -152,7 +152,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2018",
-    specialist: "DevOps Engineer",
+    special: "DevOps Engineer",
   },
   {
     firstName: "Benjamin",
@@ -163,7 +163,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "Interaction Designer",
+    special: "Interaction Designer",
   },
   {
     firstName: "Charlotte",
@@ -174,7 +174,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2022",
-    specialist: "Business Intelligence Analyst",
+    special: "Business Intelligence Analyst",
   },
   {
     firstName: "Henry",
@@ -185,7 +185,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Cloud Engineer",
+    special: "Cloud Engineer",
   },
   {
     firstName: "Amelia",
@@ -196,7 +196,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "Visual Designer",
+    special: "Visual Designer",
   },
   {
     firstName: "Elijah",
@@ -207,7 +207,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Data Engineer",
+    special: "Data Engineer",
   },
   {
     firstName: "Mia",
@@ -218,7 +218,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2018",
-    specialist: "Mobile Developer",
+    special: "Mobile Developer",
   },
   {
     firstName: "Lucas",
@@ -229,7 +229,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "Product Designer",
+    special: "Product Designer",
   },
   {
     firstName: "Mason",
@@ -240,7 +240,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2022",
-    specialist: "Data Visualization Specialist",
+    special: "Data Visualization Specialist",
   },
   {
     firstName: "Evelyn",
@@ -251,7 +251,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Software Architect",
+    special: "Software Architect",
   },
   {
     firstName: "Logan",
@@ -262,7 +262,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "UX/UI Developer",
+    special: "UX/UI Developer",
   },
   {
     firstName: "Harper",
@@ -273,7 +273,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Data Scientist",
+    special: "Data Scientist",
   },
   {
     firstName: "Jackson",
@@ -284,7 +284,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2018",
-    specialist: "Systems Engineer",
+    special: "Systems Engineer",
   },
   {
     firstName: "Scarlett",
@@ -295,7 +295,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "Design Strategist",
+    special: "Design Strategist",
   },
   {
     firstName: "Liam",
@@ -306,7 +306,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2022",
-    specialist: "Big Data Engineer",
+    special: "Big Data Engineer",
   },
   {
     firstName: "Emma",
@@ -317,7 +317,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Software Developer",
+    special: "Software Developer",
   },
   {
     firstName: "Olivia",
@@ -328,7 +328,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "UX Consultant",
+    special: "UX Consultant",
   },
   {
     firstName: "Ethan",
@@ -339,7 +339,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Data Miner",
+    special: "Data Miner",
   },
   {
     firstName: "Sophia",
@@ -350,7 +350,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2018",
-    specialist: "AI Engineer",
+    special: "AI Engineer",
   },
   {
     firstName: "James",
@@ -361,7 +361,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "UX Specialist",
+    special: "UX Specialist",
   },
   {
     firstName: "Isabella",
@@ -372,7 +372,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2022",
-    specialist: "Data Consultant",
+    special: "Data Consultant",
   },
   {
     firstName: "Lucas",
@@ -383,7 +383,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Embedded Systems Engineer",
+    special: "Embedded Systems Engineer",
   },
   {
     firstName: "Ava",
@@ -394,7 +394,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "UX Writer",
+    special: "UX Writer",
   },
   {
     firstName: "Mason",
@@ -405,7 +405,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Database Administrator",
+    special: "Database Administrator",
   },
   {
     firstName: "Harper",
@@ -416,7 +416,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2018",
-    specialist: "Cybersecurity Analyst",
+    special: "Cybersecurity Analyst",
   },
   {
     firstName: "Evelyn",
@@ -427,7 +427,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2023",
-    specialist: "Service Designer",
+    special: "Service Designer",
   },
   {
     firstName: "Logan",
@@ -438,7 +438,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2022",
-    specialist: "Quantitative Analyst",
+    special: "Quantitative Analyst",
   },
   {
     firstName: "Charlotte",
@@ -449,7 +449,7 @@ const ProfileFakeData = [
     course: "Software Engineering",
     image: imageUrl,
     year: "2021",
-    specialist: "Solutions Architect",
+    special: "Solutions Architect",
   },
   {
     firstName: "Henry",
@@ -460,7 +460,7 @@ const ProfileFakeData = [
     course: "User Experience Design",
     image: imageUrl,
     year: "2020",
-    specialist: "Creative Director",
+    special: "Creative Director",
   },
   {
     firstName: "Isabella",
@@ -471,7 +471,7 @@ const ProfileFakeData = [
     course: "Data Analytics",
     image: imageUrl,
     year: "2019",
-    specialist: "Operations Analyst",
+    special: "Operations Analyst",
   },
 ];
 

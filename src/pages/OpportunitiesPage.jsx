@@ -5,14 +5,7 @@ import { getAllJobs } from "../service/jobs";
 
 function OpportunitiesPage() {
   const [datas, setDatas] = useState([]);
-  const [filteredDatas, setFilteredDatas] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [filters, setFilters] = useState({
-    type: "",
-    minSalary: "",
-    maxSalary: "",
-    location: "",
-  });
 
   useEffect(() => {
     const fetchDatas = async () => {
@@ -28,59 +21,15 @@ function OpportunitiesPage() {
     fetchDatas();
   }, []);
 
-  useEffect(() => {
-    const applyFilters = () => {
-      let filtered = datas;
-      if (filters.type) {
-        filtered = filtered.filter(
-          (job) => job.employmentType === filters.type
-        );
-      }
-      if (filters.minSalary) {
-        filtered = filtered.filter((job) => job.salary >= filters.minSalary);
-      }
-      if (filters.maxSalary) {
-        filtered = filtered.filter((job) => job.salary <= filters.maxSalary);
-      }
-      if (filters.location) {
-        filtered = filtered.filter((job) => job.location === filters.location);
-      }
-      setFilteredDatas(filtered);
-    };
-
-    applyFilters();
-  }, [filters, datas]);
-
   const handleJobCardClick = (job) => {
     setSelectedJob(selectedJob === job ? null : job); // Toggle selection
-  };
-
-  const handleClearFilters = () => {
-    setFilters({
-      type: "",
-      minSalary: "",
-      maxSalary: "",
-      location: "",
-    });
-
-    // Reset sort dropdown to default
-    document.getElementById("employmentType-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("minsalary-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("maxsalary-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("location-dropdown").selectedIndex = 0;
   };
 
   return (
     <>
       {/* OpportunitiesQueryBar Component */}
-      <OpportunitiesQueryBar
-        filters={filters}
-        setFilters={setFilters}
-        onClearFilters={handleClearFilters}
-      />
+
+      <OpportunitiesQueryBar />
       {/* OpportunitiesPage Component */}
       <Grid
         className="OpportunitiesPage"
@@ -93,7 +42,7 @@ function OpportunitiesPage() {
         {/* Job Listing Grid on the left Nav area */}
         <GridItem pl="2" bg="white" alignContent="start" area={"nav"} h="auto">
           <JobGrid
-            datas={filteredDatas}
+            datas={datas}
             onJobSelect={handleJobCardClick}
             selectedJob={selectedJob}
           />
