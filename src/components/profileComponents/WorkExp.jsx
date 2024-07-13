@@ -1,7 +1,10 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import {Box, Heading, Grid, GridItem, Button, Modal, ModalOverlay, ModalContent, ModalBody,ModalFooter, ModalHeader, ModalCloseButton} from "@chakra-ui/react";
+
+import {Box, Heading, Button, Modal, ModalOverlay, ModalContent, ModalBody,ModalFooter, ModalHeader, ModalCloseButton} from "@chakra-ui/react";
 import { useState } from "react";
 import WorkDetails from "./WorkExpForm";
+import WorkExpList from "./WorkExpList";
+
+
 
 // import React from "react";
 
@@ -37,7 +40,7 @@ function WorkExp() {
 
     return (
         <Box 
-        className="GA-Experience"
+        className="work-Experience"
         w="90%"
         borderWidth='1px'
         borderRadius='lg' 
@@ -54,11 +57,17 @@ function WorkExp() {
         textAlign="left"
         >Work Experience</Heading>
 
-        <Grid templateColumns='repeat(6, 1fr)'>
+        {/* <Grid templateColumns='repeat(6, 1fr)'>
 
-            <GridItem colSpan={4}>
-            <Box mb="8px" className="workexp-box">
-
+            <GridItem colSpan={6}>
+            <Box mb="8px" className="workexp-box"> */}
+                
+                <WorkExpList workExpList={workExpList} handleEditWorkExp={handleEditWorkExp} handleDeleteWorkExp={handleDeleteWorkExp}/> 
+                
+                {/* <Box>
+                    <EditIcon color='gray.300' mt="-8px" />
+                    <DeleteIcon color='gray.300' mt="-8px" />
+                </Box>
             </Box>
             </GridItem>
 
@@ -74,7 +83,7 @@ function WorkExp() {
             </Box>
             </GridItem>
         
-        </Grid> 
+        </Grid>  */}
 
         <Button 
         colorScheme='red' 
@@ -96,10 +105,10 @@ function WorkExp() {
           <ModalHeader>Work Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <WorkDetails />
+            <WorkDetails onSave={handleSaveWorkExp}/>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='red' mr={3} onClick={closeModal}>Save</Button>
+            {/* <Button colorScheme='red' mr={3} onClick={closeModal}>Save</Button> */}
             <Button variant='ghost' onClick={closeModal}>Cancel</Button>
           </ModalFooter>
         </ModalContent>

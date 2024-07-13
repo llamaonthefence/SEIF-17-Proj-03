@@ -4,6 +4,7 @@ import ContactDetails from "./ContactDetails";
 import GAExp from "./GAexperience";
 import ProfilePicUpload from "./ProfilePic";
 import WorkExp from "./WorkExp";
+import EduExp from "./EducationExp";
 
 function ProfileSetting() {
   return (
@@ -16,7 +17,7 @@ function ProfileSetting() {
         <ContactDetails />
         <GAExp />
         <WorkExp />
-        <Box className="skills-box"></Box>
+        <EduExp />
         <Box className="education-box"></Box>
       </Box>
     </>

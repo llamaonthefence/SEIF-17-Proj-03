@@ -1,9 +1,9 @@
-import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel, Select, Editable, EditablePreview, EditableTextarea, Checkbox} from "@chakra-ui/react";
+import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel, Select, Editable, EditablePreview, EditableTextarea, Checkbox, Button} from "@chakra-ui/react";
 import React from "react";
 
 //using ChakraUI "controlled input"
 
-function WorkDetails() {
+function WorkDetails({ onSave }) {
     const [companyName, setCompanyName] = React.useState('')
     const [jobTitle, setJobTitle] = React.useState('')
     const [occupation, setOccupation] = React.useState('')
@@ -198,6 +198,8 @@ function WorkDetails() {
             </GridItem>
         
         </Grid> 
+
+            <Button colorScheme='red' mt={5} onClick={handleSubmit}>Save</Button>
 
         </Box>
     )
