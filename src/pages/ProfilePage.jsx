@@ -28,7 +28,7 @@ function ProfilePage() {
         templateAreas={`"nav main"`}
         gridTemplateRows={"100% 1fr 30px"}
         gridTemplateColumns={"300px 1fr"}
-        h="840px"
+        h="auto"
         gap="0"
         bgColor="gwhite"
       >

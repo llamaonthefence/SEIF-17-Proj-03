@@ -9,9 +9,9 @@ function ProfileSetting() {
   return (
     <>
       {/* ProfileSetting Component */}
-      <Box className="ProfileSetting" height="720px" alignContent="center">
-        <Image /> 
-        <ProfilePicUpload /> 
+      <Box className="ProfileSetting" height="auto" alignContent="center">
+        <Image />
+        <ProfilePicUpload />
         <PersonalDetails />
         <ContactDetails />
         <GAExp />
@@ -24,4 +24,3 @@ function ProfileSetting() {
 }
 
 export default ProfileSetting;
-
