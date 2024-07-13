@@ -7,7 +7,7 @@ function ProfilePage() {
   function ProfileNav() {
     return (
       <>
-        <Box className="ProfileNav" p={8}>
+        <Box className="ProfileNav" p={8} h="auto">
           <Flex gap="20px" direction="column">
             <Link to="/profile">
               <div className="font-semibold">My Profile</div>
@@ -26,7 +26,7 @@ function ProfilePage() {
       <Grid
         className="ProfilePage"
         templateAreas={`"nav main"`}
-        gridTemplateRows={"100% 1fr 30px"}
+        gridTemplateRows={"100% 1fr 320px"}
         gridTemplateColumns={"300px 1fr"}
         h="auto"
         gap="0"
