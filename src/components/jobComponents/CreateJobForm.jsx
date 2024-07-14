@@ -16,7 +16,7 @@ import {
 
 function CreateJobForm() {
   const folder = "company_images";
-  const [formState, setFormState] = useState({
+  const initialFormState = {
     industry: "",
     companyType: "",
     companyName: "",
@@ -34,7 +34,13 @@ function CreateJobForm() {
     salary: "",
     employmentType: "",
     certifications: "",
-  });
+    descriptions: "",
+    yoe: "",
+    seniority: "",
+    region: "",
+  };
+
+  const [formState, setFormState] = useState(initialFormState);
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -67,25 +73,7 @@ function CreateJobForm() {
         image: imageUrl,
         skills: formState.skills.split(",").map((skill) => skill.trim()),
       });
-      setFormState({
-        industry: "",
-        companyType: "",
-        companyName: "",
-        location: "",
-        companySize: "",
-        companyWebsite: "",
-        image: null,
-        title: "",
-        workArrangement: "",
-        employmentTeam: "",
-        skills: "",
-        jobOffers: "",
-        responsibilities: "",
-        requirements: "",
-        salary: "",
-        employmentType: "",
-        certifications: "",
-      });
+      setFormState(initialFormState);
       setImagePreview(null);
     } catch (error) {
       console.error("Error submitting job form:", error);
@@ -159,12 +147,20 @@ function CreateJobForm() {
                   </FormControl>
                   <FormControl id="location" isRequired>
                     <FormLabel>Company HQ Location</FormLabel>
-                    <Input
-                      type="text"
+                    <Select
                       name="location"
                       value={formState.location}
                       onChange={handleChange}
-                    />
+                      w="lg"
+                    >
+                      <option value="">Select location type</option>
+                      <option value="Singapore">Singapore</option>
+                      <option value="Southeast Asia">Southeast Asia</option>
+                      <option value="East Asia">East Asia</option>
+                      <option value="North America">North America</option>
+                      <option value="Europe">Europe</option>
+                      <option value="Other">Other</option>
+                    </Select>
                   </FormControl>
                 </HStack>
 
@@ -333,6 +329,32 @@ function CreateJobForm() {
                     onChange={handleChange}
                   />
                 </FormControl>
+                <FormControl id="yoe" isRequired>
+                  <FormLabel>Years of Experiences</FormLabel>
+                  <Input
+                    type="number"
+                    name="yoe"
+                    value={formState.yoe}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+                <FormControl id="seniority" isRequired>
+                  <FormLabel>Seniority</FormLabel>
+                  <Select
+                    name="seniority"
+                    value={formState.seniority}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select seniority</option>
+                    <option value="Fresh Graduate">Fresh Graduate</option>
+                    <option value="Entry Level">Entry Level</option>
+                    <option value="Junior Level">Junior Level</option>
+                    <option value="Mid Level">Mid Level</option>
+                    <option value="Senior Level">Senior Level</option>
+                    <option value="Lead Level">Lead Level</option>
+                    <option value="None">None</option>
+                  </Select>
+                </FormControl>
               </VStack>
               <VStack spacing={4} align="stretch" flex="1">
                 <FormControl id="jobOffers" isRequired>
@@ -341,7 +363,7 @@ function CreateJobForm() {
                     name="jobOffers"
                     value={formState.jobOffers}
                     onChange={handleChange}
-                    h="100px"
+                    h="150px"
                     w="3xl"
                   />
                 </FormControl>
@@ -351,7 +373,7 @@ function CreateJobForm() {
                     name="responsibilities"
                     value={formState.responsibilities}
                     onChange={handleChange}
-                    h="100px"
+                    h="150px"
                   />
                 </FormControl>
                 <FormControl id="requirements" isRequired>
@@ -360,7 +382,16 @@ function CreateJobForm() {
                     name="requirements"
                     value={formState.requirements}
                     onChange={handleChange}
-                    h="272px"
+                    h="150px"
+                  />
+                </FormControl>
+                <FormControl id="descriptions" isRequired>
+                  <FormLabel>Job Descriptions</FormLabel>
+                  <Textarea
+                    name="descriptions"
+                    value={formState.descriptions}
+                    onChange={handleChange}
+                    h="150px"
                   />
                 </FormControl>
               </VStack>

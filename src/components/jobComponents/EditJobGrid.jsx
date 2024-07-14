@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Box, SimpleGrid, useDisclosure } from "@chakra-ui/react";
-import { EditJobCard, Pagination, JobCardModal } from "../index";
+import {
+  EditJobCard,
+  Pagination,
+  ViewJobCardModal,
+  EditJobCardModal,
+  DeleteJobCardModal,
+} from "../index";
 
 function EditJobGrid({ datas }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,12 +22,39 @@ function EditJobGrid({ datas }) {
     setCurrentPage(page);
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Disclosures for ViewJobCardModal and EditJobCardModal
+  const {
+    isOpen: isViewJobCardOpen,
+    onOpen: onViewJobCardOpen,
+    onClose: onViewJobCardClose,
+  } = useDisclosure();
+  const {
+    isOpen: isEditJobCardOpen,
+    onOpen: onEditJobCardOpen,
+    onClose: onEditJobCardClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isDeleteJobCardOpen,
+    onOpen: onDeleteJobCardOpen,
+    onClose: onDeleteJobCardClose,
+  } = useDisclosure();
+
   const [selectedJob, setSelectedJob] = useState(null);
 
-  const openModal = (jobData) => {
+  const openViewJobCardModal = (jobData) => {
     setSelectedJob(jobData);
-    onOpen();
+    onViewJobCardOpen();
+  };
+
+  const openEditJobCardModal = (jobData) => {
+    setSelectedJob(jobData);
+    onEditJobCardOpen();
+  };
+
+  const openDeleteJobCardModal = (jobData) => {
+    setSelectedJob(jobData);
+    onDeleteJobCardOpen();
   };
 
   return (
@@ -34,16 +67,36 @@ function EditJobGrid({ datas }) {
             <EditJobCard
               key={index}
               data={data}
-              openModal={openModal} // Pass the openModal function
+              openViewJobCardModal={openViewJobCardModal}
+              openEditJobCardModal={openEditJobCardModal}
+              openDeleteJobCardModal={openDeleteJobCardModal}
             />
           ))}
         </SimpleGrid>
 
-        {/* JobCardModal */}
+        {/* ViewJobCardModal */}
         {selectedJob && (
-          <JobCardModal
-            isOpen={isOpen}
-            closeModal={onClose}
+          <ViewJobCardModal
+            isOpen={isViewJobCardOpen}
+            closeModal={onViewJobCardClose}
+            data={selectedJob}
+          />
+        )}
+
+        {/* EditJobCardModal */}
+        {selectedJob && (
+          <EditJobCardModal
+            isOpen={isEditJobCardOpen}
+            closeModal={onEditJobCardClose}
+            data={selectedJob}
+          />
+        )}
+
+        {/* DeleteJobCardModal */}
+        {selectedJob && (
+          <DeleteJobCardModal
+            isOpen={isDeleteJobCardOpen}
+            closeModal={onDeleteJobCardClose}
             data={selectedJob}
           />
         )}
