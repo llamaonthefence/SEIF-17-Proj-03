@@ -1,26 +1,54 @@
 import React from "react"
 import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel, Select, Checkbox, Button} from "@chakra-ui/react";
+import DateInputYear from "./DateInputYear";
+import formatDate from "../../util/formatDate";
+import { v4 as uuidv4 } from 'uuid'
 
 function EduDetails( {onSave} ) {
     const [qualificationType, setQualificationType] = React.useState('')
     const [fieldOfStudy, setFieldOfStudy] = React.useState('')
     const [institutionName, setInstitutionName] = React.useState('')
-    const [yearAttained, setYearAttained] = React.useState('')
+    const [yearAttained, setYearAttained] = React.useState(new Date())
     const [qualificationName, setQualificationName] = React.useState('')
+    const [isCurrentEdu, setIsCurrentEdu] = React.useState(false)
+
+    const toggleCurrentEdu = () => {
+        setIsCurrentEdu(!isCurrentEdu)
+    }
+
+    const disabledStyle = {
+        color: "grey",
+    }
 
     const handleQualificationTypeChange = (event) => setQualificationType(event.target.value)
     const handleFieldOfStudyChange = (event) => setFieldOfStudy(event.target.value)
     const handleInstitutionNameChange = (event) => setInstitutionName(event.target.value)
-    const handleYearAttainedChange = (event) => setYearAttained(event.target.value)
+    const handleYearAttainedChange = (date) => setYearAttained(date)
     const handleQualificationNameChange = (event) => setQualificationName(event.target.value)
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+
+        event.preventDefault();
+
+        if (!qualificationType || !fieldOfStudy) {
+            alert ('Please fill in all required fields.')
+            return;
+        }
+
+        const formattedYearAttained = formatDate(yearAttained)
+        const currentYear = new Date() 
+
+        if (yearAttained > currentYear) {
+            alert('Year attained cannot be in the future.')
+            return;
+        }
 
         const eduExpItem = {
+            id: uuidv4(),
             qualificationType,
             fieldOfStudy,
             institutionName,
-            yearAttained,
+            yearAttained: formattedYearAttained,
             qualificationName
         }
 
@@ -29,7 +57,7 @@ function EduDetails( {onSave} ) {
         setQualificationType('')
         setFieldOfStudy('')
         setInstitutionName('')
-        setYearAttained('')
+        setYearAttained(new Date())
         setQualificationName('')
     }
 
@@ -42,6 +70,8 @@ function EduDetails( {onSave} ) {
         overflow='hidden'
         m={10}
         p={5}
+        as="form"
+        onSubmit={handleSubmit}
         > 
 
         <Heading
@@ -61,7 +91,7 @@ function EduDetails( {onSave} ) {
             
             <GridItem rowSpan={0.5} colSpan={4} justifySelf="start">
             <Box mb="8px" className="currentedu-box">
-            <Checkbox defaultChecked>I currently study here.</Checkbox>
+            <Checkbox checked={isCurrentEdu} onChange={toggleCurrentEdu}>I currently study here.</Checkbox>
             </Box>
             </GridItem>
 
@@ -114,12 +144,15 @@ function EduDetails( {onSave} ) {
 
             <GridItem rowSpan={1} colSpan={1}>
             <Box mb="8px">
-            <Text mb='8px' textAlign="left">Year Attained: {yearAttained}</Text>
-            <Input
-             value={yearAttained}
+            <Text mb='8px' textAlign="left">Year Attained:</Text>
+            <DateInputYear
+             selectedDate={yearAttained}
              onChange={handleYearAttainedChange}
-             placeholder='Enter year attained'
              size='sm'
+             disabled={isCurrentEdu}
+             disabledStyle={disabledStyle}
+            //  showYearPicker
+            //  dateFormat="yyyy"
              />
             </Box>
             </GridItem>

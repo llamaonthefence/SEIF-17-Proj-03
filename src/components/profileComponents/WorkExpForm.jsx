@@ -1,5 +1,8 @@
 import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel, Select, Editable, EditablePreview, EditableTextarea, Checkbox, Button} from "@chakra-ui/react";
 import React from "react";
+import DateInput from "./DateInput";
+import { v4 as uuidv4 } from 'uuid'
+import formatDate from "../../util/formatDate";
 
 //using ChakraUI "controlled input"
 
@@ -7,18 +10,27 @@ function WorkDetails({ onSave }) {
     const [companyName, setCompanyName] = React.useState('')
     const [jobTitle, setJobTitle] = React.useState('')
     const [occupation, setOccupation] = React.useState('')
-    const [fromDate, setFromDate] = React.useState('')
-    const [toDate, setToDate] = React.useState('')
+    const [fromDate, setFromDate] = React.useState(new Date())
+    const [toDate, setToDate] = React.useState(new Date())
     const [industry, setIndustry] = React.useState('')
     const [employmentType, setEmploymentType] = React.useState('')
     const [workDescription, setWorkDescription] = React.useState('')
     const [remainingChars, setRemainingChars] = React.useState(300);
+    const [isCurrentJob, setIsCurrentJob] = React.useState(false); 
+
+    const toggleCurrentJob = () => {
+        setIsCurrentJob(!isCurrentJob); 
+    }
+
+    const disabledStyle = {
+        color: "grey"
+    }
 
     const handleCompanyNameChange = (event) => setCompanyName(event.target.value)
     const handleJobTitleChange = (event) => setJobTitle(event.target.value)
     const handleOccupationChange = (event) => setOccupation(event.target.value)
-    const handleFromDateChange = (event) => setFromDate(event.target.value)
-    const handleToDateChange = (event) => setToDate(event.target.value)
+    const handleFromDateChange = (date) => setFromDate(date)
+    const handleToDateChange = (date) => setToDate(date)
     const handleIndustryChange = (event) => setIndustry(event.target.value)
     const handleEmploymentTypeChange = (event) => setEmploymentType(event.target.value)
     // const handleWorkDescriptionChange = (event) => setWorkDescription(event.target.value)
@@ -30,13 +42,37 @@ function WorkDetails({ onSave }) {
         }}
 
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault(); 
+
+        if (!companyName || !jobTitle || !industry || !employmentType) {
+            alert("Please fill in all required fields.")
+            return; 
+        }
+
+        const formattedFromDate = formatDate(fromDate);
+        const formattedToDate = formatDate (toDate); 
+        const currentDate = new Date();
+
+        //Date validation: fromDate < toDate 
+        if (fromDate >= toDate) {
+            alert("Start date must be before end date.")
+            return; 
+        }
+
+        //Date validation 2: Dates cannot be in the future 
+        if (fromDate > currentDate || toDate > currentDate) {
+            alert("Dates cannot be in the future.")
+            return; 
+        }
+
         //workExp object
         const workExpItem = {
+            id: uuidv4(),
             companyName, 
             jobTitle,
-            fromDate,
-            toDate,
+            fromDate: formattedFromDate,
+            toDate: formattedToDate,
             workDescription
         }
         //pass workExpItem to WorkExp.jsx (parent)
@@ -44,8 +80,8 @@ function WorkDetails({ onSave }) {
 
         setCompanyName('')
         setJobTitle('')
-        setFromDate('')
-        setToDate('')
+        setFromDate(new Date())
+        setToDate(new Date())
         setWorkDescription(''); 
     }
 
@@ -58,6 +94,8 @@ function WorkDetails({ onSave }) {
         overflow='hidden'
         m={10}
         p={5}
+        as="form"
+        onSubmit={handleSubmit}
         >
         <Heading
         as="h3"
@@ -75,7 +113,7 @@ function WorkDetails({ onSave }) {
 
             <GridItem rowSpan={0.5} colSpan={4} justifySelf="start">
             <Box mb="8px" className="currentjob-box">
-            <Checkbox defaultChecked>This is my current job.</Checkbox>
+            <Checkbox checked={isCurrentJob} onChange={toggleCurrentJob}>This is my current job.</Checkbox>
             </Box>
             </GridItem>
 
@@ -123,24 +161,23 @@ function WorkDetails({ onSave }) {
 
             <GridItem rowSpan={1} colSpan={1}>
             <Box mb="8px">
-            <Text mb='8px' textAlign="left">From: {fromDate}</Text>
-            <Input
-             value={fromDate}
+            <Text mb='8px' textAlign="left">From:</Text>
+            <DateInput
+             selectedDate={fromDate}
              onChange={handleFromDateChange}
-             placeholder='Enter Job Start Date'
-             size='sm'
              />
             </Box>
             </GridItem>
 
             <GridItem rowSpan={1} colSpan={1}>
             <Box mb="8px">
-            <Text mb='8px' textAlign="left">To: {toDate}</Text>
-            <Input
-             value={toDate}
+            <Text mb='8px' textAlign="left">To:</Text>
+            <DateInput
+             selectedDate={toDate}
              onChange={handleToDateChange}
-             placeholder='Enter Job End Date'
-             size='sm'
+             disabled={isCurrentJob}
+            //  inputStyle={{color: isCurrentJob ? `grey` : `inherit`}}
+            disabledStyle={disabledStyle}
              />
             </Box>
             </GridItem>

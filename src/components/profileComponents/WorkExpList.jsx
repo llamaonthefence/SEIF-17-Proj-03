@@ -23,7 +23,7 @@ function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
                             />
                             <DeleteIcon 
                             color='gray.300' mt="-8px" cursor="pointer"
-                            onClick={() => handleDeleteWorkExp}
+                            onClick={() => handleDeleteWorkExp (index)}
                             />
                         </Box>
 
@@ -35,6 +35,7 @@ function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
 
     //props validation 
     WorkExpList.propTypes = {
+      
         workExpList: PropTypes.arrayOf(
           PropTypes.shape({
             id: PropTypes.string.isRequired,
