@@ -1,11 +1,24 @@
 import { useState } from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text, Center } from "@chakra-ui/react";
 import { ProfileCard, PostCard, Pagination } from "../index";
 
 function ListGrid({ datas, isCreatedPostPage }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15; // 5 columns x 3 rows
   const totalPages = Math.ceil(datas.length / itemsPerPage);
+
+  // Conditionally render loading text if datas is empty or null
+  if (!datas || datas.length === 0) {
+    return (
+      <Center h="80vh">
+        <Box>
+          <Text fontSize="3xl" align="center">
+            Nothing to show here..
+          </Text>
+        </Box>
+      </Center>
+    );
+  }
 
   const currentData = datas.slice(
     (currentPage - 1) * itemsPerPage,
