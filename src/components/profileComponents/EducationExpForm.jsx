@@ -3,6 +3,7 @@ import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel, Selec
 import DateInputYear from "./DateInputYear";
 import formatDate from "../../util/formatDate";
 import { v4 as uuidv4 } from 'uuid'
+import qualificationTypes from "../../constants/qualificationTypes";
 
 function EduDetails( {onSave} ) {
     const [qualificationType, setQualificationType] = React.useState('')
@@ -105,9 +106,9 @@ function EduDetails( {onSave} ) {
             value={qualificationType}
             onChange={handleQualificationTypeChange}
             >
-             <option value='option1'>Option 1</option>
-             <option value='option2'>Option 2</option>
-             <option value='option3'>Option 3</option>
+             {qualificationTypes.map((qType, index) => (
+                <option key={index} value={qType}>{qType}</option>
+             ))}
             </Select>
             </FormControl>
             </Box>
