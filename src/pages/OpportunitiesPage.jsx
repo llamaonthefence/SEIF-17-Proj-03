@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { JobGrid, OpportunitiesQueryBar, JobDetailedCard } from "../components";
 import { getAllJobs } from "../service/jobs";
+import { filterData } from "../util/query";
 
 function OpportunitiesPage() {
   const [datas, setDatas] = useState([]);
@@ -14,63 +15,47 @@ function OpportunitiesPage() {
     location: "",
   });
 
-  useEffect(() => {
-    const fetchDatas = async () => {
-      try {
-        const data = await getAllJobs();
-        setDatas(data.jobs);
-      } catch (error) {
-        console.error("Error fetching datas:", error);
-        setDatas([]);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const data = await getAllJobs();
+      setDatas(data.jobs);
+      setFilteredDatas(data.jobs);
+    } catch (error) {
+      console.error("Error fetching datas:", error);
+      setDatas([]);
+    }
+  };
 
-    fetchDatas();
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const applyFilters = () => {
-      let filtered = datas;
-      if (filters.type) {
-        filtered = filtered.filter(
-          (job) => job.employmentType === filters.type
-        );
-      }
-      if (filters.minSalary) {
-        filtered = filtered.filter((job) => job.salary >= filters.minSalary);
-      }
-      if (filters.maxSalary) {
-        filtered = filtered.filter((job) => job.salary <= filters.maxSalary);
-      }
-      if (filters.location) {
-        filtered = filtered.filter((job) => job.location === filters.location);
-      }
-      setFilteredDatas(filtered);
-    };
+  const applyFilters = () => {
+    let filtered = [...datas];
 
-    applyFilters();
-  }, [filters, datas]);
+    // Apply filtering based on filters
+    if (filters.type) {
+      filtered = filterData(filtered, ["employmentType"], filters.type);
+    }
+    if (filters.minSalary) {
+      filtered = filtered.filter(
+        (job) => job.salary >= parseInt(filters.minSalary)
+      );
+    }
+    if (filters.maxSalary) {
+      filtered = filtered.filter(
+        (job) => job.salary <= parseInt(filters.maxSalary)
+      );
+    }
+    if (filters.location) {
+      filtered = filterData(filtered, ["location"], filters.location);
+    }
+
+    setFilteredDatas(filtered);
+  };
 
   const handleJobCardClick = (job) => {
     setSelectedJob(selectedJob === job ? null : job); // Toggle selection
-  };
-
-  const handleClearFilters = () => {
-    setFilters({
-      type: "",
-      minSalary: "",
-      maxSalary: "",
-      location: "",
-    });
-
-    // Reset sort dropdown to default
-    document.getElementById("employmentType-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("minsalary-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("maxsalary-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("location-dropdown").selectedIndex = 0;
   };
 
   return (
@@ -79,7 +64,8 @@ function OpportunitiesPage() {
       <OpportunitiesQueryBar
         filters={filters}
         setFilters={setFilters}
-        onClearFilters={handleClearFilters}
+        onApplyFilters={applyFilters}
+        onClearFilters={fetchData}
       />
       {/* OpportunitiesPage Component */}
       <Grid
@@ -91,7 +77,14 @@ function OpportunitiesPage() {
         gap="0"
       >
         {/* Job Listing Grid on the left Nav area */}
-        <GridItem pl="2" bg="white" alignContent="start" area={"nav"} h="auto">
+        <GridItem
+          pl="2"
+          bg="white"
+          alignContent="start"
+          area={"nav"}
+          h="auto"
+          borderRight="1px solid lightgray"
+        >
           <JobGrid
             datas={filteredDatas}
             onJobSelect={handleJobCardClick}

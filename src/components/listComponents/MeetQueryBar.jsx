@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { GoSearch } from "react-icons/go";
 import { gaBootcamps, gaShortCourses } from "../../constants/ga-courses";
+import years from "../../constants/years";
 
 function MeetQueryBar({
   setFilters,
@@ -151,12 +152,11 @@ function MeetQueryBar({
             w={200}
             onChange={handleFilterChange}
           >
-            <option value="2019">2019 and below</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
           </Select>
         </Flex>
         {/* Apply Button */}
