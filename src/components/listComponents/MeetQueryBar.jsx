@@ -7,15 +7,18 @@ import {
   Flex,
   Select,
   Spacer,
+  Button,
 } from "@chakra-ui/react";
 import { GoSearch } from "react-icons/go";
+import { gaBootcamps, gaShortCourses } from "../../constants/ga-courses";
 
 function MeetQueryBar({
-  setFilter,
-  setFilterField,
+  setFilters,
   setSortOption,
   setSearchTerm,
   searchTerm,
+  onApply,
+  onSeeAll,
 }) {
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -28,42 +31,42 @@ function MeetQueryBar({
   };
 
   const handleFilterChange = (e) => {
-    if (
-      e.target.value === "Software Engineering" ||
-      e.target.value === "User Experience Design" ||
-      e.target.value === "Data Analytics"
-    ) {
-      setFilterField("course");
-      setFilter(e.target.value);
-    } else if (
-      e.target.value === "2019" ||
-      e.target.value === "2020" ||
-      e.target.value === "2021" ||
-      e.target.value === "2022" ||
-      e.target.value === "2023" ||
-      e.target.value === "2024"
-    ) {
-      setFilterField("year");
-      setFilter(e.target.value);
-    } else {
-      setFilterField(null);
-      setFilter("");
+    const value = e.target.value;
+    const fieldName = e.target.id;
+
+    if (fieldName === "courses-dropdown") {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        course: value,
+      }));
+    } else if (fieldName === "years-dropdown") {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        year: value,
+      }));
     }
   };
 
   const handleSeeAllClick = () => {
     // Reset all filters, sort, and search
-    setFilter("");
-    setFilterField(null);
-    setSortOption("name-asc"); // Set default sort option
+    setFilters({
+      course: "",
+      year: "",
+    });
+    setSortOption(""); // Set default sort option
     setSearchTerm(""); // Clear search term
 
     // Reset sort dropdown to default
     document.getElementById("sort-dropdown").selectedIndex = 0;
-    // Reset filter dropdown to default
-    document.getElementById("filter-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("courses-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("years-dropdown").selectedIndex = 0;
     // Clear search input field using elementById
     document.getElementById("search-input").value = "";
+
+    // Refetch all data
+    onSeeAll();
   };
 
   return (
@@ -86,7 +89,7 @@ function MeetQueryBar({
               value={searchTerm}
               placeholder="Search"
               size="lg"
-              w={600}
+              w={400}
               boxShadow="inner"
               onChange={handleSearchChange}
             />
@@ -101,11 +104,11 @@ function MeetQueryBar({
             variant="outline"
             placeholder="Sort"
             size="lg"
-            w={300}
+            w={200}
             onChange={handleSortChange}
           >
-            <option value="name-asc">Name: A-Z</option>
-            <option value="name-desc">Name: Z-A</option>
+            <option value="fullName-asc">Name: A-Z</option>
+            <option value="fullName-desc">Name: Z-A</option>
             <option value="course-asc">Course: A-Z</option>
             <option value="course-desc">Course: Z-A</option>
             <option value="specialist-asc">Specialist: A-Z</option>
@@ -116,30 +119,52 @@ function MeetQueryBar({
 
           {/* Combined Filter Dropdown */}
           <Select
-            id="filter-dropdown"
+            id="courses-dropdown"
             variant="outline"
-            placeholder="Filter"
+            placeholder="Courses Filter"
             size="lg"
-            w={300}
+            w={200}
             onChange={handleFilterChange}
           >
-            <optgroup label="Course Attended">
-              <option value="Software Engineering">Software Engineering</option>
-              <option value="User Experience Design">
-                User Experience Design
-              </option>
-              <option value="Data Analytics">Data Analytics</option>
+            <optgroup label="Bootcamp Courses">
+              {gaBootcamps.map((course) => (
+                <option key={course} value={course}>
+                  {course}
+                </option>
+              ))}
             </optgroup>
-            <optgroup label="Year Graduated">
-              <option value="2019">2019 and below</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
+            <optgroup label="Short Courses">
+              {gaShortCourses.map((course) => (
+                <option key={course} value={course}>
+                  {course}
+                </option>
+              ))}
             </optgroup>
           </Select>
+
+          {/* Years Dropdown */}
+          <Select
+            id="years-dropdown"
+            variant="outline"
+            placeholder="Years Filter"
+            size="lg"
+            w={200}
+            onChange={handleFilterChange}
+          >
+            <option value="2019">2019 and below</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </Select>
         </Flex>
+        {/* Apply Button */}
+        <Stack justifyContent="center" paddingRight={8}>
+          <Button onClick={onApply} colorScheme="red" size="lg">
+            Apply
+          </Button>
+        </Stack>
       </Flex>
 
       {/* Spacer */}
