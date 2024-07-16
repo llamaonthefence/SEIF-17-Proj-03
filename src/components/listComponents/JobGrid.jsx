@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
 import { JobCard, Pagination } from "../index";
 
 function JobGrid({ datas, onJobSelect, selectedJob }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(datas.length / itemsPerPage);
+
+  // Conditionally render loading text if datas is empty or null
+  if (!datas || datas.length === 0) {
+    return (
+      <Center h="80vh">
+        <Box>
+          <Text fontSize="3xl" align="center">
+            Nothing to show here..
+          </Text>
+        </Box>
+      </Center>
+    );
+  }
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

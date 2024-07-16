@@ -9,11 +9,20 @@ import {
   Spacer,
   Box,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import employmentTypes from "../../constants/employmenttypes";
+import { salary } from "../../constants/salary";
+import locations from "../../constants/locations";
 
-function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
+function OpportunitiesQueryBar({
+  filters,
+  setFilters,
+  onApplyFilters,
+  onClearFilters,
+}) {
   const navigate = useNavigate();
 
   const handleNavigateCreatePost = () => {
@@ -32,6 +41,28 @@ function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
     }));
   };
 
+  const handleClearFilters = () => {
+    // Reset all filters, sort, and search
+    setFilters({
+      type: "",
+      minSalary: "",
+      maxSalary: "",
+      location: "",
+    });
+
+    // Reset sort dropdown to default
+    document.getElementById("employmentType-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("minsalary-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("maxsalary-dropdown").selectedIndex = 0;
+    // Clear search input field using elementById
+    document.getElementById("location-dropdown").selectedIndex = 0;
+
+    // Refetch all data
+    onClearFilters();
+  };
+
   return (
     <>
       {/* OpportunitiesQueryBar Component */}
@@ -47,15 +78,14 @@ function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
             w="200px"
             bg="white"
             name="type"
-            value={filters.employmentType}
+            value={filters.type}
             onChange={handleFilterChange}
           >
-            <option value="Contract">Contract</option>
-            <option value="Permanent">Permanent</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Full-Time">Full-Time</option>
-            <option value="Temporary">Temporary</option>
-            <option value="Internship">Internship</option>
+            {employmentTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </Select>
 
           {/* Min Salary Dropdown */}
@@ -70,11 +100,11 @@ function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
             value={filters.minSalary}
             onChange={handleFilterChange}
           >
-            <option value="0">Paying $0</option>
-            <option value="50000">to 50K</option>
-            <option value="100000">to 100K</option>
-            <option value="200000">to 200K</option>
-            <option value="300000">to 300K</option>
+            {salary.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </Select>
 
           {/* Max Salary Dropdown */}
@@ -89,10 +119,11 @@ function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
             value={filters.maxSalary}
             onChange={handleFilterChange}
           >
-            <option value="50000">to 50K</option>
-            <option value="100000">to 100K</option>
-            <option value="200000">to 200K</option>
-            <option value="300000">to 300K</option>
+            {salary.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </Select>
 
           {/* Location Dropdown */}
@@ -107,15 +138,20 @@ function OpportunitiesQueryBar({ filters, setFilters, onClearFilters }) {
             value={filters.location}
             onChange={handleFilterChange}
           >
-            <option value="Singapore">Singapore</option>
-            <option value="Southeast Asia">Southeast Asia</option>
-            <option value="East Asia">East Asia</option>
-            <option value="America">America</option>
-            <option value="Europe">Europe</option>
+            {locations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
           </Select>
+
+          <Button colorScheme="red" onClick={onApplyFilters}>
+            Apply Filters
+          </Button>
+
           <Box alignContent="center">
             <Text
-              onClick={onClearFilters}
+              onClick={handleClearFilters}
               fontSize="1xl"
               cursor="pointer"
               color="black"
