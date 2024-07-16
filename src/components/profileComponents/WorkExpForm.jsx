@@ -3,13 +3,16 @@ import React from "react";
 import DateInput from "./DateInput";
 import { v4 as uuidv4 } from 'uuid'
 import formatDate from "../../util/formatDate";
+import specialisations from "../../constants/specialisations";
+import INDUSTRIES from "../../constants/industries";
+import employmentTypes from "../../constants/employmenttypes";
 
 //using ChakraUI "controlled input"
 
 function WorkDetails({ onSave }) {
     const [companyName, setCompanyName] = React.useState('')
     const [jobTitle, setJobTitle] = React.useState('')
-    const [occupation, setOccupation] = React.useState('')
+    const [specialisation, setSpecialisation] = React.useState('')
     const [fromDate, setFromDate] = React.useState(new Date())
     const [toDate, setToDate] = React.useState(new Date())
     const [industry, setIndustry] = React.useState('')
@@ -28,7 +31,7 @@ function WorkDetails({ onSave }) {
 
     const handleCompanyNameChange = (event) => setCompanyName(event.target.value)
     const handleJobTitleChange = (event) => setJobTitle(event.target.value)
-    const handleOccupationChange = (event) => setOccupation(event.target.value)
+    const handleSpecialisationChange = (event) => setSpecialisation(event.target.value)
     const handleFromDateChange = (date) => setFromDate(date)
     const handleToDateChange = (date) => setToDate(date)
     const handleIndustryChange = (event) => setIndustry(event.target.value)
@@ -147,14 +150,17 @@ function WorkDetails({ onSave }) {
 
 
             <GridItem rowSpan={1} colSpan={2}>
-            <Box mb="8px" className="occupation-box">
-            <Text mb='8px' textAlign="left">Occupation: {occupation}</Text>
-            <Input
-             value={occupation}
-             onChange={handleOccupationChange}
-             placeholder='Enter Occupation'
-             size='sm'
-             />
+            <Box mb="8px" className="specialisation-box">
+            <Text mb='8px' textAlign="left">Specialisation:</Text>
+            <Select 
+            placeholder='Specialisation'
+            value={specialisation}
+            onChange={handleSpecialisationChange}
+            >
+             {specialisations.map((specialise, index) => (
+                <option key={index} value={specialise}>{specialise}</option>
+             ))}
+            </Select>
             </Box>
             </GridItem>
 
@@ -191,9 +197,9 @@ function WorkDetails({ onSave }) {
             value={industry}
             onChange={handleIndustryChange}
             >
-             <option value='option1'>Option 1</option>
-             <option value='option2'>Option 2</option>
-             <option value='option3'>Option 3</option>
+             {INDUSTRIES.map((industry, index) => (
+                <option key={index} value={industry}>{industry}</option>
+             ))}
             </Select>
             </FormControl>
             </Box>
@@ -208,9 +214,9 @@ function WorkDetails({ onSave }) {
             value={employmentType}
             onChange={handleEmploymentTypeChange}
             >
-             <option value='option1'>Option 1</option>
-             <option value='option2'>Option 2</option>
-             <option value='option3'>Option 3</option>
+             {employmentTypes.map((type, index) => (
+                <option key={index} value={type}>{type}</option>
+             ))}
             </Select>
             </FormControl>
             </Box>
