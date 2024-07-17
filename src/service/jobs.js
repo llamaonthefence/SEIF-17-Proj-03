@@ -43,3 +43,13 @@ export async function deleteJob(jobData) {
     throw error; // Propagate the error to handle it further up the chain
   }
 }
+
+export async function getUserJobs(userId) {
+  try {
+    const jobs = await jobsAPI.getUserJobs(userId);
+    return jobs;
+  } catch (error) {
+    console.error("Error fetching user jobs:", error);
+    throw error; // Propagate the error to handle it further up the chain
+  }
+}
