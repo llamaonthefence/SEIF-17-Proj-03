@@ -1,18 +1,34 @@
 import {Box, Text, Input, Heading, Grid, GridItem, FormControl, FormLabel} from "@chakra-ui/react";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 
 //using ChakraUI "controlled input"
 
-function PersonalDetails() {
+function PersonalDetails({onChange}) {
     const [firstName, setFirstName] = React.useState('')
     const [lastName, setLastName] = React.useState('')
     const [pronoun, setPronoun] = React.useState('')
     const [additionalName, setAdditionalName] = React.useState('')
 
-    const handleFirstNameChange = (event) => setFirstName(event.target.value)
-    const handleLastNameChange = (event) => setLastName(event.target.value)
-    const handlePronounChange = (event) => setPronoun(event.target.value)
-    const handleAdditionalNameChange = (event) => setAdditionalName(event.target.value)
+    const handleFirstNameChange = (event) => {
+        const value = event.target.value
+        setFirstName(value)
+        onChange({first_Name: value})}
+
+    const handleLastNameChange = (event) => {
+        const value = event.target.value
+        setLastName(value)
+        onChange({last_name: value})}
+
+    const handlePronounChange = (event) => {
+        const value = event.target.value
+        setPronoun(value)
+        onChange({pronoun: value})}
+
+    const handleAdditionalNameChange = (event) => {
+        const value = event.target.value
+        setAdditionalName(value)
+        onChange({additional_name: value})
+        }
 
     return (
         <Box 
@@ -38,7 +54,7 @@ function PersonalDetails() {
             <GridItem>
             <Box mb="8px" className="firstname-box">
             <FormControl isRequired>
-            <FormLabel mb='8px' textAlign="left">First Name: {firstName}</FormLabel>
+            <FormLabel mb='8px' textAlign="left">First Name:</FormLabel>
             <Input
              value={firstName}
              onChange={handleFirstNameChange}
@@ -52,7 +68,7 @@ function PersonalDetails() {
             <GridItem>
             <Box mb="8px" className="lastname-box">
             <FormControl isRequired>
-            <FormLabel mb='8px' textAlign="left">Last Name: {lastName}</FormLabel>
+            <FormLabel mb='8px' textAlign="left">Last Name:</FormLabel>
             <Input
              value={lastName}
              onChange={handleLastNameChange}
@@ -66,7 +82,7 @@ function PersonalDetails() {
 
             <GridItem>
             <Box mb="8px" className="pronoun-box">
-            <Text mb='8px' textAlign="left">Pronoun: {pronoun}</Text>
+            <Text mb='8px' textAlign="left">Pronoun:</Text>
             <Input
              value={pronoun}
              onChange={handlePronounChange}
@@ -79,7 +95,7 @@ function PersonalDetails() {
 
             <GridItem>
             <Box mb="8px">
-            <Text mb='8px' textAlign="left">Additional Name: {additionalName}</Text>
+            <Text mb='8px' textAlign="left">Additional Name:</Text>
             <Input
              value={additionalName}
              onChange={handleAdditionalNameChange}

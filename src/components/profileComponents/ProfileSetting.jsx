@@ -1,24 +1,80 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, Button } from "@chakra-ui/react";
 import PersonalDetails from "./PersonalDetails";
 import ContactDetails from "./ContactDetails";
 import GAExp from "./GAexperience";
 import ProfilePicUpload from "./ProfilePic";
 import WorkExp from "./WorkExp";
 import EduExp from "./EducationExp";
+import { useState } from "react";
 
 function ProfileSetting() {
+
+  const [formData, setFormData] = useState ({
+    //Initialising form data state - email address should be pre-filled
+    personalDetails: {
+      first_name: '',
+      last_name: '',
+      pronoun: '',
+      additional_name: ''},
+    contactDetails: {},
+    gaExperience: [],
+    workExperience: [], 
+    educationExperience: [],
+    profilePic: null
+  })
+
+  const handleInputChange = (section, data) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [section]: {
+        ...prevFormData[section],
+        ...data
+      }
+    }))
+  }
+
+  const handleSubmit = async() => {
+    try {
+      const response = await fetch('http://localhost:3000/profile/', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to save profile.');
+      }
+
+      const result = await response.json()
+      alert('Profile saved.')
+      console.log('Saved profile:', result)
+    } catch (error) {
+      console.error('Error saving profile:', error)
+    }
+  }
+
+  const handleCancel = () => {
+    window.location.reload() 
+  }
+
+
   return (
     <>
       {/* ProfileSetting Component */}
       <Box className="ProfileSetting" height="720px" alignContent="center">
         <Image /> 
-        <ProfilePicUpload /> 
-        <PersonalDetails />
-        <ContactDetails />
-        <GAExp />
-        <WorkExp />
-        <EduExp />
-        <Box className="education-box"></Box>
+        <ProfilePicUpload onChange={ (data) => handleInputChange('profilePic', data) }/> 
+        <PersonalDetails onChange={ (data) => handleInputChange('personalDetails', data) }/>
+        <ContactDetails onChange={(data) => handleInputChange('contactDetails', data)}/>
+        <GAExp onChange={ (data) => handleInputChange('gaExperience', data) }/>
+        <WorkExp onChange={ (data) => handleInputChange('workExperience', data) }/>
+        <EduExp onChange={ (data) => handleInputChange('educationExperience', data) }/>
+        <Box>
+        <Button colorScheme='red' mt={5} onClick={handleSubmit}>Save</Button>
+        <Button colorScheme='red' mt={5} onClick={handleCancel}>Cancel</Button>
+        </Box>
       </Box>
     </>
   );

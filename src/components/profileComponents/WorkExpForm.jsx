@@ -151,7 +151,8 @@ function WorkDetails({ onSave }) {
 
             <GridItem rowSpan={1} colSpan={2}>
             <Box mb="8px" className="specialisation-box">
-            <Text mb='8px' textAlign="left">Specialisation:</Text>
+            <FormControl isRequired>
+            <FormLabel mb='8px' textAlign="left">Specialisation:</FormLabel>
             <Select 
             placeholder='Specialisation'
             value={specialisation}
@@ -161,6 +162,7 @@ function WorkDetails({ onSave }) {
                 <option key={index} value={specialise}>{specialise}</option>
              ))}
             </Select>
+            </FormControl>
             </Box>
             </GridItem>
 
