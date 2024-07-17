@@ -10,7 +10,7 @@ import {
 
 function EditJobGrid({ datas }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15; // 5 columns x 3 rows
+  const itemsPerPage = 6; // 5 columns x 3 rows
   const totalPages = Math.ceil(datas.length / itemsPerPage);
 
   const currentData = datas.slice(
@@ -60,9 +60,9 @@ function EditJobGrid({ datas }) {
   return (
     <>
       {/* EditJobGrid Component*/}
-      <Box className="EditJobGrid" py={4}>
+      <Box className="EditJobGrid" p={4}>
         {/* Mapped created posts in Grid */}
-        <SimpleGrid columns={2} spacing={4}>
+        <SimpleGrid columns={3} spacing={12}>
           {currentData.map((data, index) => (
             <EditJobCard
               key={index}

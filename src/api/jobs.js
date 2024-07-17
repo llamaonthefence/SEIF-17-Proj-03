@@ -91,3 +91,13 @@ export async function deleteJob(jobData) {
     throw error;
   }
 }
+
+export async function getUserJobs(userId) {
+  const userJobsURL = `${BASE_URL}/user/${userId}`;
+  const res = await fetch(userJobsURL);
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Failed to fetch user jobs");
+  }
+}

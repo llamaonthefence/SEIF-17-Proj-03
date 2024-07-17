@@ -24,6 +24,7 @@ function EditJobCard({
         bg="white"
         cursor="pointer"
         h={350}
+        w="60vh"
       >
         {/* Job Details */}
         <Flex direction="column" align="start" gap="10" p={2} h="100%">
