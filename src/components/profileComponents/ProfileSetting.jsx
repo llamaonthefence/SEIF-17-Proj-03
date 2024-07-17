@@ -24,13 +24,28 @@ function ProfileSetting() {
   });
 
   const handleInputChange = (section, data) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        ...data,
-      },
-    }));
+    setFormData((prevFormData) => {
+      if (Array.isArray(prevFormData[section])) {
+        // If the existing section in formData is an array
+        return {
+          ...prevFormData,
+          [section]: [...data], // Assuming data is always an array for array fields
+        };
+      } else if (typeof prevFormData[section] === "object") {
+        // If the existing section in formData is an object (non-array)
+        return {
+          ...prevFormData, 
+          [section]: {
+            ...prevFormData[section],
+            ...data, 
+          }
+        }
+      } else {
+        // If it's neither an array nor an object, handle accordingly
+        console.warn(`Unknown data type for section ${section}`);
+        return prevFormData; 
+      }
+    });
   };
 
   const handleSubmit = async () => {
