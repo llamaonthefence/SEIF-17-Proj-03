@@ -1,33 +1,22 @@
-// query.js
+import Fuse from 'fuse.js';
 
-export const sortByAscending = (data, key) => {
+export const sortBy = (data, key, order = 'asc') => {
   return data.sort((a, b) => {
-    if (key === "fullName") {
-      const fullNameA = `${a.firstName} ${a.lastName}`.toLowerCase();
-      const fullNameB = `${b.firstName} ${b.lastName}`.toLowerCase();
-      return fullNameA.localeCompare(fullNameB);
+    const valueA = key === 'fullName' ? `${a.firstName} ${a.lastName}`.toLowerCase() : a[key].toLowerCase();
+    const valueB = key === 'fullName' ? `${b.firstName} ${b.lastName}`.toLowerCase() : b[key].toLowerCase();
+    
+    if (order === 'asc') {
+      return valueA.localeCompare(valueB);
     } else {
-      return a[key].localeCompare(b[key]);
-    }
-  });
-};
-
-export const sortByDescending = (data, key) => {
-  return data.sort((a, b) => {
-    if (key === "fullName") {
-      const fullNameA = `${a.firstName} ${a.lastName}`.toLowerCase();
-      const fullNameB = `${b.firstName} ${b.lastName}`.toLowerCase();
-      return fullNameB.localeCompare(fullNameA);
-    } else {
-      return b[key].localeCompare(a[key]);
+      return valueB.localeCompare(valueA);
     }
   });
 };
 
 export const filterData = (data, filterKeys, filterValue) => {
-  return data.filter((item) => {
-    const searchTerm = filterValue.toLowerCase();
+  const searchTerm = filterValue.toLowerCase();
 
+  return data.filter((item) => {
     return filterKeys.some((key) => {
       const itemValue = item[key].toLowerCase();
       return itemValue.includes(searchTerm);
@@ -35,17 +24,13 @@ export const filterData = (data, filterKeys, filterValue) => {
   });
 };
 
-export const searchProfiles = (data, searchTerm) => {
-  return data.filter((item) => {
-    const fullName = `${item.firstName} ${item.lastName}`.toLowerCase();
-    const fullNameWithoutSpace = `${item.firstName}${item.lastName}`.toLowerCase();
-    const search = searchTerm.trim().toLowerCase();
-
-    return (
-      fullName.includes(search) ||
-      item.firstName.toLowerCase().includes(search) ||
-      item.lastName.toLowerCase().includes(search) ||
-      fullNameWithoutSpace.includes(search)
-    );
+export const searchItems = (data, searchTerm, keys) => {
+  const fuse = new Fuse(data, {
+    keys: keys.map((key) => (key === "fullName" ? { name: 'fullName', getFn: (item) => `${item.firstName} ${item.lastName}` } : key)),
+    includeScore: true,
+    threshold: 0.4, 
   });
+
+  const result = fuse.search(searchTerm.trim());
+  return result.map((res) => res.item);
 };

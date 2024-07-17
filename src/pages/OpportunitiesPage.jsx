@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { JobGrid, OpportunitiesQueryBar, JobDetailedCard } from "../components";
 import { getAllJobs } from "../service/jobs";
-import { filterData } from "../util/query";
+import { filterData, searchItems } from "../util/query";
 
 function OpportunitiesPage() {
   const [datas, setDatas] = useState([]);
@@ -14,6 +14,7 @@ function OpportunitiesPage() {
     maxSalary: "",
     location: "",
   });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchData = async () => {
     try {
@@ -32,6 +33,14 @@ function OpportunitiesPage() {
 
   const applyFilters = () => {
     let filtered = [...datas];
+
+    if (searchTerm) {
+      filtered = searchItems(filtered, searchTerm, [
+        "companyName",
+        "title",
+        "location",
+      ]);
+    }
 
     // Apply filtering based on filters
     if (filters.type) {
@@ -66,6 +75,8 @@ function OpportunitiesPage() {
         setFilters={setFilters}
         onApplyFilters={applyFilters}
         onClearFilters={fetchData}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
       {/* OpportunitiesPage Component */}
       <Grid
