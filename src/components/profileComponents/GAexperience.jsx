@@ -18,7 +18,7 @@ function GAExp({onSave}) {
 
     const handleAddGaCourse = () => {
         if (gaCourse && gradYear) {
-            const formattedGradYear = formatDate(gradYear);
+            const formattedGradYear = gradYear.getFullYear().toString();
             const currentYear = new Date() 
 
             if (gradYear > currentYear) {
@@ -32,7 +32,7 @@ function GAExp({onSave}) {
                 gradYear: formattedGradYear,  
             }
 
-            setGaCourseList([...gaCourseList, { gaCourse, gradYear}])
+            setGaCourseList([...gaCourseList, gaExpItem])
             setGaCourse('')
             setGradYear(new Date())
             onSave(gaExpItem);
