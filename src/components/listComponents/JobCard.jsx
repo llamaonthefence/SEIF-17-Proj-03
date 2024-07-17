@@ -52,7 +52,7 @@ function JobCard({ data, onJobSelect, selected }) {
         gap={2}
         p={4}
         textAlign="left"
-        w="80%"
+        w="100%"
       >
         {/* Job Image */}
         <GridItem colSpan={1} rowSpan={4}>

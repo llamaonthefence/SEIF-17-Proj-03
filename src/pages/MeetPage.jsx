@@ -2,12 +2,7 @@ import { Box, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ListGrid, MeetQueryBar } from "../components/index";
 import { getAllProfiles } from "../service/profiles";
-import {
-  sortByAscending,
-  sortByDescending,
-  filterData,
-  searchProfiles,
-} from "../util/query";
+import { filterData, searchItems, sortBy } from "../util/query";
 
 function MeetPage() {
   const [datas, setDatas] = useState([]);
@@ -42,16 +37,17 @@ function MeetPage() {
     // Apply sorting based on sortOption
     if (sortOption) {
       const [key, order] = sortOption.split("-");
-      if (order === "asc") {
-        updatedData = sortByAscending(updatedData, key);
-      } else if (order === "desc") {
-        updatedData = sortByDescending(updatedData, key);
-      }
+      updatedData = sortBy(updatedData, key, order);
     }
 
     // Apply search term filtering
     if (searchTerm) {
-      updatedData = searchProfiles(updatedData, searchTerm);
+      updatedData = searchItems(updatedData, searchTerm, [
+        "fullName",
+        "year",
+        "course",
+        "specialist",
+      ]);
     }
 
     // Apply filtering based on filters

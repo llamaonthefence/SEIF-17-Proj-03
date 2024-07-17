@@ -10,6 +10,10 @@ import {
   Box,
   Text,
   Button,
+  Stack,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +26,15 @@ function OpportunitiesQueryBar({
   setFilters,
   onApplyFilters,
   onClearFilters,
+  setSearchTerm,
+  searchTerm,
 }) {
   const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
 
   const handleNavigateCreatePost = () => {
     navigate("/opportunities/create-post");
@@ -50,6 +61,8 @@ function OpportunitiesQueryBar({
       location: "",
     });
 
+    setSearchTerm(""); // Clear search term
+
     // Reset sort dropdown to default
     document.getElementById("employmentType-dropdown").selectedIndex = 0;
     // Reset filter dropdowns to default
@@ -69,6 +82,25 @@ function OpportunitiesQueryBar({
       <Flex bg="#F3F0E8">
         {/* Button & Dropdown Lists Components */}
         <Flex direction="row" p={4} gap={4}>
+          {/* Search Bar */}
+          <Stack spacing={4}>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                {/* <GoSearch /> */}
+              </InputLeftElement>
+              <Input
+                id="search-input"
+                value={searchTerm}
+                placeholder="Search"
+                size="md"
+                bg="white"
+                w={400}
+                boxShadow="inner"
+                onChange={handleSearchChange}
+              />
+            </InputGroup>
+          </Stack>
+
           {/* All types Dropdown */}
           <Select
             id="employmentType-dropdown"
