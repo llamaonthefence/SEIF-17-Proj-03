@@ -1,10 +1,11 @@
-import { Box, Image, Button } from "@chakra-ui/react";
+import { Box, Image, Button, Text } from "@chakra-ui/react";
 import PersonalDetails from "./PersonalDetails";
 import ContactDetails from "./ContactDetails";
 import GAExp from "./GAexperience";
 import ProfilePicUpload from "./ProfilePic";
 import WorkExp from "./WorkExp";
 import EduExp from "./EducationExp";
+import SkillsDetails from "./SkillsDetails";
 import { useState } from "react";
 
 function ProfileSetting() {
@@ -21,16 +22,32 @@ function ProfileSetting() {
     workExperience: [],
     educationExperience: [],
     profilePic: null,
+    skills: "",
   });
 
   const handleInputChange = (section, data) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        ...data,
-      },
-    }));
+    setFormData((prevFormData) => {
+      if (Array.isArray(prevFormData[section])) {
+        // If the existing section in formData is an array
+        return {
+          ...prevFormData,
+          [section]: [...data], // Assuming data is always an array for array fields
+        };
+      } else if (typeof prevFormData[section] === "object") {
+        // If the existing section in formData is an object (non-array)
+        return {
+          ...prevFormData,
+          [section]: {
+            ...prevFormData[section],
+            ...data,
+          },
+        };
+      } else {
+        // If it's neither an array nor an object, handle accordingly
+        console.warn(`Unknown data type for section ${section}`);
+        return prevFormData; // Or handle the scenario based on your app logic
+      }
+    });
   };
 
   const handleSubmit = async () => {
@@ -63,24 +80,33 @@ function ProfileSetting() {
   return (
     <>
       {/* ProfileSetting Component */}
-      <Box className="ProfileSetting" height="720px" alignContent="center">
+      <Box className="ProfileSetting" height="auto" alignContent="center">
         <Image />
+
         <ProfilePicUpload
           onChange={(data) => handleInputChange("profilePic", data)}
         />
+
         <PersonalDetails
           onChange={(data) => handleInputChange("personalDetails", data)}
         />
+
         <ContactDetails
           onChange={(data) => handleInputChange("contactDetails", data)}
         />
+
+        <SkillsDetails onChange={(data) => handleInputChange("skills", data)} />
+
         <GAExp onChange={(data) => handleInputChange("gaExperience", data)} />
+
         <WorkExp
           onChange={(data) => handleInputChange("workExperience", data)}
         />
+
         <EduExp
           onChange={(data) => handleInputChange("educationExperience", data)}
         />
+
         <Box>
           <Button colorScheme="red" mt={5} onClick={handleSubmit}>
             Save
