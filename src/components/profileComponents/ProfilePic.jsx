@@ -2,14 +2,14 @@ import React from 'react'
 import {Box, Center, Icon, Text, Input, Button, Flex} from "@chakra-ui/react";
 import {FaUserCircle} from "react-icons/fa"
 
-function ProfilePicUpload() {
+function ProfilePicUpload({ onUpload }) {
     const [profilePic, setProfilePic] = React.useState(null)
 
     const handleProfilePicChange = (event) => {
         const file = event.target.files[0]
         if (file) {
-            setProfilePic(file)
-            console.log(file)
+            setProfilePic(URL.createObjectURL(file)); // Set preview of the selected file
+            onUpload(file); // Trigger parent component's upload function
         }
     }
 
@@ -37,8 +37,14 @@ function ProfilePicUpload() {
             cursor="pointer"
             _hover={{ borderColor: "blue.300" }}
         >
-        
-        {/* {profilePic ? (
+         <Center
+            w='100%'
+            h='100%'
+            position='absolute'
+            top='0'
+            left='0'
+         >
+        {profilePic ? (
                     <img
                         src={profilePic}
                         alt="Profile"
@@ -49,13 +55,11 @@ function ProfilePicUpload() {
                         borderRadius: "50%"
                         }}
                     />
-                ) : ( */}
+                ) : (
 
-            <Center>
-                <Icon as={FaUserCircle} boxSize="25%" color="gray.400"/>
-            </Center>
-            
-        {/* )} */}
+                <Icon as={FaUserCircle} boxSize="25%" color="gray.400"/>   
+         )} 
+         </Center>
 
 
 
@@ -77,6 +81,7 @@ function ProfilePicUpload() {
                 <Button mt={2}
                 onClick={handleProfilePicUpload}
                 size="sm"
+                opacity={0}
                 ></Button>
             )}
 
