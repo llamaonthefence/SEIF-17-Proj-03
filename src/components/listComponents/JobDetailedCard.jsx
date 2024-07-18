@@ -1,4 +1,3 @@
-import formatDate from "../../util/formatDate";
 import {
   Box,
   Flex,
@@ -9,6 +8,26 @@ import {
   GridItem,
   Center,
 } from "@chakra-ui/react";
+import formatDate from "../../util/formatDate";
+
+// Reusable text style object
+const textStyle = {
+  bg: "lightgray",
+  p: "4",
+  w: "100%",
+};
+
+// Reusable Flex column component
+function FlexColumn({ title, children }) {
+  return (
+    <Flex direction="column" align="start" mb="4" w="90%">
+      <Text fontWeight="bold" mb="2">
+        {title}
+      </Text>
+      {children}
+    </Flex>
+  );
+}
 
 function JobDetailedCard({ job, isViewJobCardModal }) {
   if (!job) {
@@ -18,6 +37,7 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
       </Center>
     );
   }
+
   // SkillsGrid Component
   function SkillsGrid() {
     const skills = job.skills;
@@ -39,6 +59,7 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
       </Grid>
     );
   }
+
   return (
     <Box
       className="JobDetailedCard"
@@ -70,12 +91,12 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
         {/* Right Side */}
         <Flex direction="column" pl={4} w="70%" gap={4}>
           {/* Company Name */}
-          <Text mb="1" bg="lightgray" p="4" w="100%">
+          <Text mb="1" {...textStyle}>
             {job.companyName}
           </Text>
 
           {/* Title */}
-          <Text mb="1" bg="lightgray" p="4" w="100%">
+          <Text mb="1" {...textStyle}>
             {job.title}
           </Text>
 
@@ -87,15 +108,11 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
             w="100%"
             gap={4}
           >
-            <Flex direction="column" mb={1} w="md">
-              <Text bg="lightgray" p="4">
-                {formatDate(job.date_posted)}
-              </Text>
+            <Flex direction="column" w="md">
+              <Text {...textStyle}>{formatDate(job.date_posted)}</Text>
             </Flex>
             <Flex direction="column" w="md">
-              <Text bg="lightgray" p="4">
-                {job.location}
-              </Text>
+              <Text {...textStyle}>{job.location}</Text>
             </Flex>
           </Flex>
         </Flex>
@@ -108,50 +125,25 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
       <Grid templateColumns="1fr 1fr" mb="8" w="80%">
         {/* Left Column */}
         <Flex direction="column">
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Salary Range
-            </Text>
-            <Text bg="lightgray" p="4" w="sm">
-              {job.salary}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Seniority
-            </Text>
-            <Text bg="lightgray" p="4" w="sm">
-              {job.seniority}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Work Arrangement
-            </Text>
-            <Text bg="lightgray" p="4" w="sm">
-              {job.workArrangement}
-            </Text>
-          </Flex>
+          <FlexColumn title="Salary Range">
+            <Text {...textStyle}>{job.salary}</Text>
+          </FlexColumn>
+          <FlexColumn title="Seniority">
+            <Text {...textStyle}>{job.seniority}</Text>
+          </FlexColumn>
+          <FlexColumn title="Work Arrangement">
+            <Text {...textStyle}>{job.workArrangement}</Text>
+          </FlexColumn>
         </Flex>
 
         {/* Right Column */}
         <Flex direction="column">
-          <Flex direction="column" align="start" mb="4">
-            <Text fontWeight="bold" mb="2">
-              Job Type
-            </Text>
-            <Text bg="lightgray" p="4" w="sm">
-              {job.employmentType}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Years of Experience
-            </Text>
-            <Text bg="lightgray" p="4" w="sm">
-              {job.yoe}
-            </Text>
-          </Flex>
+          <FlexColumn title="Job Type">
+            <Text {...textStyle}>{job.employmentType}</Text>
+          </FlexColumn>
+          <FlexColumn title="Years of Experience">
+            <Text {...textStyle}>{job.yoe}</Text>
+          </FlexColumn>
         </Flex>
       </Grid>
 
@@ -178,74 +170,36 @@ function JobDetailedCard({ job, isViewJobCardModal }) {
       <Grid templateColumns="1fr 1fr" gap={8} w="85%">
         {/* Left Column */}
         <Flex direction="column">
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Industry
-            </Text>
-            <Text bg="lightgray" p="4" w="md">
-              {job.industry}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Company Type
-            </Text>
-            <Text bg="lightgray" p="4" w="md">
-              {job.companyType}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Company Size
-            </Text>
-            <Text bg="lightgray" p="4" w="md">
-              {job.companySize}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Company Website
-            </Text>
-            <Text bg="lightgray" p="4" w="md">
-              {job.companyWebsite}
-            </Text>
-          </Flex>
+          <FlexColumn title="Industry">
+            <Text {...textStyle}>{job.industry}</Text>
+          </FlexColumn>
+          <FlexColumn title="Company Type">
+            <Text {...textStyle}>{job.companyType}</Text>
+          </FlexColumn>
+          <FlexColumn title="Company Size">
+            <Text {...textStyle}>{job.companySize}</Text>
+          </FlexColumn>
+          <FlexColumn title="Company Website">
+            <Text {...textStyle}>{job.companyWebsite}</Text>
+          </FlexColumn>
         </Flex>
 
         {/* Right Column */}
         <Flex direction="column">
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Job Offers
-            </Text>
-            <Text bg="lightgray" p="4" w="lg">
-              {job.jobOffers}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Responsibilities
-            </Text>
-            <Text bg="lightgray" p="4" w="lg">
-              {job.responsibilities}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Requirements
-            </Text>
-            <Text bg="lightgray" p="4" w="lg">
-              {job.requirements}
-            </Text>
-          </Flex>
-          <Flex direction="column" align="start" mb="4" w="100%">
-            <Text fontWeight="bold" mb="2">
-              Certifications
-            </Text>
-            <Text bg="lightgray" p="4" w="lg">
+          <FlexColumn title="Job Offers">
+            <Text {...textStyle}>{job.jobOffers}</Text>
+          </FlexColumn>
+          <FlexColumn title="Responsibilities">
+            <Text {...textStyle}>{job.responsibilities}</Text>
+          </FlexColumn>
+          <FlexColumn title="Requirements">
+            <Text {...textStyle}>{job.requirements}</Text>
+          </FlexColumn>
+          <FlexColumn title="Certifications">
+            <Text {...textStyle}>
               {job.certifications ? job.certifications.join(", ") : ""}
             </Text>
-          </Flex>
+          </FlexColumn>
         </Flex>
       </Grid>
     </Box>

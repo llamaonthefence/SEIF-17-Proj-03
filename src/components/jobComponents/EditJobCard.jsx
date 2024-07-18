@@ -20,14 +20,14 @@ function EditJobCard({
         borderWidth="1px"
         borderRadius="15px"
         boxShadow="md"
-        p="4"
+        p="8"
         bg="white"
         cursor="pointer"
-        h={350}
-        w="60vh"
+        h="35vh"
+        w="65vh"
       >
         {/* Job Details */}
-        <Flex direction="column" align="start" gap="10" p={2} h="100%">
+        <Flex direction="column" align="start" gap="10" h="100%">
           <Flex w="100%">
             <Text fontSize="3xl" fontWeight="600">
               {data.title}
@@ -72,16 +72,11 @@ function EditJobCard({
               />
             </Flex>
           </Flex>
-          <Flex
-            direction="column"
-            align="start"
-            gap="0"
-            fontSize="xl"
-            fontWeight={200}
-          >
+          <Flex direction="column" align="start" fontSize="xl" fontWeight={200}>
             <Flex direction="row" gap="4">
               <Text>
-                {data.workArrangement} {"\u25AA"} {data.employmentType}
+                {data.workArrangement}
+                {"\u25AA"} {data.employmentType}
               </Text>
             </Flex>
             <Text>{data.location}</Text>

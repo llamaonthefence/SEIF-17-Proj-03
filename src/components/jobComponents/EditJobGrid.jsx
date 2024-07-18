@@ -8,9 +8,8 @@ import {
   DeleteJobCardModal,
 } from "../index";
 
-function EditJobGrid({ datas }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // 5 columns x 3 rows
+function EditJobGrid({ datas, currentPage, setCurrentPage }) {
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(datas.length / itemsPerPage);
 
   const currentData = datas.slice(
@@ -60,9 +59,9 @@ function EditJobGrid({ datas }) {
   return (
     <>
       {/* EditJobGrid Component*/}
-      <Box className="EditJobGrid" p={4}>
+      <Box className="EditJobGrid">
         {/* Mapped created posts in Grid */}
-        <SimpleGrid columns={3} spacing={12}>
+        <SimpleGrid columns={3} spacing={4} h="2xl">
           {currentData.map((data, index) => (
             <EditJobCard
               key={index}
@@ -102,11 +101,13 @@ function EditJobGrid({ datas }) {
         )}
 
         {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <Box pt={4}>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </Box>
       </Box>
     </>
   );

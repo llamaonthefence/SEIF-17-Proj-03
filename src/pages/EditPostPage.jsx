@@ -16,6 +16,8 @@ import { getAllJobs, getUserJobs } from "../service/jobs";
 
 function EditPostPage() {
   const [datas, setDatas] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     const fetchDatas = async () => {
       try {
@@ -34,13 +36,13 @@ function EditPostPage() {
 
   return (
     <>
-      <Box py={4} px={4} bg="#F3F0E8">
+      <Box pt={4} px={4} bg="#F3F0E8" align="center">
         <Flex bgColor="white" borderRadius="md" p={4} boxShadow="sm" h="8vh">
           <Text fontSize="2xl" fontWeight="600">
             Listed Jobs
           </Text>
           <Spacer />
-          <Flex gap={8} pr={4}>
+          <Flex gap={8}>
             <Flex align="center" gap={2}>
               <IconButton aria-label="Sort" icon={<FaSort />} />
               <Text>Sort</Text>
@@ -51,8 +53,12 @@ function EditPostPage() {
             </Flex>
           </Flex>
         </Flex>
-        <Box borderRadius="md" boxShadow="sm" h="4xl" p={4}>
-          <EditJobGrid datas={datas} />
+        <Box borderRadius="md" boxShadow="sm" h="85vh" py={4}>
+          <EditJobGrid
+            datas={datas}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </Box>
       </Box>
     </>
