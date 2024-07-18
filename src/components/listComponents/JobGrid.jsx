@@ -1,9 +1,13 @@
-import { useState } from "react";
 import { Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
 import { JobCard, Pagination } from "../index";
 
-function JobGrid({ datas, onJobSelect, selectedJob }) {
-  const [currentPage, setCurrentPage] = useState(1);
+function JobGrid({
+  datas,
+  onJobSelect,
+  selectedJob,
+  currentPage,
+  setCurrentPage,
+}) {
   const itemsPerPage = 5;
   const totalPages = Math.ceil(datas.length / itemsPerPage);
 
@@ -36,7 +40,7 @@ function JobGrid({ datas, onJobSelect, selectedJob }) {
   return (
     // JobGrid Component
     <Box height="80vh">
-      <Box className="JobGrid" h="100%" overflowY="scroll" p={4}>
+      <Box className="JobGrid" h="100%" overflowY="scroll" px={4} pt={4}>
         {/* Mapped Job datas in Grid */}
         <SimpleGrid columns={1} spacing={4}>
           {currentData.map((data) => (
@@ -48,12 +52,14 @@ function JobGrid({ datas, onJobSelect, selectedJob }) {
             />
           ))}
         </SimpleGrid>
-        {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <Box py={4}>
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </Box>
       </Box>
     </Box>
   );

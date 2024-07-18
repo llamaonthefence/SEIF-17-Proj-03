@@ -28,6 +28,8 @@ function OpportunitiesQueryBar({
   onClearFilters,
   setSearchTerm,
   searchTerm,
+  setCurrentPage,
+  setSelectedJob,
 }) {
   const navigate = useNavigate();
 
@@ -74,6 +76,8 @@ function OpportunitiesQueryBar({
 
     // Refetch all data
     onClearFilters();
+    setCurrentPage(1);
+    setSelectedJob(null);
   };
 
   return (

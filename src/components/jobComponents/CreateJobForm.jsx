@@ -30,7 +30,6 @@ import {
 import techstacks from "../../constants/techstacks";
 
 function CreateJobForm() {
-  const folder = "company_images";
   const initialFormState = {
     industry: "",
     companyType: "",
@@ -81,7 +80,7 @@ function CreateJobForm() {
     try {
       let imageUrl = "";
       if (formState.image) {
-        imageUrl = await uploadImage(formState.image, folder);
+        imageUrl = await uploadImage(formState.image, "company_images");
       }
       await createJob({
         ...formState,

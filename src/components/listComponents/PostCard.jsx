@@ -21,6 +21,7 @@ function PostCard({
         boxShadow="md"
         p="4"
         bg="white"
+        h="md"
       >
         {/* Company Image */}
         <Image src={image} alt={companyName} p={2} />

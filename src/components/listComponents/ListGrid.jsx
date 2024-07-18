@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Box, SimpleGrid, Text, Center } from "@chakra-ui/react";
 import { ProfileCard, PostCard, Pagination } from "../index";
 
-function ListGrid({ datas, isCreatedPostPage }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15; // 5 columns x 3 rows
+function ListGrid({ datas, isCreatedPostPage, currentPage, setCurrentPage }) {
+  const itemsPerPage = 10; // 5 columns x 2 rows
   const totalPages = Math.ceil(datas.length / itemsPerPage);
 
   // Conditionally render loading text if datas is empty or null
@@ -32,9 +30,9 @@ function ListGrid({ datas, isCreatedPostPage }) {
   return (
     <>
       {/* ListGrid Component*/}
-      <Box className="ListGrid" p={8}>
+      <Box className="ListGrid" px={8}>
         {/* Mapped created posts in Grid */}
-        <SimpleGrid columns={5} spacing={10}>
+        <SimpleGrid columns={5} spacing={4} h="3xl">
           {currentData.map((data, index) =>
             isCreatedPostPage ? (
               // Create Post details
@@ -69,7 +67,8 @@ function ListGrid({ datas, isCreatedPostPage }) {
             )
           )}
         </SimpleGrid>
-
+      </Box>
+      <Box py={4}>
         {/* Pagination */}
         <Pagination
           currentPage={currentPage}

@@ -12,8 +12,12 @@ function ProfilePage() {
             <Link to="/profile">
               <div className="font-semibold">My Profile</div>
             </Link>
-            <Link to={`/profile/createdposts`}>
-              <div className="font-semibold">Created Posts</div>
+            <Link to={`/profile/mysavedjobs`}>
+              <div>
+                <span className="font-semibold">My saved jobs</span>
+                <br />
+                <span className="font-regular">(coming soon)</span>
+              </div>
             </Link>
           </Flex>
         </Box>
@@ -26,7 +30,7 @@ function ProfilePage() {
       <Grid
         className="ProfilePage"
         templateAreas={`"nav main"`}
-        gridTemplateRows={"100% 1fr 320px"}
+        gridTemplateRows={"100% 1fr 70vh"}
         gridTemplateColumns={"300px 1fr"}
         h="auto"
         gap="0"

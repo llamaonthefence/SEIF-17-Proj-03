@@ -1,87 +1,91 @@
-import { Box, Flex, Spacer, Button, Stack, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Spacer,
+  Button,
+  Text,
+  Heading,
+  Image,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import LogoSVG from '../../assets/group3.svg'
+import LogoSVG from "../../assets/group3.svg";
 
 function NavBar() {
-  function BoxButton({ children }) {
-    return (
-      <Box
-        className="Header"
-        height="120px"
-        width="120px"
-        alignContent="center"
-        color="black"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {children}
-      </Box>
-    );
-  }
-
+  const imageStyle = {
+    height: "40px",
+  };
   return (
-    <>
-      {/* NavBar Component */}
-      <Flex bgColor="white" borderBottom="1px" borderColor="lightgrey">
-        {/* Header Component */}
+    <Flex
+      bgColor="white"
+      borderBottom="1px"
+      borderColor="lightgrey"
+      align="center"
+      p={4}
+    >
+      {/* Logo and Header */}
+      <Link to="/">
+        <Flex align="center">
+          <Box display="flex" alignItems="center">
+            <img
+              src={LogoSVG}
+              alt="Group Assembly Logo"
+              style={{ height: "90px", width: "90px" }}
+            />
+          </Box>
+          <Box ml={3}>
+            <Heading as="h1" size="lg" color="#414042">
+              Group
+            </Heading>
+            <Heading as="h1" size="lg" color="#414042">
+              Assembly
+            </Heading>
+          </Box>
+        </Flex>
+      </Link>
+
+      <Spacer />
+
+      {/* Navigation Links */}
+      <Flex align="center" pr={4}>
         <Link to="/">
-          <Box
-            className="Header"
-            height="120px"
-            width="300px"
-            alignContent="center"
-            bgColor="white"
-            color="black"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box display="flex" alignItems="center">
-              <img src={LogoSVG} alt='Group Assembly Logo' style={{maxHeight: '90%', maxWidth:'90%'}}/></Box>
-            <Box textAlign="left">
-              <Heading as="h1" size="lg" color="#414042">Group</Heading>
-              <Heading as="h1" size="lg" color="#414042">Assembly</Heading>
-            </Box>
+          <Box align="center" mx={8} size={50}>
+            <Image src="./homelogo.png" alt="Home" style={imageStyle} />
+            <Text fontWeight="semibold">Home</Text>
           </Box>
         </Link>
 
-        <Spacer />
+        <Link to="/meet">
+          <Box align="center" mx={8} size={50}>
+            <Image src="./meetlogo.png" alt="Meet" style={imageStyle} />
+            <Text fontWeight="semibold">Meet</Text>
+          </Box>
+        </Link>
 
-        {/* Link Buttons */}
-        <Flex gap="4px" align="center" pr={8}>
-          {/* Link to Home */}
-          <BoxButton>
-            <Link to="/">
-              <div className="font-semibold">Home</div>
-            </Link>
-          </BoxButton>
-          {/* Link to Profile Listing page */}
-          <BoxButton>
-            <Link to="/meet">
-              <div className="font-semibold">Meet</div>
-            </Link>
-          </BoxButton>
-          {/* Link to Job Listing page */}
-          <BoxButton>
-            <Link to="/opportunities">
-              <div className="font-semibold">Opportunities</div>
-            </Link>
-          </BoxButton>
-          {/* Link to User Profile page */}
-          <BoxButton>
-            <Link to="/profile">
-              <div className="font-semibold">Profile</div>
-            </Link>
-          </BoxButton>
-          <Stack direction="row" spacing={4} align="center">
-            <Button colorScheme="red" variant="solid" size="lg">
-              Sign Out
-            </Button>
-          </Stack>
-        </Flex>
+        <Link to="/opportunities">
+          <Box align="center" mx={8} size={50}>
+            <Image
+              src="./opportunitieslogo.png"
+              alt="Opportunities"
+              style={imageStyle}
+            />
+            <Text fontWeight="semibold">Opportunities</Text>
+          </Box>
+        </Link>
+
+        <Link to="/profile">
+          <Box align="center" mx={8} size={50}>
+            <Image src="./profilelogo.png" alt="Profile" style={imageStyle} />
+            <Text fontWeight="semibold">Profile</Text>
+          </Box>
+        </Link>
+
+        <Box mx={8}>
+          <Button colorScheme="red" variant="solid" size="lg" align="center">
+            Sign Out
+          </Button>
+        </Box>
       </Flex>
-    </>
+    </Flex>
   );
 }
 

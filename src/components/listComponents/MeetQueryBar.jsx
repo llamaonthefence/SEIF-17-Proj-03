@@ -20,6 +20,7 @@ function MeetQueryBar({
   searchTerm,
   onApply,
   onSeeAll,
+  setCurrentPage,
 }) {
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -68,6 +69,7 @@ function MeetQueryBar({
 
     // Refetch all data
     onSeeAll();
+    setCurrentPage(1);
   };
 
   return (

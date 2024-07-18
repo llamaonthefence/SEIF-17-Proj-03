@@ -13,6 +13,7 @@ function MeetPage() {
   });
   const [sortOption, setSortOption] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Function to fetch the data
   const fetchData = async () => {
@@ -60,6 +61,7 @@ function MeetPage() {
 
     // Update state with filtered and sorted data
     setFilteredDatas(updatedData);
+    setCurrentPage(1);
   };
 
   return (
@@ -73,10 +75,15 @@ function MeetPage() {
           searchTerm={searchTerm}
           onApply={handleApply}
           onSeeAll={fetchData}
+          setCurrentPage={setCurrentPage}
         />
         {/* MeetPage Component */}
         <Box className="MeetPage">
-          <ListGrid datas={filteredDatas} />
+          <ListGrid
+            datas={filteredDatas}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </Box>
       </Stack>
     </Stack>
