@@ -1,21 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {Box, Heading, Button, Modal, ModalOverlay, ModalContent, ModalBody,ModalFooter, ModalHeader, ModalCloseButton} from "@chakra-ui/react";
 import EduDetails from "./EducationExpForm";
 import EduExpList from "./EducationExpList";
 
-function EduExp() {
+function EduExp({onChange}) {
 
     // open EducationExp modal
     const [isModalOpen, setIsModalOpen] = useState(false)
     // render EducationExp list
     const [eduExpList, setEduExpList] = useState([])
+    
+    useEffect(() => {
+      onChange(eduExpList)
+    }, [eduExpList])
 
     const openModal = () => setIsModalOpen(true)
     const closeModal = () => setIsModalOpen(false)
 
     
     const handleSaveEduExp = (eduExpItem) => {
-        setEduExpList([...eduExpList, eduExpItem])
+        setEduExpList(prevList => [...prevList, eduExpItem])
         closeModal(); 
     }
 
@@ -24,10 +28,12 @@ function EduExp() {
     }
 
     const handleDeleteEduExp = (index) => {
-        const updatedList = [...eduExpList]
+      setEduExpList(prevList => {
+        const updatedList = [...prevList]
         updatedList.splice(index, 1)
-        setEduExpList(updatedList)
-    }
+        return updatedList
+      })
+    };
 
     return (
         <Box
@@ -48,7 +54,10 @@ function EduExp() {
         Education Experience
         </Heading>
 
-        <EduExpList eduExpList={eduExpList} handleEditEduExp={handleEditEduExp} handleDeleteEduExp={handleDeleteEduExp}/> 
+        <EduExpList 
+        eduExpList={eduExpList} 
+        handleEditEduExp={handleEditEduExp} 
+        handleDeleteEduExp={handleDeleteEduExp}/> 
 
         <Button
         colorScheme='red' 

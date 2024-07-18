@@ -4,6 +4,7 @@ import DateInputYear from "./DateInputYear";
 import formatDate from "../../util/formatDate";
 import { v4 as uuidv4 } from 'uuid'
 import qualificationTypes from "../../constants/qualificationTypes";
+import fieldsOfStudy from "../../constants/fieldsOfStudyString";
 
 function EduDetails( {onSave} ) {
     const [qualificationType, setQualificationType] = React.useState('')
@@ -31,6 +32,7 @@ function EduDetails( {onSave} ) {
 
         event.preventDefault();
 
+        //Form validations 
         if (!qualificationType || !fieldOfStudy) {
             alert ('Please fill in all required fields.')
             return;
@@ -55,6 +57,7 @@ function EduDetails( {onSave} ) {
 
         onSave(eduExpItem)
 
+        setIsCurrentEdu(false)
         setQualificationType('')
         setFieldOfStudy('')
         setInstitutionName('')
@@ -123,9 +126,9 @@ function EduDetails( {onSave} ) {
             value={fieldOfStudy}
             onChange={handleFieldOfStudyChange}
             >
-             <option value='option1'>Option 1</option>
-             <option value='option2'>Option 2</option>
-             <option value='option3'>Option 3</option>
+             {fieldsOfStudy.map((field, index) => (
+                <option key={index} value={field}>{field}</option>
+             ))}
             </Select>
             </FormControl>
             </Box>
