@@ -81,7 +81,7 @@ function EditJobCard({
           >
             <Flex direction="row" gap="4">
               <Text>
-                Hybrid {"\u25AA"} {data.workArrangement}
+                {data.workArrangement} {"\u25AA"} {data.employmentType}
               </Text>
             </Flex>
             <Text>{data.location}</Text>

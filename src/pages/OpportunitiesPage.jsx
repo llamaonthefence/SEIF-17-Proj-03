@@ -15,6 +15,7 @@ function OpportunitiesPage() {
     location: "",
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchData = async () => {
     try {
@@ -61,6 +62,8 @@ function OpportunitiesPage() {
     }
 
     setFilteredDatas(filtered);
+    setCurrentPage(1);
+    setSelectedJob(null);
   };
 
   const handleJobCardClick = (job) => {
@@ -77,6 +80,8 @@ function OpportunitiesPage() {
         onClearFilters={fetchData}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        setCurrentPage={setCurrentPage}
+        setSelectedJob={setSelectedJob}
       />
       {/* OpportunitiesPage Component */}
       <Grid
@@ -100,6 +105,8 @@ function OpportunitiesPage() {
             datas={filteredDatas}
             onJobSelect={handleJobCardClick}
             selectedJob={selectedJob}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
         </GridItem>
 

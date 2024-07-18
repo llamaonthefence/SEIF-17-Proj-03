@@ -31,6 +31,7 @@ function ProfileCard({
         bg="whitesmoke"
         onClick={openModal}
         cursor="pointer"
+        h="sm"
       >
         {/* Profile Picture */}
         <Image
@@ -38,6 +39,7 @@ function ProfileCard({
           alt={`${firstName} ${lastName}`}
           borderRadius="50%"
           p={2}
+          blockSize={200}
         />
 
         {/* Profile Details */}

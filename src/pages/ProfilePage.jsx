@@ -13,7 +13,11 @@ function ProfilePage() {
               <div className="font-semibold">My Profile</div>
             </Link>
             <Link to={`/profile/createdposts`}>
-              <div className="font-semibold">Created Posts</div>
+              <div>
+                <span className="font-semibold">My saved jobs</span>
+                <br />
+                <span className="font-regular">(coming soon)</span>
+              </div>
             </Link>
           </Flex>
         </Box>

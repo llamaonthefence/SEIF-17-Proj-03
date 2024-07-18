@@ -42,6 +42,7 @@ function ProfileModal({
               src={image}
               alt={`${firstName} ${lastName}`}
               maxBlockSize="250px"
+              borderRadius="50%"
             />
 
             {/* Profile Name and Job Specialist Title */}
