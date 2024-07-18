@@ -1,5 +1,6 @@
-import { Box, Flex, Spacer, Button, Stack } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Button, Stack, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import LogoSVG from '../../assets/group3.svg'
 
 function NavBar() {
   function BoxButton({ children }) {
@@ -30,13 +31,18 @@ function NavBar() {
             height="120px"
             width="300px"
             alignContent="center"
-            bgColor="grey"
+            bgColor="white"
             color="black"
             display="flex"
             justifyContent="center"
             alignItems="center"
           >
-            <h1 className="text-3xl font-bold">Header</h1>
+            <Box display="flex" alignItems="center">
+              <img src={LogoSVG} alt='Group Assembly Logo' style={{maxHeight: '90%', maxWidth:'90%'}}/></Box>
+            <Box textAlign="left">
+              <Heading as="h1" size="lg" color="#414042">Group</Heading>
+              <Heading as="h1" size="lg" color="#414042">Assembly</Heading>
+            </Box>
           </Box>
         </Link>
 

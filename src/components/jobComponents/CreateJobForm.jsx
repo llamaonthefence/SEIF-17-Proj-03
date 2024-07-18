@@ -12,11 +12,26 @@ import {
   HStack,
   Image,
   Select,
+  Flex,
+  Tag,
+  TagLabel,
+  TagCloseButton,
 } from "@chakra-ui/react";
+import locations from "../../constants/locations";
+import employmentTypes from "../../constants/employmenttypes";
+import qualificationTypes from "../../constants/qualificationTypes";
+import INDUSTRIES from "../../constants/industries";
+import {
+  companyTypes,
+  companySizes,
+  workArrangements,
+  seniorities,
+} from "../../constants/jobDetails";
+import techstacks from "../../constants/techstacks";
 
 function CreateJobForm() {
   const folder = "company_images";
-  const [formState, setFormState] = useState({
+  const initialFormState = {
     industry: "",
     companyType: "",
     companyName: "",
@@ -34,7 +49,13 @@ function CreateJobForm() {
     salary: "",
     employmentType: "",
     certifications: "",
-  });
+    descriptions: "",
+    yoe: "",
+    seniority: "",
+    region: "",
+  };
+
+  const [formState, setFormState] = useState(initialFormState);
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -65,27 +86,10 @@ function CreateJobForm() {
       await createJob({
         ...formState,
         image: imageUrl,
-        skills: formState.skills.split(",").map((skill) => skill.trim()),
+        skills: selectedSkills,
       });
-      setFormState({
-        industry: "",
-        companyType: "",
-        companyName: "",
-        location: "",
-        companySize: "",
-        companyWebsite: "",
-        image: null,
-        title: "",
-        workArrangement: "",
-        employmentTeam: "",
-        skills: "",
-        jobOffers: "",
-        responsibilities: "",
-        requirements: "",
-        salary: "",
-        employmentType: "",
-        certifications: "",
-      });
+      setFormState(initialFormState);
+      setSelectedSkills([]); // Reset selected skills
       setImagePreview(null);
     } catch (error) {
       console.error("Error submitting job form:", error);
@@ -96,6 +100,20 @@ function CreateJobForm() {
     fileInputRef.current.click();
   };
 
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
+  const handleSkillChange = (e) => {
+    const selectedSkill = e.target.value;
+    if (!selectedSkills.includes(selectedSkill) && selectedSkills.length < 5) {
+      setSelectedSkills([...selectedSkills, selectedSkill]);
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove) => {
+    setSelectedSkills(
+      selectedSkills.filter((skill) => skill !== skillToRemove)
+    );
+  };
   return (
     <Box mx="auto" p={8}>
       <form
@@ -115,34 +133,34 @@ function CreateJobForm() {
                     <FormLabel>Industry</FormLabel>
                     <Select
                       name="industry"
+                      placeholder="Select industry"
                       value={formState.industry}
                       onChange={handleChange}
                       w="lg"
                     >
-                      <option value="">Select industry</option>
-                      <option value="Technology">Technology</option>
-                      <option value="Healthcare">Healthcare</option>
-                      <option value="Finance">Finance</option>
-                      <option value="Education">Education</option>
-                      <option value="Retail">Retail</option>
                       <option value="Other">Other</option>
+                      {INDUSTRIES.map((industry) => (
+                        <option key={industry} value={industry}>
+                          {industry}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                   <FormControl id="companyType" isRequired>
                     <FormLabel>Company Type</FormLabel>
                     <Select
                       name="companyType"
+                      placeholder="Select company type"
                       value={formState.companyType}
                       onChange={handleChange}
                       w="lg"
                     >
-                      <option value="">Select company type</option>
-                      <option value="Startup">Startup</option>
-                      <option value="SME">SME</option>
-                      <option value="Corporation">Corporation</option>
-                      <option value="Nonprofit">Nonprofit</option>
-                      <option value="Government">Government</option>
                       <option value="Other">Other</option>
+                      {companyTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                 </HStack>
@@ -159,12 +177,20 @@ function CreateJobForm() {
                   </FormControl>
                   <FormControl id="location" isRequired>
                     <FormLabel>Company HQ Location</FormLabel>
-                    <Input
-                      type="text"
+                    <Select
                       name="location"
                       value={formState.location}
+                      placeholder="Select location type"
                       onChange={handleChange}
-                    />
+                      w="lg"
+                    >
+                      <option value="Other">Other</option>
+                      {locations.map((location) => (
+                        <option key={location} value={location}>
+                          {location}
+                        </option>
+                      ))}
+                    </Select>
                   </FormControl>
                 </HStack>
 
@@ -173,16 +199,16 @@ function CreateJobForm() {
                     <FormLabel>Company Size</FormLabel>
                     <Select
                       name="companySize"
+                      placeholder="Select company size"
                       value={formState.companySize}
                       onChange={handleChange}
                     >
-                      <option value="">Select company size</option>
-                      <option value="1-10">1-10</option>
-                      <option value="11-50">11-50</option>
-                      <option value="51-200">51-200</option>
-                      <option value="201-500">201-500</option>
-                      <option value="501-1000">501-1000</option>
-                      <option value="1000+">1000+</option>
+                      <option value="Other">Other</option>
+                      {companySizes.map((size) => (
+                        <option key={size} value={size}>
+                          {size}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                   <FormControl id="companyWebsite" isRequired>
@@ -216,7 +242,7 @@ function CreateJobForm() {
                       alt="Preview"
                       boxSize="250px"
                       padding="20px"
-                      objectFit="cover"
+                      objectFit="fit"
                     />
                   ) : (
                     <Box
@@ -253,20 +279,23 @@ function CreateJobForm() {
                     name="title"
                     value={formState.title}
                     onChange={handleChange}
-                    w="lg"
+                    w="2xl"
                   />
                 </FormControl>
                 <FormControl id="workArrangement" isRequired>
                   <FormLabel>Work Arrangement</FormLabel>
                   <Select
                     name="workArrangement"
+                    placeholder="Select work arrangement"
                     value={formState.workArrangement}
                     onChange={handleChange}
                   >
-                    <option value="">Select work arrangement</option>
-                    <option value="Hybrid">Hybrid</option>
-                    <option value="Work From Home">Work From Home</option>
-                    <option value="On-Site">On-Site</option>
+                    <option value="Other">Other</option>
+                    {workArrangements.map((arrange) => (
+                      <option key={arrange} value={arrange}>
+                        {arrange}
+                      </option>
+                    ))}
                   </Select>
                 </FormControl>
                 <FormControl id="employmentTeam" isRequired>
@@ -278,50 +307,71 @@ function CreateJobForm() {
                     onChange={handleChange}
                   />
                 </FormControl>
-                <FormControl id="skills" isRequired>
-                  <FormLabel>Skillsets (comma separated)</FormLabel>
-                  <Input
-                    type="text"
+                <FormControl id="skills">
+                  <FormLabel>Skills</FormLabel>
+                  <Select
                     name="skills"
-                    value={formState.skills}
-                    onChange={handleChange}
-                  />
+                    placeholder="Select a skill"
+                    value=""
+                    onChange={handleSkillChange}
+                  >
+                    {techstacks.map((skill) => (
+                      <option key={skill} value={skill}>
+                        {skill}
+                      </option>
+                    ))}
+                  </Select>
+
+                  {/* Display selected skills as tags */}
+                  <Flex mt={2} flexWrap="wrap">
+                    {selectedSkills.map((skill) => (
+                      <Tag
+                        key={skill}
+                        size="md"
+                        borderRadius="full"
+                        variant="solid"
+                        colorScheme="red"
+                        mr={2}
+                        mb={2}
+                      >
+                        <TagLabel>{skill}</TagLabel>
+                        <TagCloseButton
+                          onClick={() => handleRemoveSkill(skill)}
+                        />
+                      </Tag>
+                    ))}
+                  </Flex>
                 </FormControl>
                 <FormControl id="employmentType" isRequired>
                   <FormLabel>Employment Type</FormLabel>
                   <Select
                     name="employmentType"
+                    placeholder="Select employment type"
                     value={formState.employmentType}
                     onChange={handleChange}
                   >
-                    <option value="">Select employment type</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Permanent">Permanent</option>
-                    <option value="Part-Time">Part-Time</option>
-                    <option value="Full-Time">Full-Time</option>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Internship">Internship</option>
+                    <option value="Other">Other</option>
+                    {employmentTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
                   </Select>
                 </FormControl>
                 <FormControl id="certifications">
                   <FormLabel>Certifications</FormLabel>
                   <Select
                     name="certifications"
+                    placeholder="Select certification"
                     value={formState.certifications}
                     onChange={handleChange}
                   >
-                    <option value="">Select certification</option>
-                    <option value="High School Diploma">
-                      High School Diploma
-                    </option>
-                    <option value="Associate Degree">Associate Degree</option>
-                    <option value="Bachelor's Degree">Bachelor's Degree</option>
-                    <option value="Master's Degree">Master's Degree</option>
-                    <option value="Doctorate">Doctorate</option>
-                    <option value="Professional Certification">
-                      Professional Certification
-                    </option>
-                    <option value="None">None</option>
+                    <option value="Other">Other</option>
+                    {qualificationTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
                   </Select>
                 </FormControl>
                 <FormControl id="salary" isRequired>
@@ -333,6 +383,31 @@ function CreateJobForm() {
                     onChange={handleChange}
                   />
                 </FormControl>
+                <FormControl id="yoe" isRequired>
+                  <FormLabel>Years of Experiences</FormLabel>
+                  <Input
+                    type="number"
+                    name="yoe"
+                    value={formState.yoe}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+                <FormControl id="seniority" isRequired>
+                  <FormLabel>Seniority</FormLabel>
+                  <Select
+                    name="seniority"
+                    placeholder="Select seniority"
+                    value={formState.seniority}
+                    onChange={handleChange}
+                  >
+                    <option value="Other">Other</option>
+                    {seniorities.map((senior) => (
+                      <option key={senior} value={senior}>
+                        {senior}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
               </VStack>
               <VStack spacing={4} align="stretch" flex="1">
                 <FormControl id="jobOffers" isRequired>
@@ -341,7 +416,7 @@ function CreateJobForm() {
                     name="jobOffers"
                     value={formState.jobOffers}
                     onChange={handleChange}
-                    h="100px"
+                    h="150px"
                     w="3xl"
                   />
                 </FormControl>
@@ -351,7 +426,7 @@ function CreateJobForm() {
                     name="responsibilities"
                     value={formState.responsibilities}
                     onChange={handleChange}
-                    h="100px"
+                    h="150px"
                   />
                 </FormControl>
                 <FormControl id="requirements" isRequired>
@@ -360,7 +435,16 @@ function CreateJobForm() {
                     name="requirements"
                     value={formState.requirements}
                     onChange={handleChange}
-                    h="272px"
+                    h="150px"
+                  />
+                </FormControl>
+                <FormControl id="descriptions" isRequired>
+                  <FormLabel>Job Descriptions</FormLabel>
+                  <Textarea
+                    name="descriptions"
+                    value={formState.descriptions}
+                    onChange={handleChange}
+                    h="150px"
                   />
                 </FormControl>
               </VStack>

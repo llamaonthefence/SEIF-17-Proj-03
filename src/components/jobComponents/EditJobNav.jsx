@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
 
-function JobNav(/*{ jobData }*/) {
+function EditJobNav(/*{ jobData }*/) {
   //   const [imagePreview, setImagePreview] = useState(null);
   return (
     <>
-      <Box className="ProfileNav" pt={4} align="center">
+      <Box className="JobNav" pt={4} align="center">
         <Flex gap="20px" direction="column">
           {/* <Box>
             <Text fontWeight="600">Company Logo:</Text>
@@ -77,4 +77,4 @@ function JobNav(/*{ jobData }*/) {
   );
 }
 
-export default JobNav;
+export default EditJobNav;

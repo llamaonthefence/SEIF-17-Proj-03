@@ -5,7 +5,12 @@ import { FaTrashCan } from "react-icons/fa6";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { GiGraduateCap } from "react-icons/gi";
 
-function EditJobCard({ data, openModal }) {
+function EditJobCard({
+  data,
+  openViewJobCardModal,
+  openEditJobCardModal,
+  openDeleteJobCardModal,
+}) {
   return (
     <>
       {/* EditJobCard Component */}
@@ -16,9 +21,10 @@ function EditJobCard({ data, openModal }) {
         borderRadius="15px"
         boxShadow="md"
         p="4"
-        bg="whitesmoke"
+        bg="white"
         cursor="pointer"
         h={350}
+        w="60vh"
       >
         {/* Job Details */}
         <Flex direction="column" align="start" gap="10" p={2} h="100%">
@@ -38,7 +44,7 @@ function EditJobCard({ data, openModal }) {
                 color="black"
                 _hover={{ bg: "gray.200" }}
                 _active={{ bg: "gray.300" }}
-                onClick={() => openModal(data)} // Call openModal with job data
+                onClick={() => openViewJobCardModal(data)}
               />
               <IconButton
                 aria-label="Edit"
@@ -50,6 +56,7 @@ function EditJobCard({ data, openModal }) {
                 color="black"
                 _hover={{ bg: "gray.200" }}
                 _active={{ bg: "gray.300" }}
+                onClick={() => openEditJobCardModal(data)}
               />
               <IconButton
                 aria-label="Delete"
@@ -61,6 +68,7 @@ function EditJobCard({ data, openModal }) {
                 color="black"
                 _hover={{ bg: "gray.200" }}
                 _active={{ bg: "gray.300" }}
+                onClick={() => openDeleteJobCardModal(data)}
               />
             </Flex>
           </Flex>
@@ -72,20 +80,22 @@ function EditJobCard({ data, openModal }) {
             fontWeight={200}
           >
             <Flex direction="row" gap="4">
-              <Text>Hybrid</Text>
-              <Text>{data.contract}</Text>
+              <Text>
+                Hybrid {"\u25AA"} {data.workArrangement}
+              </Text>
             </Flex>
             <Text>{data.location}</Text>
-            <Text>{data.skills ? data.skills.join(", ") : ""}</Text>
+            <Text>{data.skills ? data.skills.join(" \u25AA ") : ""}</Text>
           </Flex>
-          <Flex direction="row" gap="4" fontSize="2xl" fontWeight="200">
+          <Flex direction="row" gap="2" fontSize="2xl" fontWeight="200">
             <Flex align="center">
               <Icon as={RiMoneyDollarCircleFill} mr={2} />
               <Text>{data.salary}</Text>
             </Flex>
+            <Text>{"\u25AA"}</Text>
             <Flex align="center">
               <Icon as={GiGraduateCap} mr={2} />
-              <Text>{data.cert}</Text>
+              <Text>{data.certifications}</Text>
             </Flex>
           </Flex>
         </Flex>

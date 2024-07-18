@@ -1,8 +1,10 @@
-html, body, #root {
+html,
+body,
+#root {
   max-width: 1920px;
   margin: 0 auto;
   padding: 0;
-  height: 100%;
+  height: auto;
   text-align: center;
 }
 

@@ -8,12 +8,33 @@ import {
   IconButton,
   Spacer,
   Box,
+  Text,
+  Button,
+  Stack,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import employmentTypes from "../../constants/employmenttypes";
+import { salary } from "../../constants/salary";
+import locations from "../../constants/locations";
 
-function OpportunitiesQueryBar() {
+function OpportunitiesQueryBar({
+  filters,
+  setFilters,
+  onApplyFilters,
+  onClearFilters,
+  setSearchTerm,
+  searchTerm,
+}) {
   const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
 
   const handleNavigateCreatePost = () => {
     navigate("/opportunities/create-post");
@@ -23,78 +44,155 @@ function OpportunitiesQueryBar() {
     navigate("/opportunities/edit-post");
   };
 
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  const handleClearFilters = () => {
+    // Reset all filters, sort, and search
+    setFilters({
+      type: "",
+      minSalary: "",
+      maxSalary: "",
+      location: "",
+    });
+
+    setSearchTerm(""); // Clear search term
+
+    // Reset sort dropdown to default
+    document.getElementById("employmentType-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("minsalary-dropdown").selectedIndex = 0;
+    // Reset filter dropdowns to default
+    document.getElementById("maxsalary-dropdown").selectedIndex = 0;
+    // Clear search input field using elementById
+    document.getElementById("location-dropdown").selectedIndex = 0;
+
+    // Refetch all data
+    onClearFilters();
+  };
+
   return (
     <>
       {/* OpportunitiesQueryBar Component */}
       <Flex bg="#F3F0E8">
         {/* Button & Dropdown Lists Components */}
-        <Flex direction="columns" p={4}>
-          <Flex spacing={4} gap={12}>
-            {/* All types Dropdown */}
-            <Select
-              variant="outline"
-              placeholder="All types"
-              size="md"
-              w="2xl"
-              bg="white"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+        <Flex direction="row" p={4} gap={4}>
+          {/* Search Bar */}
+          <Stack spacing={4}>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                {/* <GoSearch /> */}
+              </InputLeftElement>
+              <Input
+                id="search-input"
+                value={searchTerm}
+                placeholder="Search"
+                size="md"
+                bg="white"
+                w={400}
+                boxShadow="inner"
+                onChange={handleSearchChange}
+              />
+            </InputGroup>
+          </Stack>
 
-            {/* Paying $0 Dropdown */}
-            <Select
-              variant="outline"
-              placeholder="Paying $0"
-              size="md"
-              w="50%"
-              bg="white"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+          {/* All types Dropdown */}
+          <Select
+            id="employmentType-dropdown"
+            variant="outline"
+            placeholder="All types"
+            size="md"
+            w="200px"
+            bg="white"
+            name="type"
+            value={filters.type}
+            onChange={handleFilterChange}
+          >
+            {employmentTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </Select>
 
-            {/* to $50k Dropdown */}
-            <Select
-              variant="outline"
-              placeholder="to $50k+"
-              size="md"
-              w="50%"
-              bg="white"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+          {/* Min Salary Dropdown */}
+          <Select
+            id="minsalary-dropdown"
+            variant="outline"
+            placeholder="Min Salary"
+            size="md"
+            w="200px"
+            bg="white"
+            name="minSalary"
+            value={filters.minSalary}
+            onChange={handleFilterChange}
+          >
+            {salary.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
 
-            {/* Listed anytime Dropdown */}
-            <Select
-              variant="outline"
-              placeholder="Listed anytime"
-              size="md"
-              w="50%"
-              bg="white"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+          {/* Max Salary Dropdown */}
+          <Select
+            id="maxsalary-dropdown"
+            variant="outline"
+            placeholder="Max Salary"
+            size="md"
+            w="200px"
+            bg="white"
+            name="maxSalary"
+            value={filters.maxSalary}
+            onChange={handleFilterChange}
+          >
+            {salary.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
 
-            {/* Location Dropdown */}
-            <Select
-              variant="outline"
-              placeholder="Location"
-              size="md"
-              w="50%"
-              bg="white"
+          {/* Location Dropdown */}
+          <Select
+            id="location-dropdown"
+            variant="outline"
+            placeholder="Location"
+            size="md"
+            w="200px"
+            bg="white"
+            name="location"
+            value={filters.location}
+            onChange={handleFilterChange}
+          >
+            {locations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
+          </Select>
+
+          <Button colorScheme="red" onClick={onApplyFilters}>
+            Apply Filters
+          </Button>
+
+          <Box alignContent="center">
+            <Text
+              onClick={handleClearFilters}
+              fontSize="1xl"
+              cursor="pointer"
+              color="black"
+              _hover={{ textDecoration: "underline" }}
+              mr={4}
             >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
-          </Flex>
+              Clear All Filters
+            </Text>
+          </Box>
         </Flex>
         <Spacer />
         <Box alignContent="center" pr={12}>

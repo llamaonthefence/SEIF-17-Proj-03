@@ -2,24 +2,66 @@ import { useState, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { JobGrid, OpportunitiesQueryBar, JobDetailedCard } from "../components";
 import { getAllJobs } from "../service/jobs";
+import { filterData, searchItems } from "../util/query";
 
 function OpportunitiesPage() {
   const [datas, setDatas] = useState([]);
+  const [filteredDatas, setFilteredDatas] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [filters, setFilters] = useState({
+    type: "",
+    minSalary: "",
+    maxSalary: "",
+    location: "",
+  });
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const fetchData = async () => {
+    try {
+      const data = await getAllJobs();
+      setDatas(data.jobs);
+      setFilteredDatas(data.jobs);
+    } catch (error) {
+      console.error("Error fetching datas:", error);
+      setDatas([]);
+    }
+  };
 
   useEffect(() => {
-    const fetchDatas = async () => {
-      try {
-        const data = await getAllJobs();
-        setDatas(data.jobs);
-      } catch (error) {
-        console.error("Error fetching datas:", error);
-        setDatas([]);
-      }
-    };
-
-    fetchDatas();
+    fetchData();
   }, []);
+
+  const applyFilters = () => {
+    let filtered = [...datas];
+
+    if (searchTerm) {
+      filtered = searchItems(filtered, searchTerm, [
+        "companyName",
+        "title",
+        "location",
+      ]);
+    }
+
+    // Apply filtering based on filters
+    if (filters.type) {
+      filtered = filterData(filtered, ["employmentType"], filters.type);
+    }
+    if (filters.minSalary) {
+      filtered = filtered.filter(
+        (job) => job.salary >= parseInt(filters.minSalary)
+      );
+    }
+    if (filters.maxSalary) {
+      filtered = filtered.filter(
+        (job) => job.salary <= parseInt(filters.maxSalary)
+      );
+    }
+    if (filters.location) {
+      filtered = filterData(filtered, ["location"], filters.location);
+    }
+
+    setFilteredDatas(filtered);
+  };
 
   const handleJobCardClick = (job) => {
     setSelectedJob(selectedJob === job ? null : job); // Toggle selection
@@ -28,8 +70,14 @@ function OpportunitiesPage() {
   return (
     <>
       {/* OpportunitiesQueryBar Component */}
-
-      <OpportunitiesQueryBar />
+      <OpportunitiesQueryBar
+        filters={filters}
+        setFilters={setFilters}
+        onApplyFilters={applyFilters}
+        onClearFilters={fetchData}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       {/* OpportunitiesPage Component */}
       <Grid
         className="OpportunitiesPage"
@@ -40,9 +88,16 @@ function OpportunitiesPage() {
         gap="0"
       >
         {/* Job Listing Grid on the left Nav area */}
-        <GridItem pl="2" bg="white" alignContent="start" area={"nav"} h="auto">
+        <GridItem
+          pl="2"
+          bg="white"
+          alignContent="start"
+          area={"nav"}
+          h="auto"
+          borderRight="1px solid lightgray"
+        >
           <JobGrid
-            datas={datas}
+            datas={filteredDatas}
             onJobSelect={handleJobCardClick}
             selectedJob={selectedJob}
           />

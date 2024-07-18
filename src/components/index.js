@@ -21,10 +21,12 @@ export { default as ProfileSetting } from "./profileComponents/ProfileSetting"
 
 // Job components
 export { default as CreateJobForm } from "./jobComponents/CreateJobForm"
-export { default as JobNav } from "./jobComponents/JobNav"
+export { default as EditJobNav } from "./jobComponents/EditJobNav"
 export { default as EditJobGrid } from "./jobComponents/EditJobGrid";
 export { default as EditJobCard } from "./jobComponents/EditJobCard";
-export { default as JobCardModal } from "./jobComponents/JobCardModal";
+export { default as ViewJobCardModal } from "./jobComponents/ViewJobCardModal";
+export { default as EditJobCardModal } from "./jobComponents/EditJobCardModal";
+export { default as DeleteJobCardModal } from "./jobComponents/DeleteJobCardModal";
 
 // test components
 export { default as ProfileFakeData} from "./testComponents/ProfileFakeData";
