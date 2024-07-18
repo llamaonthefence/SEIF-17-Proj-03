@@ -25,7 +25,7 @@ function ProfileSetting() {
     skills: "",
   });
 
-  const handleInputChange = (section, data) => {
+ const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
       if (Array.isArray(prevFormData[section])) {
         // If the existing section in formData is an array

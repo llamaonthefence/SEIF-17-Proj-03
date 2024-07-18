@@ -3,25 +3,31 @@ import React from "react";
 import { gaBootcamps } from "../../constants/ga-courses";
 import DateInputYear from "./DateInputYear";
 import { v4 as uuidv4 } from 'uuid'
-import formatDate from "../../util/formatDate";
+// import formatDate from "../../util/formatDate";
 
 
 //using ChakraUI "controlled input"
 
-function GAExp({onSave}) {
+function GAexperience({onChange}) {
+    const [gaCourseList, setGaCourseList] = React.useState([])
     const [gaCourse, setGaCourse] = React.useState('')
     const [gradYear, setGradYear] = React.useState(new Date())
-    const [gaCourseList, setGaCourseList] = React.useState([])
 
-    const handleGaCourseChange = (event) => setGaCourse(event.target.value)
-    const handleGradYearChange = (date) => setGradYear(date)
+    const handleGaCourseChange = (event) => {
+        const value = event.target.value
+        setGaCourse(value)}
+        // onChange({gaCourse: value})}
+
+    const handleGradYearChange = (date) => {
+        setGradYear(date)}
+        // onChange({gradYear: date})}
 
     const handleAddGaCourse = () => {
         if (gaCourse && gradYear) {
-            const formattedGradYear = gradYear.getFullYear().toString();
-            const currentYear = new Date() 
+            const formattedGradYear = gradYear.getFullYear();
+            const currentYear = new Date().getFullYear();
 
-            if (gradYear > currentYear) {
+            if (formattedGradYear > currentYear) {
                 alert("Year selected cannot be in the future.")
                 return; 
             }
@@ -32,10 +38,21 @@ function GAExp({onSave}) {
                 gradYear: formattedGradYear,  
             }
 
-            setGaCourseList([...gaCourseList, gaExpItem])
-            setGaCourse('')
-            setGradYear(new Date())
-            onSave(gaExpItem);
+            // const updatedGaCourseList = [...gaCourseList, gaExpItem]
+            // setGaCourseList(prevList => [...prevList, gaExpItem])
+            // setGaCourse('')
+            // setGradYear(new Date())
+            // onChange([...gaCourseList, gaExpItem]);
+
+            setGaCourseList(prevList => {
+                const updatedList = [...prevList, gaExpItem];
+                onChange(updatedList); // Notify parent component with updated list
+                return updatedList;
+            });
+    
+            setGaCourse('');
+            setGradYear(new Date());
+
         }
     }
 
@@ -121,4 +138,4 @@ function GAExp({onSave}) {
     )
 }
 
-export default GAExp
+export default GAexperience
