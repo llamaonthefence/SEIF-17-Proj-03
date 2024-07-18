@@ -242,7 +242,7 @@ function CreateJobForm() {
                       alt="Preview"
                       boxSize="250px"
                       padding="20px"
-                      objectFit="cover"
+                      objectFit="fit"
                     />
                   ) : (
                     <Box
@@ -279,7 +279,7 @@ function CreateJobForm() {
                     name="title"
                     value={formState.title}
                     onChange={handleChange}
-                    w="lg"
+                    w="2xl"
                   />
                 </FormControl>
                 <FormControl id="workArrangement" isRequired>

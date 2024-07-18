@@ -126,6 +126,7 @@ function EditJobCardModal({ isOpen, closeModal, data }) {
       };
       await updateJob(updatedJobData); // Ensure jobData object is passed correctly
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error("Error updating job:", error);
     }
@@ -190,8 +191,8 @@ function EditJobCardModal({ isOpen, closeModal, data }) {
                         src={imagePreview}
                         alt="Preview"
                         boxSize="250px"
-                        padding="20px"
-                        objectFit="cover"
+                        p="20"
+                        objectFit="fit"
                       />
                     ) : (
                       <Box
