@@ -1,4 +1,4 @@
-import { Box, Image, Button, Text } from "@chakra-ui/react";
+import { Box, Image, Button } from "@chakra-ui/react";
 import PersonalDetails from "./PersonalDetails";
 import ContactDetails from "./ContactDetails";
 import GAExp from "./GAexperience";
@@ -7,6 +7,7 @@ import WorkExp from "./WorkExp";
 import EduExp from "./EducationExp";
 import SkillsDetails from "./SkillsDetails";
 import { useState } from "react";
+import { uploadImage } from "../../api/cloudinary";
 
 function ProfileSetting() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,20 @@ function ProfileSetting() {
     profilePic: null,
     skills: "",
   });
+
+  const handleImageUpload = async (file) => {
+    try {
+      const folder = "profile_pics"
+      const imageURL = await uploadImage(file, folder);
+      setFormData((prevFormData) => ({
+        ...prevFormData, 
+        profilePic: imageURL, 
+      }));
+    } catch (error) {
+      console.error('Error uploading image:', error)
+    }
+  }
+
 
  const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
@@ -81,11 +96,12 @@ function ProfileSetting() {
     <>
       {/* ProfileSetting Component */}
       <Box className="ProfileSetting" height="auto" alignContent="center">
-        <Image />
 
-        <ProfilePicUpload
-          onChange={(data) => handleInputChange("profilePic", data)}
-        />
+        {/* Preview profile pic */}
+        {formData.profilePic && (
+          <Image src={formData.profilePic} alt="user-profile-picture"/>)}
+
+        <ProfilePicUpload onUpload={handleImageUpload} />
 
         <PersonalDetails
           onChange={(data) => handleInputChange("personalDetails", data)}
