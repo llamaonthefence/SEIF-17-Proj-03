@@ -21,13 +21,13 @@ function PersonalDetails({ onChange }) {
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
     setFirstName(value);
-    onChange({ first_name: value });
+    onChange({ firstName: value });
   };
 
   const handleLastNameChange = (event) => {
     const value = event.target.value;
     setLastName(value);
-    onChange({ last_name: value });
+    onChange({ lastName: value });
   };
 
   const handlePronounChange = (event) => {
@@ -39,7 +39,7 @@ function PersonalDetails({ onChange }) {
   const handleAdditionalNameChange = (event) => {
     const value = event.target.value;
     setAdditionalName(value);
-    onChange({ additional_name: value });
+    onChange({ additionalName: value });
   };
 
   return (

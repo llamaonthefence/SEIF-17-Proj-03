@@ -8,11 +8,11 @@ function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
         <Grid templateColumns='repeat(6, 1fr)'>
             
                 {workExpList.map((item, index) => (
-                    <GridItem key={index}>
+                    <GridItem key={item.id}>
                         <Box>
                             <Heading>{item.jobTitle}</Heading>
                             <Text>{item.companyName}</Text>
-                            <Text>{item.fromDate} - {item.toDate}</Text>
+                            <Text>{item.fromDate} - {item.isCurrentJob ? "Present" : item.toDate}</Text>
                             <Text>{item.workDescription}</Text>
                         </Box>
                         
@@ -23,7 +23,7 @@ function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
                             />
                             <DeleteIcon 
                             color='gray.300' mt="-8px" cursor="pointer"
-                            onClick={() => handleDeleteWorkExp (index)}
+                            onClick={() => handleDeleteWorkExp(index)}
                             />
                         </Box>
 

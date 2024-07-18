@@ -10,6 +10,9 @@ import employmentTypes from "../../constants/employmenttypes";
 //using ChakraUI "controlled input"
 
 function WorkDetails({ onSave }) {
+    
+    // const[workExperienceList, setWorkExperienceList] = React.useState([])
+
     const [companyName, setCompanyName] = React.useState('')
     const [jobTitle, setJobTitle] = React.useState('')
     const [specialisation, setSpecialisation] = React.useState('')
@@ -72,19 +75,37 @@ function WorkDetails({ onSave }) {
         //workExp object
         const workExpItem = {
             id: uuidv4(),
+            isCurrentJob,
             companyName, 
             jobTitle,
+            specialisation,
             fromDate: formattedFromDate,
             toDate: formattedToDate,
+            industry,
+            employmentType,
             workDescription
         }
+
+        // Log the workExpItem as JSON
+        console.log("Work Experience Item:", JSON.stringify(workExpItem));
+
         //pass workExpItem to WorkExp.jsx (parent)
         onSave(workExpItem)
 
+        // setWorkExperienceList(prevList => {
+        //     const updatedList = [...prevList, workExpItem];
+        //     onChange(updatedList);
+        //     return updatedList;
+        // })
+
+        setIsCurrentJob(false),
         setCompanyName('')
         setJobTitle('')
+        setSpecialisation
         setFromDate(new Date())
         setToDate(new Date())
+        setIndustry
+        setEmploymentType
         setWorkDescription(''); 
     }
 
@@ -123,7 +144,7 @@ function WorkDetails({ onSave }) {
             <GridItem rowSpan={1} colSpan={2}>
             <Box mb="8px" className="companyname-box" >
             <FormControl isRequired>
-            <FormLabel mb='8px' textAlign="left">Company Name: {companyName}</FormLabel>
+            <FormLabel mb='8px' textAlign="left">Company Name:</FormLabel>
             <Input
              value={companyName}
              onChange={handleCompanyNameChange}
@@ -137,7 +158,7 @@ function WorkDetails({ onSave }) {
             <GridItem rowSpan={1} colSpan={2}>
             <Box mb="8px" className="jobtitle-box" >
             <FormControl isRequired>
-            <FormLabel mb='8px' textAlign="left">Job Title: {jobTitle}</FormLabel>
+            <FormLabel mb='8px' textAlign="left">Job Title:</FormLabel>
             <Input
              value={jobTitle}
              onChange={handleJobTitleChange}
