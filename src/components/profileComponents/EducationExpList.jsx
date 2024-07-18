@@ -10,7 +10,7 @@ function EduExpList({eduExpList, handleEditEduExp, handleDeleteEduExp}) {
         <Grid templateColumns='repeat(6, 1fr)'>
             
                 {eduExpList.map((item, index) => (
-                    <GridItem key={index}>
+                    <GridItem key={item.id}>
                         <Box>
                             <Heading>{item.qualificationType}</Heading>
                             <Text>{item.yearAttained}</Text>
@@ -25,7 +25,7 @@ function EduExpList({eduExpList, handleEditEduExp, handleDeleteEduExp}) {
                             />
                             <DeleteIcon 
                             color='gray.300' mt="-8px" cursor="pointer"
-                            onClick={() => handleDeleteEduExp}
+                            onClick={() => handleDeleteEduExp(index)}
                             />
                         </Box>
 
