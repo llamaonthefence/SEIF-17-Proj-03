@@ -12,10 +12,10 @@ function ProfileSetting() {
   const [formData, setFormData] = useState({
     //Initialising form data state - email address should be pre-filled
     personalDetails: {
-      first_name: "",
-      last_name: "",
+      firstName: "",
+      lastName: "",
       pronoun: "",
-      additional_name: "",
+      additionalName: "",
     },
     contactDetails: {},
     gaExperience: [],
