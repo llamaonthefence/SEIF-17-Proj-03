@@ -25,7 +25,7 @@ function ProfileSetting() {
     skills: "",
   });
 
- const handleInputChange = (section, data) => {
+  const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
       if (Array.isArray(prevFormData[section])) {
         // If the existing section in formData is an array
@@ -80,7 +80,7 @@ function ProfileSetting() {
   return (
     <>
       {/* ProfileSetting Component */}
-      <Box className="ProfileSetting" height="auto" alignContent="center">
+      <Box className="ProfileSetting" alignContent="center">
         <Image />
 
         <ProfilePicUpload

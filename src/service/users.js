@@ -37,7 +37,7 @@ export async function checkSignin() {
   const token = getToken();
   // Delegate the network request code to the users-api.js API module
   // which will ultimately return a JSON Web Token (JWT)
-  const res = await usersAPI.checkSignin(token);
+  const res = await usersAPI.checksignin(token);
   // Baby step by returning whatever is sent back by the server
   return res;
 }
@@ -51,11 +51,21 @@ export async function checkPermission() {
   return res;
 }
 
+// export async function logoutUser() {
+//   const token = getToken();
+//   if (token) {
+//     const res = await usersAPI.logoutUser(token, JSON.parse(atob(token.split(".")[1])).payload);
+//     console.log(token);
+//     removeToken();
+//   }
+//   return res;
+// }
+
 export async function logoutUser() {
+  let res;
   const token = getToken();
   if (token) {
-    const res = await usersAPI.logoutUser(token, JSON.parse(atob(token.split(".")[1])).payload);
-    console.log(token);
+    // const res = await usersAPI.logoutUser(token, JSON.parse(atob(token.split(".")[1])).payload);
     removeToken();
   }
   return res;

@@ -1,18 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  Grid,
-  GridItem,
-  Box,
-  Flex,
-  Text,
-  Button,
-  Spacer,
-  Image,
-  IconButton,
-} from "@chakra-ui/react";
-import { EditJobNav, EditJobGrid } from "../components";
+import { Box, Flex, Text, Spacer, IconButton } from "@chakra-ui/react";
+import { EditJobGrid } from "../components";
 import { FaSort, FaFilter } from "react-icons/fa";
-import { getAllJobs, getUserJobs } from "../service/jobs";
+import { getUserJobs } from "../service/jobs";
+import { getUserIdFromToken } from "../util/security";
 
 function EditPostPage() {
   const [datas, setDatas] = useState([]);
@@ -21,9 +12,8 @@ function EditPostPage() {
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        // const data = await getAllJobs();
-        const userid = "66951a8c09843c3abe28e210";
-        const data = await getUserJobs(userid);
+        const user = getUserIdFromToken();
+        const data = await getUserJobs(user);
         setDatas(data.jobs);
       } catch (error) {
         console.error("Error fetching datas:", error);
