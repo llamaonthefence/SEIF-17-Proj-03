@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './SignInForm.css';
 import logo from '../../assets/group-assembly.png';
+import { hashDataWithSaltRounds, storeToken } from '../../util/security';
+import { getSigninDetails, signinUser } from "../../service/users"
 
 function SignInForm () {
   const [email, setEmail] = useState('');
@@ -8,11 +10,30 @@ function SignInForm () {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!email) setEmailError("Email can't be blank");
-    if (!password) setPasswordError("Password can't be blank");
-  };
+  async function handleSubmit(event) {
+    try {
+      event.preventDefault();
+
+      if (!email) setEmailError("Email can't be blank");
+      if (!password) setPasswordError("Password can't be blank");
+
+      const formData = { email, password };
+
+      const signinDetails  = await getSigninDetails(formData.email);
+
+      const hashedPassword = hashDataWithSaltRounds(formData.password, signinDetails.salt, signinDetails.iterations);
+      formData.password = hashedPassword;
+      console.log(formData);
+
+      const token = await signinUser(formData);
+
+      storeToken(token);
+      
+    } catch (error) {
+      console.log(error);
+      // display error message to the user?
+    }
+  }
 
   return (
     <div className="signin-form">
