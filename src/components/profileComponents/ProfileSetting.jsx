@@ -6,8 +6,13 @@ import ProfilePicUpload from "./ProfilePic";
 import WorkExp from "./WorkExp";
 import EduExp from "./EducationExp";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+// import { getProfile } from "../../api/profiles";
 
 function ProfileSetting() {
+  const navigate = useNavigate(); 
+  // const {listing_id} = useParams()
+
   const [formData, setFormData] = useState({
     //Initialising form data state - email address should be pre-filled
     personalDetails: {
@@ -66,10 +71,31 @@ function ProfileSetting() {
       const result = await response.json();
       alert("Profile saved.");
       console.log("Saved profile:", result);
+
+      //Redirect to profile page with newly created listing_id
+      const newListingId = result.listing_id
+
+      //URL suffix using object_id
+      navigate(`/profile/${newListingId}`, {state: { listing_id: newListingId} })
+
     } catch (error) {
       console.error("Error saving profile:", error);
     }
   };
+
+  //Runs getProfile on mount - should not. 
+  // useEffect(() => {
+  //   const fetchProfileData = async() => {
+  //     try {
+  //       const data = await getProfile(listing_id);
+  //       setFormData(data);
+  //     } catch(error) {
+  //       console.error('Error fetching profile data', error)
+  //     }
+  //   }
+  //   fetchProfileData();
+  // }, [listing_id])
+
 
   const handleCancel = () => {
     window.location.reload();
