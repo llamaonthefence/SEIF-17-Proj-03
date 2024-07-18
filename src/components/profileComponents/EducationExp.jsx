@@ -31,7 +31,7 @@ function EduExp({onChange}) {
       setEduExpList(prevList => {
         const updatedList = [...prevList]
         updatedList.splice(index, 1)
-        setEduExpList(updatedList)
+        return updatedList
       })
     };
 
