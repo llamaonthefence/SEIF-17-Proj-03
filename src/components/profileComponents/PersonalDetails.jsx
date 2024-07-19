@@ -22,13 +22,13 @@ function PersonalDetails({ onChange, userDetails, profileDetails }) {
 
   useEffect(() => {
     if (profileDetails) {
-      console.log("PersonalDetails - userDetails Detected: ", userDetails);
+      // console.log("PersonalDetails - userDetails Detected: ", userDetails);
       setFirstName(profileDetails.personal_details.firstName || "");
       setLastName(profileDetails.personal_details.lastName || "");
       setPronoun(profileDetails.personal_details.pronoun || "");
       setAdditionalName(profileDetails.personal_details.additionalName || "");
     } else if (userDetails) {
-      console.log("PersonalDetails - userDetails Detected: ", userDetails);
+      // console.log("PersonalDetails - userDetails Detected: ", userDetails);
       setFirstName(userDetails.user.firstName || "");
       setLastName(userDetails.user.lastName || "");
     }

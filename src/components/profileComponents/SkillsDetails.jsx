@@ -8,18 +8,23 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import techstacks from "../../constants/techstacks";
-import React from "react";
+import React, { useEffect } from "react";
 
 function SkillsDetails({ onChange, userDetails, profileDetails }) {
   const [selectedSkills, setSelectedSkills] = React.useState([]);
 
+  useEffect(() => {
+    if (profileDetails && profileDetails.skills) {
+      setSelectedSkills(profileDetails.skills);
+    }
+  }, [profileDetails]);
+
   const handleSkillChange = (e) => {
     const selectedSkill = e.target.value;
     if (!selectedSkills.includes(selectedSkill) && selectedSkills.length < 12) {
-      setSelectedSkills([...selectedSkills, selectedSkill]);
-      const skillsArray = [...selectedSkills, selectedSkill];
-      console.log(skillsArray);
-      onChange(skillsArray);
+      const newSkills = [...selectedSkills, selectedSkill];
+      setSelectedSkills(newSkills);
+      onChange(newSkills);
     }
   };
 
@@ -28,7 +33,9 @@ function SkillsDetails({ onChange, userDetails, profileDetails }) {
       (skill) => skill !== skillToRemove
     );
     setSelectedSkills(updatedSkills);
+    onChange(updatedSkills);
   };
+
   return (
     <Box
       className="Skills-Details"
