@@ -8,7 +8,7 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 #### Landing Page
 ![Landing page](src/assets/Screenshot%202024-07-20%20001714.png)
 
-#### Sign Up Page (User Model)
+#### Sign Up Page (User Model & Authentication)
 ![Sign up page](src/assets/signup_pg.png)
 
 #### Opportunities Page (Job Model)
