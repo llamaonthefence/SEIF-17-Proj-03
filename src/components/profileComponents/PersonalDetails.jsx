@@ -9,18 +9,93 @@ import {
   FormLabel,
   IconButton,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EditIcon } from "@chakra-ui/icons";
 import PersonalDetailsEdit from "./PersonalDetailsEdit";
+import { updateProfile, getProfile } from "../../api/profiles";
+import { useParams } from "react-router-dom";
+import { data } from "autoprefixer";
 
 //using ChakraUI "controlled input"
 
-function PersonalDetails({ data, onChange }) {
+function PersonalDetails({ onChange }) {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [pronoun, setPronoun] = React.useState("");
   const [additionalName, setAdditionalName] = React.useState("");
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const {listing_id} = useParams()
+  const [formData, setFormData] = useState({
+
+    personal_details: {
+      firstName: '',
+      lastName: '',
+      pronoun: '',
+      additionalName: '',
+    }
+
+  })
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+
+      try {
+        const data = await getProfile(listing_id)
+        if (data) {
+          console.log('Fetched data:', data);
+          setFormData (
+            { personal_details: {
+              firstName: data.personal_details.firstName,
+              lastName: data.personal_details.lastName,
+              pronoun: data.personal_details.pronoun,
+              additionalName: data.personal_details.additionalName,
+            }}
+          )}
+      } catch (error) {
+        console.error ("Error fetching data", error)
+      }}
+      fetchData()
+  }, [listing_id]);
+
+  const handleChange = (event) => {
+    const {name, value} = event.target
+    setFormData(prevState => {
+      const [section, key] = name.split('.')
+      if (section && key) {
+        return {
+          ...prevState,
+          [section]: {
+            ...prevState[section],
+            [name]: value,
+          }
+        }
+      }
+    })
+  }
+  
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    try {
+      let imageUrl = formData.image;
+      if (formData.image && typeof formData.image !== "string") {
+        imageUrl = await uploadImage(formData.image);
+      }
+      const updatedProfileData = {
+        ...formData,
+        image: imageUrl,
+        listing_id: data.listing_id,
+      };
+
+      console.log('Submitting Data:', updatedProfileData); // Log the data before submitting
+
+      await updateProfile(updatedProfileData); // Ensure jobData object is passed correctly
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  }
 
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
@@ -95,7 +170,7 @@ function PersonalDetails({ data, onChange }) {
                 First Name:
               </FormLabel>
               <Input
-                value={firstName}
+                value={formData.personal_details.firstName}
                 onChange={handleFirstNameChange}
                 placeholder="Enter First Name"
                 size="sm"
@@ -111,7 +186,7 @@ function PersonalDetails({ data, onChange }) {
                 Last Name:
               </FormLabel>
               <Input
-                value={lastName}
+                value={formData.personal_details.lastName}
                 onChange={handleLastNameChange}
                 placeholder="Enter Last Name"
                 size="sm"
@@ -126,7 +201,7 @@ function PersonalDetails({ data, onChange }) {
               Pronoun:
             </Text>
             <Input
-              value={pronoun}
+              value={formData.personal_details.pronoun}
               onChange={handlePronounChange}
               placeholder="Enter Pronoun"
               size="sm"
@@ -140,7 +215,7 @@ function PersonalDetails({ data, onChange }) {
               Additional Name:
             </Text>
             <Input
-              value={additionalName}
+              value={formData.personal_details.additionalName}
               onChange={handleAdditionalNameChange}
               placeholder="Enter Additional Name"
               size="sm"

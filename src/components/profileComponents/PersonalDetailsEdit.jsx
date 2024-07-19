@@ -13,7 +13,6 @@ function PersonalDetailsEdit({isOpen, closeModal, data}) {
         lastName: "",
         pronoun: "",
         additionalName: "",
-        _id: ""
         }
     })
 
@@ -25,7 +24,6 @@ function PersonalDetailsEdit({isOpen, closeModal, data}) {
                     lastName: data.lastName,
                     pronoun: data.pronoun,
                     additionalName: data.additionalName,
-                    _id: ""
                     }
             })
         }

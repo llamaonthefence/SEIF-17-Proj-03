@@ -4,7 +4,7 @@ import { gaBootcamps } from "../../constants/ga-courses";
 import DateInputYear from "./DateInputYear";
 import { v4 as uuidv4 } from 'uuid'
 // import formatDate from "../../util/formatDate";
-
+import { getProfile } from "../../api/profiles";
 
 //using ChakraUI "controlled input"
 

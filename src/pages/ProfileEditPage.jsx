@@ -7,11 +7,11 @@ import ProfilePicUpload from '../components/profileComponents/ProfilePic';
 import WorkExp from '../components/profileComponents/WorkExp';
 import EduExp from '../components/profileComponents/EducationExp';
 import SkillsDetails from '../components/profileComponents/SkillsDetails';
-import { useNavigate, useParams } from 'react-router-dom';
-import { updateProfile, getProfile } from '../api/profiles'; // API functions
+import { useParams } from 'react-router-dom';
+import { updateProfile, getProfile } from '../api/profiles'; 
 import { uploadImage } from "../api/cloudinary";
 
-function ProfileEditPage({data}) {
+function ProfileEditPage() {
   const { listing_id } = useParams(); // Access listing_id from URL params
   const [formData, setFormData] = useState({
     personal_details: {
@@ -34,7 +34,11 @@ function ProfileEditPage({data}) {
 
   useEffect(() => {
 
+    const fetchData = async () => {
     console.log('useEffect Triggered');
+    
+    
+    try {const data = await getProfile(listing_id)
     if (data) {
 
       console.log('Fetched Data:', data); // Log the fetched data
@@ -78,9 +82,12 @@ function ProfileEditPage({data}) {
         profilePic: data.profilePic || null,
         skills: data.skills || '',
       });
-
+    }} catch (error) {
+      console.error("Error fetching profile data", error)
     }
-  }, [data]);
+  } 
+    fetchData() 
+  }, [listing_id]);
 
   const handleChange = (evt) => {
     const { name, value, files } = evt.target;
@@ -218,7 +225,7 @@ function ProfileEditPage({data}) {
               Pronoun:
             </Text>
             <Input
-              value={formData.pronoun}
+              value={formData.personal_details.pronoun}
               onChange={handleChange}
               placeholder="Enter Pronoun"
               size="sm"
@@ -232,7 +239,7 @@ function ProfileEditPage({data}) {
               Additional Name:
             </Text>
             <Input
-              value={formData.additionalName}
+              value={formData.personal_details.additionalName}
               onChange={handleChange}
               placeholder="Enter Additional Name"
               size="sm"
