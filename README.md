@@ -15,7 +15,7 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 ![Sign up page](src/assets/jobs_pg.png)
 
 #### Profile Page (Profile Model)
-![Profiles page](src/assets/profile_pg.png)
+![Profiles page](src/assets/profile.png)
 
 ***
 ## Technologies Used
