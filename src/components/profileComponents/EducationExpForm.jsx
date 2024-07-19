@@ -17,26 +17,14 @@ import formatDate from "../../util/formatDate";
 import { v4 as uuidv4 } from "uuid";
 import qualificationTypes from "../../constants/qualificationTypes";
 import fieldsOfStudy from "../../constants/fieldsOfStudyString";
-import { useEffect } from "react";
 
-function EduDetails({ onSave, profileDetails }) {
+function EduDetails({ onSave }) {
   const [qualificationType, setQualificationType] = React.useState("");
   const [fieldOfStudy, setFieldOfStudy] = React.useState("");
   const [institutionName, setInstitutionName] = React.useState("");
   const [yearAttained, setYearAttained] = React.useState(new Date());
   const [qualificationName, setQualificationName] = React.useState("");
   const [isCurrentEdu, setIsCurrentEdu] = React.useState(false);
-
-  useEffect(() => {
-    if (profileDetails) {
-      setQualificationType(profileDetails.qualificationType || "");
-      setFieldOfStudy(profileDetails.fieldOfStudy || "");
-      setInstitutionName(profileDetails.institutionName || "");
-      setYearAttained(profileDetails.yearAttained || null);
-      setQualificationName(profileDetails.qualificationName || "");
-      setIsCurrentEdu(profileDetails.isCurrentEdu || false);
-    }
-  }, [profileDetails]);
 
   const toggleCurrentEdu = () => {
     setIsCurrentEdu(!isCurrentEdu);
