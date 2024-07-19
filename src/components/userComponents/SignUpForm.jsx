@@ -4,14 +4,16 @@ import "./SignUpForm.css";
 import logo from "../../assets/group-assembly.png";
 import { hashData } from "../../util/security";
 import { signUp } from "../../service/users";
+import locations from "../../constants/locations";
+
 
 function SignUpForm() {
-  const [formState, setFormState] = useState({});
+  const [formState, setFormState] = useState({ });
   const [disable, setDisable] = useState(true);
   const [errorState, setErrorState] = useState({});
 
   function handleChange(evt) {
-    var currForm = formState;
+    var currForm = {...formState};
     currForm[evt.target.name] = evt.target.value;
     setDisable(checkPassword());
     setFormState(currForm);
@@ -21,7 +23,7 @@ function SignUpForm() {
       ...errorState,
       [evt.target.name]: evt.target.value === "",
     });
-  }
+}
 
   // make sure check and password is the same
   function checkPassword() {
@@ -150,9 +152,13 @@ function SignUpForm() {
         <label htmlFor="location" className="form-label">
           Location
         </label>
-        <select id="location" value={location} onChange={handleChange}>
+        <select id="location" value={formState.location} onChange={handleChange}>
           <option value="">Select a country</option>
-          {/* hard-code countries? */}
+            {locations.map((location, index) => (
+                <option key={index} value={location}>
+                    {location}
+                </option>
+            ))}
         </select>
 
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
