@@ -1,6 +1,7 @@
 import { getToken, getUserIdFromToken } from "../util/security";
 
-const BASE_URL = "http://localhost:3000/jobs";
+// const BASE_URL = "http://localhost:3000/jobs";
+const BASE_URL = "https://ga-alumni-network.onrender.com/jobs";
 
 export async function getAllJobs() {
   const createURL = `${BASE_URL}`;

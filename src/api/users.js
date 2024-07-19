@@ -1,5 +1,6 @@
 // This is the base path of the Express route we'll define
-const BASE_URL = "http://localhost:3000/users";
+// const BASE_URL = "http://localhost:3000/users";
+const BASE_URL = "https://ga-alumni-network.onrender.com/users";
 
 export async function signUp(userData) {
   // Fetch uses an options object as a second arg to make requests
