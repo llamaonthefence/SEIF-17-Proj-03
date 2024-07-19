@@ -1,8 +1,60 @@
-# React + Vite
+# GA-Alumni-Network
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a platform for GA's alumni to find each other, to share opportunities and to maximise possibilities! 
 
-Currently, two official plugins are available:
+***
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
+#### Landing Page
+![Landing page](src/assets/Screenshot 2024-07-20 001714.png)
+
+
+***
+## Technologies Used
+* Javascript
+* React JS 
+* MongoDB
+* Mongoose
+
+***
+## Process
+#### Planning & Workflow
+<img src="src/assets/">
+
+#### ERD
+<img src="src/assets/">
+
+#### UI Sketch (Figma)
+<img src="src/assets/">
+
+***
+#### Favourites
+
+
+***
+
+## Challenges Faced 
+
+
+
+
+
+***
+
+## Things we learned
+
+1. Plan 
+2. Do
+
+```
+
+
+***
+
+## Next Steps
+
+
+***
+## Attributions
+* [ChakraUI](https://v2.chakra-ui.com/getting-started) 
+* 
