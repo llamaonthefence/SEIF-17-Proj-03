@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import LogoSVG from "../../assets/group3.svg";
 
-function NavBar() {
+function NavBar({ handleLogout }) {
   const imageStyle = {
     height: "40px",
   };
@@ -80,7 +80,13 @@ function NavBar() {
         </Link>
 
         <Box mx={8}>
-          <Button colorScheme="red" variant="solid" size="lg" align="center">
+          <Button
+            colorScheme="red"
+            variant="solid"
+            size="lg"
+            align="center"
+            onClick={handleLogout}
+          >
             Sign Out
           </Button>
         </Box>

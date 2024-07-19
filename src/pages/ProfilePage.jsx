@@ -30,20 +30,25 @@ function ProfilePage() {
       <Grid
         className="ProfilePage"
         templateAreas={`"nav main"`}
-        gridTemplateRows={"100% 1fr 70vh"}
+        gridTemplateRows={"100% 1fr"}
         gridTemplateColumns={"300px 1fr"}
-        h="auto"
-        gap="0"
         bgColor="gwhite"
       >
         {/* Profile Setting navigation on the left "nav" area  */}
-        <GridItem pl="2" bg="lightgray" alignContent="start" area={"nav"} p={8}>
+        <GridItem
+          pl="2"
+          bg="lightgray"
+          alignContent="start"
+          area={"nav"}
+          p={8}
+          h="auto"
+        >
           <Heading fontSize="2xl">My Profile</Heading>
           <ProfileNav />
         </GridItem>
 
         {/* Setting content on the "main" area */}
-        <GridItem pl="2" bg="white" area={"main"}>
+        <GridItem pl="2" bg="white" area={"main"} mb={8}>
           {/* If page is /profile show ProfileSetting contents */}
           {location.pathname === "/profile" && <ProfileSetting />}
 

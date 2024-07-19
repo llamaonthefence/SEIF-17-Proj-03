@@ -1,3 +1,5 @@
+import { getToken, getUserIdFromToken } from "../util/security";
+
 const BASE_URL = "http://localhost:3000/jobs";
 
 export async function getAllJobs() {
@@ -11,20 +13,24 @@ export async function getAllJobs() {
 }
 
 export async function createJob(jobData) {
-  console.log("api/job jobData: ", JSON.stringify(jobData));
-  const createURL = BASE_URL + '/createjob';
-  console.log(createURL);
-
   try {
+    const token = getToken();
+    const user = getUserIdFromToken();
+
+    console.log("body: ",{ ...jobData, user_id: user })
+
+    const createURL = `${BASE_URL}/createjob`;
+    // console.log("Create URL:", createURL);
+
     const res = await fetch(createURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(jobData),
+      body: JSON.stringify({ ...jobData, user_id: user }), 
     });
 
-    // Log response
     console.log("api/job/createJob POST Response:", res);
 
     if (res.ok) {
@@ -34,22 +40,28 @@ export async function createJob(jobData) {
     }
   } catch (error) {
     console.error("Error creating job:", error);
-    throw error; // Propagate the error further
+    throw error;
   }
 }
 
 export async function updateJob(jobData) {
-  console.log("api/job/updateJob jobData: ", JSON.stringify(jobData));
+  // console.log("api/job/updateJob jobData: ", JSON.stringify(jobData));
+
   const updateURL = `${BASE_URL}/updatejob/${jobData.listing_id}`;
   console.log(updateURL);
 
   try {
+    const token = getToken();
+
+    console.log("body: ",{ ...jobData})
+
     const res = await fetch(updateURL, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(jobData),
+      body: JSON.stringify(jobData), 
     });
 
     console.log("api/job/updatejob PATCH Response:", res);
@@ -66,17 +78,23 @@ export async function updateJob(jobData) {
 }
 
 export async function deleteJob(jobData) {
-  console.log("api/job/deleteJob jobData: ", JSON.stringify(jobData));
+  // console.log("api/job/deleteJob jobData: ", JSON.stringify(jobData));
+
   const updateURL = `${BASE_URL}/deletejob/${jobData.listing_id}`;
   console.log(updateURL);
 
   try {
+    const token = getToken();
+
+    console.log("body: ",{ ...jobData})
+
     const res = await fetch(updateURL, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(jobData),
+      body: JSON.stringify(jobData), 
     });
 
     console.log("api/job/deleteJob DELETE Response:", res);

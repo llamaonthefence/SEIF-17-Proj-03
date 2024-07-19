@@ -25,7 +25,7 @@ function ProfileSetting() {
     profilePic: null,
     skills: "",
   });
-
+  
   const handleImageUpload = async (file) => {
     try {
       const folder = "profile_pics"
@@ -38,7 +38,6 @@ function ProfileSetting() {
       console.error('Error uploading image:', error)
     }
   }
-
 
  const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
@@ -96,6 +95,7 @@ function ProfileSetting() {
     <>
       {/* ProfileSetting Component */}
       <Box className="ProfileSetting" height="auto" alignContent="center">
+        <Image />
 
         {/* Preview profile pic */}
         {formData.profilePic && (
