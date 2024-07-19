@@ -32,7 +32,7 @@ function ProfileSetting() {
     workExperience: [],
     educationExperience: [],
     profilePic: null,
-    skills: "",
+    skills: [],
   });
 
   const handleImageUpload = async (file) => {
@@ -139,7 +139,7 @@ function ProfileSetting() {
         workExperience: profileDetails.work_experience || [],
         educationExperience: profileDetails.education_experience || [],
         profilePic: profileDetails.profile_pic || null,
-        skills: profileDetails.skills || "",
+        skills: profileDetails.skills || [],
       });
     } else if (userDetails) {
       console.log("ProfileSettings - userDetails Detected: ", userDetails);
@@ -157,7 +157,7 @@ function ProfileSetting() {
         workExperience: [],
         educationExperience: [],
         profilePic: null,
-        skills: "",
+        skills: [],
       });
     }
   }, [profileDetails, userDetails]);

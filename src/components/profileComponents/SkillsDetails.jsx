@@ -9,17 +9,32 @@ import {
 } from "@chakra-ui/react";
 import techstacks from "../../constants/techstacks";
 import React from "react";
+import { useEffect } from "react";
 
-function SkillsDetails({ onChange, userDetails, profileDetails }) {
+function SkillsDetails({ onChange, profileDetails }) {
   const [selectedSkills, setSelectedSkills] = React.useState([]);
+
+  useEffect(() => {
+    if (profileDetails) {
+      console.log("SkillsDetails - profileDetails Detected: ", profileDetails);
+      // setSelectedSkills(profileDetails.skills);
+      setSelectedSkills(Array.isArray(profileDetails.skills) ? profileDetails.skills : [])
+    } 
+  }, [profileDetails]);
 
   const handleSkillChange = (e) => {
     const selectedSkill = e.target.value;
     if (!selectedSkills.includes(selectedSkill) && selectedSkills.length < 12) {
-      setSelectedSkills([...selectedSkills, selectedSkill]);
-      const skillsArray = [...selectedSkills, selectedSkill];
-      console.log(skillsArray);
-      onChange(skillsArray);
+      // setSelectedSkills([...selectedSkills, selectedSkill]);
+      // const skillsArray = [...selectedSkills, selectedSkill];
+      // console.log(skillsArray);
+      // onChange(skillsArray);
+      setSelectedSkills((prevSkills) => {
+        const updatedSkills = [...prevSkills, selectedSkill]
+        onChange(updatedSkills); 
+        return updatedSkills
+      })
+
     }
   };
 
@@ -53,7 +68,7 @@ function SkillsDetails({ onChange, userDetails, profileDetails }) {
       <Select
         name="skills"
         placeholder="Select a skill"
-        value=""
+        value={selectedSkills}
         onChange={handleSkillChange}
       >
         {techstacks.map((skill) => (
