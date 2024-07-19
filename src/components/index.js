@@ -14,6 +14,7 @@ export { default as OpportunitiesQueryBar } from "./listComponents/Opportunities
 // Page components
 export { default as Navbar } from "./pageComponents/NavBar";
 export { default as Footer } from "./pageComponents/Footer";
+export { default as NoUserNavBar } from "./pageComponents/NoUserNavBar"
 
 // Profile components
 export { default as CreatedPostSetting } from "./profileComponents/CreatedPostSetting"

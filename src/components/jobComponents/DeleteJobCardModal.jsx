@@ -21,6 +21,7 @@ function DeleteJobCardModal({ isOpen, closeModal, data }) {
 
       // Close modal after deletion
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error("Error deleting job:", error);
     }
