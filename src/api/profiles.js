@@ -1,7 +1,8 @@
 import { getToken, getUserIdFromToken, getListingIdFromToken } from "../util/security";
 // import ProfileFakeData from "../components/testComponents/ProfileFakeData"
 
-const BASE_URL = "http://localhost:3000/profile";
+// const BASE_URL = "http://localhost:3000/profile";
+const BASE_URL = "https://ga-alumni-network.onrender.com/profile";
 
 export async function getAllProfiles() {
   try {
