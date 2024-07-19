@@ -10,6 +10,16 @@ export async function getAllProfiles() {
   }
 }
 
+export async function getUserProfile(listing_id) {
+  try {
+    const profile = await profilesAPI.getProfile(listing_id);
+    return profile;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
+}
+
 export async function updateProfile(profileData) {
   try {
     console.log("service/profile/updateProfile:", profileData)
