@@ -17,13 +17,14 @@ function SkillsDetails({ onChange, profileDetails }) {
   useEffect(() => {
     if (profileDetails) {
       console.log("SkillsDetails - profileDetails Detected: ", profileDetails);
-      // setSelectedSkills(profileDetails.skills);
-      setSelectedSkills(Array.isArray(profileDetails.skills) ? profileDetails.skills : [])
+      setSelectedSkills(profileDetails.skills);
+      // setSelectedSkills(Array.isArray(profileDetails.skills) ? profileDetails.skills : [])
     } 
   }, [profileDetails]);
 
   const handleSkillChange = (e) => {
     const selectedSkill = e.target.value;
+    console.log("Selected Skill: ", selectedSkill);
     if (!selectedSkills.includes(selectedSkill) && selectedSkills.length < 12) {
       // setSelectedSkills([...selectedSkills, selectedSkill]);
       // const skillsArray = [...selectedSkills, selectedSkill];
@@ -31,6 +32,7 @@ function SkillsDetails({ onChange, profileDetails }) {
       // onChange(skillsArray);
       setSelectedSkills((prevSkills) => {
         const updatedSkills = [...prevSkills, selectedSkill]
+        console.log("Updated Skills: ", updatedSkills);
         onChange(updatedSkills); 
         return updatedSkills
       })
