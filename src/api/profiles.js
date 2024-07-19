@@ -1,3 +1,4 @@
+import { getToken, getUserIdFromToken, getListingIdFromToken } from "../util/security";
 // import ProfileFakeData from "../components/testComponents/ProfileFakeData"
 
 const BASE_URL = "http://localhost:3000/profile";
@@ -12,15 +13,17 @@ export async function getAllProfiles() {
   }
 }
 
-export async function getProfile (listing_id) {
+export async function getProfile (userid) {
   try {
-    const response = await fetch (`${BASE_URL}/${listing_id}`)
+    const response = await fetch (`${BASE_URL}/${userid}`)
     
     if (!response.ok) {
       throw new Error("Failed to fetch profile")
     }
 
-    const profileData = await response.json();
+    const res = await response.json();
+    const profileData = res.profile[0]
+    // console.log("API profileData: ", profileData)
     return profileData; 
   } catch (error) {
     console.error("Error fetching profile data:", error);
@@ -30,30 +33,27 @@ export async function getProfile (listing_id) {
   
 }
 
-// Replace FAKE_DATABASE with ProfileFakeData
-// export async function getAllProfileData() {
-//     // Simulating a delay to mock async behavior (optional)
-//     await new Promise(resolve => setTimeout(resolve, 1000));
-  
-//     // Return the fake data directly
-//     return ProfileFakeData;
-//   }
-
 export async function updateProfile(profileData) {
-  console.log("api/profile/updateProfile profileData:", JSON.stringify(profileData))
-  const updateURL = `${BASE_URL}/${profileData.listing_id}`;
-  console.log(updateURL); 
-
   try {
+    const token = getToken();
+    const user = getUserIdFromToken();
+    const listing_id = profileData.listing_id;
+    // console.log("listing_id: ", profileData.listing_id)
+    // console.log("api/profile/updateProfile:", profileData)
+    const updateURL = `${BASE_URL}/${listing_id}`;
+    console.log(updateURL); 
+  
+    // console.log("body: ",{ ...profileData, user_id: user, listing_id: listing_id })
     const res = await fetch (updateURL, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       }, 
-      body: JSON.stringify(profileData)
+      body: JSON.stringify({ ...profileData, user_id: user, listing_id: listing_id }), 
     })
 
-    console.log("api/profile/updateProfile PATCH Response:", res)
+    // console.log("api/profile/updateProfile PATCH Response:", res)
 
     if (res.ok) {
       return res.json();
@@ -63,5 +63,37 @@ export async function updateProfile(profileData) {
   } catch (error) {
     console.error("error updating profile:", error)
     throw error; 
+  }
+}
+
+export async function createProfile(profileData) {
+  try {
+    const token = getToken();
+    const user = getUserIdFromToken();
+
+    console.log("body: ",{ ...profileData, user_id: user })
+
+    const createURL = `${BASE_URL}/`;
+    // console.log("Create URL:", createURL);
+
+    const res = await fetch(createURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ ...profileData, user_id: user }), 
+    });
+
+    // console.log("api/job/createProfile POST Response:", res);
+
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Invalid profile creation");
+    }
+  } catch (error) {
+    console.error("Error creating profile:", error);
+    throw error;
   }
 }

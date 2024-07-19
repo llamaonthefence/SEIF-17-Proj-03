@@ -53,6 +53,26 @@ export function getUserIdFromToken() {
     throw new Error('User not authenticated');
   }
   const payload = JSON.parse(atob(token.split(".")[1]));
-  console.log("payload: ",payload)
+  // console.log("payload: ",payload)
   return payload.payload.user;
+}
+
+export function getListingIdFromToken() {
+  const token = getToken();
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  console.log("payload: ",payload)
+  return payload.listing_id;
+}
+
+export function getEmailFromToken() {
+  const token = getToken();
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  console.log("payload: ",payload)
+  return payload.payload.email;
 }
