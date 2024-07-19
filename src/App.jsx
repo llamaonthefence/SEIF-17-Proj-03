@@ -44,7 +44,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/signin" element={<SignInPage />} />
-
+                  
                 {/* Protected Routes */}
                 {user && (
                   <>
@@ -65,6 +65,7 @@ function App() {
                     />
                   </>
                 )}
+                
                 {/* Redirect to home if trying to access protected routes when not logged in */}
                 {!user && (
                   <>

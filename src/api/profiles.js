@@ -26,6 +26,8 @@ export async function getProfile (listing_id) {
     console.error("Error fetching profile data:", error);
     throw error; 
   }
+
+  
 }
 
 // Replace FAKE_DATABASE with ProfileFakeData
