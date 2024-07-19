@@ -9,6 +9,7 @@ import {
   OpportunitiesPage,
   HomePage,
   ProfilePage,
+  ProfileEditPage,
   CreatePostPage,
   EditPostPage,
 } from "./pages";
@@ -40,6 +41,7 @@ function App() {
                   path="/opportunities/edit-post"
                   element={<EditPostPage />}
                 />
+                <Route path="/profile/:listing_id" element={<ProfileEditPage/>} />
                 <Route path="/profile/*" element={<ProfilePage />} />
               </Routes>
             </div>

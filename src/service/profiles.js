@@ -10,3 +10,12 @@ export async function getAllProfiles() {
   }
 }
 
+export async function updateProfile(profileData) {
+  try {
+    console.log("service/profile/updateProfile:", profileData)
+    await profilesAPI.updateProfile(profileData)
+  } catch (error) {
+    console.error("Error updating profile", error)
+    throw error
+  }
+}
