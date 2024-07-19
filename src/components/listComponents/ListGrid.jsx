@@ -33,39 +33,26 @@ function ListGrid({ datas, isCreatedPostPage, currentPage, setCurrentPage }) {
       <Box className="ListGrid" px={8}>
         {/* Mapped created posts in Grid */}
         <SimpleGrid columns={5} spacing={4} h="3xl">
-          {currentData.map((data, index) =>
-            isCreatedPostPage ? (
-              // Create Post details
-              <PostCard
-                key={index}
-                id={data.id}
-                companyName={data.companyName}
-                jobRole={data.jobRole}
-                contract={data.contract}
-                place={data.place}
-                image={data.image}
-                salary={data.salary}
-                cert={data.cert}
-                data={data}
-              />
-            ) : (
-              // Show Profile details
-              <ProfileCard
-                key={index}
-                id={data.id}
-                firstName={data.firstName}
-                lastName={data.lastName}
-                year={data.year}
-                course={data.course}
-                image={data.image}
-                specialist={data.specialist}
-                skills={data.skills}
-                languages={data.languages}
-                bio={data.bio}
-                data={data}
-              />
-            )
-          )}
+          {currentData.map((data, index) => (
+            <ProfileCard
+              key={index}
+              id={data.listing_id}
+              firstName={data.personal_details.firstName}
+              lastName={data.personal_details.lastName}
+              pronoun={data.personal_details.pronoun}
+              additionalName={data.personal_details.additionalName}
+              email={data.contact_details.email}
+              githubLink={data.contact_details.githubLink}
+              phone={data.contact_details.phone}
+              website={data.contact_details.website}
+              gaExperience={data.ga_experience}
+              workExperience={data.work_experience}
+              educationExperience={data.education_experience}
+              skills={data.skills}
+              profilePic={data.profilePic}
+              user_id={data.user_id}
+            />
+          ))}
         </SimpleGrid>
       </Box>
       <Box py={4}>

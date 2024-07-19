@@ -20,6 +20,7 @@ function MeetPage() {
     try {
       const profiles = await getAllProfiles();
       setDatas(profiles);
+      console.log("profiles: ", profiles);
       setFilteredDatas(profiles);
     } catch (error) {
       console.error("Error fetching profiles:", error);
