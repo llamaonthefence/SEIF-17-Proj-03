@@ -9,16 +9,18 @@ import {
   FormLabel,
   IconButton,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { EditIcon } from "@chakra-ui/icons";
+import PersonalDetailsEdit from "./PersonalDetailsEdit";
 
 //using ChakraUI "controlled input"
 
-function PersonalDetails({ onChange }) {
+function PersonalDetails({ data, onChange }) {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [pronoun, setPronoun] = React.useState("");
   const [additionalName, setAdditionalName] = React.useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
@@ -44,6 +46,15 @@ function PersonalDetails({ onChange }) {
     onChange({ additionalName: value });
   };
 
+  const handleOpenModal = (event) => {
+    event.stopPropagation()
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <Box
       className="personal-details"
@@ -54,6 +65,7 @@ function PersonalDetails({ onChange }) {
       m={10}
       p={5}
       position="relative"
+      
     >
 
     <IconButton icon={<EditIcon/>}
@@ -61,9 +73,7 @@ function PersonalDetails({ onChange }) {
     position="absolute"
     top={2}
     right={2}
-    onClick={() => {
-      console.log("open edit modal")
-    }}>
+    onClick={handleOpenModal}>
     </IconButton>
 
       <Heading
@@ -138,6 +148,13 @@ function PersonalDetails({ onChange }) {
           </Box>
         </GridItem>
       </Grid>
+
+      {isModalOpen && (
+        <PersonalDetailsEdit isOpen={isModalOpen} closeModal={handleCloseModal}
+        data={{ firstName, lastName, pronoun, additionalName }}
+        />
+      )}
+
     </Box>
   );
 }
