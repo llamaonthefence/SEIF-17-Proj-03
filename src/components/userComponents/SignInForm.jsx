@@ -38,9 +38,7 @@ function SignInForm() {
 
       storeToken(token);
 
-      const listing_id = getListingIdFromToken();
-
-      window.location.href = `/profile/:${listing_id}`;
+      window.location.href = `/profile`;
     } catch (error) {
       console.log(error);
       // display error message to the user?
