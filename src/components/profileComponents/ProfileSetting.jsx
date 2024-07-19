@@ -1,3 +1,4 @@
+// ProfileSettings.jsx
 import { Box, Image, Button } from "@chakra-ui/react";
 import PersonalDetails from "./PersonalDetails";
 import ContactDetails from "./ContactDetails";
@@ -32,21 +33,8 @@ function ProfileSetting() {
     workExperience: [],
     educationExperience: [],
     profilePic: null,
-    skills: "",
+    skills: [],
   });
-
-  const handleImageUpload = async (file) => {
-    try {
-      const folder = "profile_pics";
-      const imageURL = await uploadImage(file, folder);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        profilePic: imageURL,
-      }));
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-  };
 
   const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
@@ -70,6 +58,13 @@ function ProfileSetting() {
     });
   };
 
+  const handleProfilePicChange = (file) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      profilePic: file,
+    }));
+  };
+
   const handleSubmit = async () => {
     console.log("FormData before submission:", formData);
 
@@ -77,8 +72,17 @@ function ProfileSetting() {
       const user = getUserIdFromToken();
       const userId = await getProfileDetails(user);
 
+      let imageUrl = formData.profilePic;
+      if (formData.profilePic && typeof formData.profilePic !== "string") {
+        imageUrl = await uploadImage(formData.profilePic, "profile_pics");
+      }
+
       if (userId) {
-        const updatedFormData = { ...formData, listing_id: userId.listing_id };
+        const updatedFormData = {
+          ...formData,
+          listing_id: userId.listing_id,
+          profilePic: imageUrl,
+        };
         await updateProfile(updatedFormData);
         alert("Profile updated.");
       } else {
@@ -99,7 +103,6 @@ function ProfileSetting() {
       const userId = getUserIdFromToken();
       const details = await getUserDetails(userId);
       setUserDetails(details);
-      // console.log("userDetails: ", details);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -110,7 +113,6 @@ function ProfileSetting() {
       const userId = getUserIdFromToken();
       const details = await getProfileDetails(userId);
       setProfileDetails(details);
-      // console.log("profileDetails: ", details);
     } catch (error) {
       console.error("Error fetching profile details:", error);
     }
@@ -123,11 +125,8 @@ function ProfileSetting() {
 
   useEffect(() => {
     if (profileDetails) {
-      console.log(
-        "ProfileSettings - profileDetails Detected: ",
-        profileDetails
-      );
-      setFormData({
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         personalDetails: {
           firstName: profileDetails.personal_details.firstName || "",
           lastName: profileDetails.personal_details.lastName || "",
@@ -138,16 +137,16 @@ function ProfileSetting() {
         gaExperience: profileDetails.ga_experience || [],
         workExperience: profileDetails.work_experience || [],
         educationExperience: profileDetails.education_experience || [],
-        profilePic: profileDetails.profile_pic || null,
-        skills: profileDetails.skills || "",
-      });
+        profilePic: profileDetails.profilePic || null,
+        skills: profileDetails.skills || [],
+      }));
     } else if (userDetails) {
-      console.log("ProfileSettings - userDetails Detected: ", userDetails);
-      setFormData({
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         personalDetails: {
           firstName: userDetails.firstName || "",
           lastName: userDetails.lastName || "",
-          pronoun: "", // Default values for userDetails
+          pronoun: "",
           additionalName: "",
         },
         contactDetails: {
@@ -157,18 +156,19 @@ function ProfileSetting() {
         workExperience: [],
         educationExperience: [],
         profilePic: null,
-        skills: "",
-      });
+        skills: [],
+      }));
     }
   }, [profileDetails, userDetails]);
 
   return (
     <Box className="ProfileSetting" height="auto" alignContent="center">
       <Image />
-      {formData.profilePic
-      // (<Image src={formData.profilePic} alt="user-profile-picture" />)
-      }
-      <ProfilePicUpload onUpload={handleImageUpload} />
+      <ProfilePicUpload
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+        onProfilePicChange={handleProfilePicChange} // Pass callback to ProfilePicUpload
+      />
       <PersonalDetails
         onChange={(data) => handleInputChange("personalDetails", data)}
         profileDetails={profileDetails}

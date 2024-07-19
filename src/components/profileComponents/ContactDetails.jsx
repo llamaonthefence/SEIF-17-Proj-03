@@ -30,13 +30,13 @@ function ContactDetails({ onChange, userDetails, profileDetails }) {
 
   useEffect(() => {
     if (profileDetails) {
-      console.log("ContactDetails - userDetails Detected: ", userDetails);
+      // console.log("ContactDetails - userDetails Detected: ", userDetails);
       setEmail(profileDetails.contact_details.email || ""); // Updated based on your schema
       setGithubLink(profileDetails.contact_details.githubLink || "");
       setPhone(profileDetails.contact_details.phone || "");
       setWebsite(profileDetails.contact_details.website || "");
     } else if (userDetails) {
-      console.log("ContactDetails - userDetails Detected: ", userDetails);
+      // console.log("ContactDetails - userDetails Detected: ", userDetails);
       setEmail(userDetails.user.email || ""); // Updated based on your schema
     }
   }, [userDetails, profileDetails]);

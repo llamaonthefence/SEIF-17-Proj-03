@@ -23,7 +23,7 @@ export async function getProfile (userid) {
 
     const res = await response.json();
     const profileData = res.profile[0]
-    // console.log("API profileData: ", profileData)
+    console.log("API getProfile profileData: ", profileData)
     return profileData; 
   } catch (error) {
     console.error("Error fetching profile data:", error);
@@ -39,11 +39,11 @@ export async function updateProfile(profileData) {
     const user = getUserIdFromToken();
     const listing_id = profileData.listing_id;
     // console.log("listing_id: ", profileData.listing_id)
-    // console.log("api/profile/updateProfile:", profileData)
+    console.log("api/profile/updateProfile:", profileData)
     const updateURL = `${BASE_URL}/${listing_id}`;
     console.log(updateURL); 
   
-    // console.log("body: ",{ ...profileData, user_id: user, listing_id: listing_id })
+    console.log("API updateProfile body: ",{ ...profileData, user_id: user, listing_id: listing_id })
     const res = await fetch (updateURL, {
       method: "PATCH",
       headers: {
