@@ -61,12 +61,12 @@ function WorkExp({onChange}) {
 
     // const handleWorkExpListChange = (event) => setWorkExpList(event.target.value)
 
-    // const handleEditWorkExp = (index) => {
-    //     // Set editIndex to the idx of item being edited
-    //     setEditIndex(index)
-    //     setCurrentWorkExp(workExpList[index]) 
-    //     setIsModalOpen(true); 
-    // }
+    const handleEditWorkExp = (index) => {
+        // Set editIndex to the idx of item being edited
+        setEditIndex(index)
+        setCurrentWorkExp(workExpList[index]) 
+        setIsModalOpen(true); 
+    }
 
     const handleDeleteWorkExp = (index) => {
         // const updatedList = [...workExperienceList]
@@ -109,7 +109,7 @@ function WorkExp({onChange}) {
                 {/* <WorkDetails onSave={handleSaveWorkExp} />  */}
                  <WorkExpList 
                  workExpList={workExperienceList} 
-                //  handleEditWorkExp={handleEditWorkExp} 
+                 handleEditWorkExp={handleEditWorkExp} 
                  handleDeleteWorkExp={handleDeleteWorkExp}/> 
                 
                 {/* <Box>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Box, Heading, Text } from "@chakra-ui/react";
+import { Grid, GridItem, Box, Heading, Text, IconButton } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import React from 'react'
 
 function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
 
@@ -8,26 +9,38 @@ function WorkExpList ({workExpList, handleEditWorkExp, handleDeleteWorkExp}) {
         <Grid templateColumns='repeat(6, 1fr)'>
             
                 {workExpList.map((item, index) => (
-                    <GridItem key={item.id}>
-                        <Box>
-                            <Heading>{item.jobTitle}</Heading>
-                            <Text>{item.companyName}</Text>
+
+          <GridItem key={item.id} colSpan={6}>
+        
+                <Box maxW="100%" borderWidth="1px" borderRadius="lg" m={2}>   
+                  <Grid templateColumns='repeat(6, 1fr)'>
+                    <GridItem colSpan={5}>
+                      <Box textAlign="left" p={2}>
+                            <Heading as="h4" size="md">{item.jobTitle} | {item.companyName}</Heading>
                             <Text>{item.fromDate} - {item.isCurrentJob ? "Present" : item.toDate}</Text>
                             <Text>{item.workDescription}</Text>
-                        </Box>
-                        
-                        <Box>
-                            <EditIcon 
-                            color='gray.300' mt="-8px" mr="2" cursor="pointer"
-                            onClick={() => handleEditWorkExp(index)}
-                            />
-                            <DeleteIcon 
-                            color='gray.300' mt="-8px" cursor="pointer"
-                            onClick={() => handleDeleteWorkExp(index)}
-                            />
-                        </Box>
-
+                          </Box>
                     </GridItem>
+
+                    <GridItem colSpan={1} display="flex" alignItems="center">
+                    <IconButton
+                      aria-label="Edit"
+                      icon={<EditIcon />}
+                      colorScheme="blue"
+                      onClick={() => handleEditWorkExp(index)}
+                      mr={2}
+                    />
+                    <IconButton
+                      aria-label="Delete"
+                      icon={<DeleteIcon />}
+                      colorScheme="red"
+                      onClick={() => handleDeleteWorkExp(index)}
+                    />
+                    </GridItem>
+                  </Grid>
+                </Box>   
+
+          </GridItem>
                 ))}
         
         </Grid>
