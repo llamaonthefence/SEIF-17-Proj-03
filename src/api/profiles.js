@@ -4,12 +4,16 @@ import { getToken, getUserIdFromToken, getListingIdFromToken } from "../util/sec
 const BASE_URL = "http://localhost:3000/profile";
 
 export async function getAllProfiles() {
-  const createURL = `${BASE_URL}`;
-  const res = await fetch(createURL);
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Failed to fetch profiles");
+  try {
+    const res = await fetch(BASE_URL);
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error(`Failed to fetch profiles: ${res.statusText}`);
+    }
+  } catch (error) {
+    console.error("Error in API call:", error);
+    throw error;
   }
 }
 

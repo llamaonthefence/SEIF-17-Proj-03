@@ -2,7 +2,7 @@ import * as profilesAPI from "../api/profiles";
 
 export async function getAllProfiles() {
   try {
-    const profiles = await profilesAPI.getAllProfileData();
+    const { profiles } = await profilesAPI.getAllProfiles(); // Assuming the API response has a "profiles" field
     return profiles;
   } catch (error) {
     console.error("Error fetching profiles:", error);
