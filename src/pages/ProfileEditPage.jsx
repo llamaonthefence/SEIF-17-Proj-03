@@ -118,7 +118,7 @@ function ProfileEditPage() {
         ...formData,
         image: imageUrl,
         skills: selectedSkills,
-        listing_id: formData.listing_id,
+        listing_id: listing_id,
       };
 
       console.log("Submitting Data:", updatedProfileData); // Log the data before submitting
