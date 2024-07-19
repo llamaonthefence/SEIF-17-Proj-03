@@ -13,7 +13,7 @@ export async function signUp(userData) {
 export async function getSigninDetails(email) {
     // Delegate the network request code to the users-api.js API module
     // which will ultimately return a JSON Web Token (JWT)
-    console.log("getSigninDetails", email)
+    // console.log("getSigninDetails", email)
     const signinDetails = await usersAPI.getSigninDetails(email);
     // Baby step by returning whatever is sent back by the server
     return signinDetails;
@@ -69,4 +69,9 @@ export async function logoutUser() {
     removeToken();
   }
   return res;
+}
+
+export async function getUserDetails(userid) {
+  const userDetails = await usersAPI.getUserDetails(userid);
+  return userDetails;
 }

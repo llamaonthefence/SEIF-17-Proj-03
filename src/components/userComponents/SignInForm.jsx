@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignInForm.css";
 import logo from "../../assets/group-assembly.png";
-import { hashDataWithSaltRounds, storeToken } from "../../util/security";
+import {
+  hashDataWithSaltRounds,
+  storeToken,
+  getListingIdFromToken,
+} from "../../util/security";
 import { getSigninDetails, signinUser } from "../../service/users";
 
 function SignInForm() {
@@ -34,7 +38,7 @@ function SignInForm() {
 
       storeToken(token);
 
-      window.location.href = "/";
+      window.location.href = `/profile`;
     } catch (error) {
       console.log(error);
       // display error message to the user?

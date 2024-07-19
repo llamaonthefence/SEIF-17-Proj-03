@@ -17,7 +17,7 @@ export async function createJob(jobData) {
     const token = getToken();
     const user = getUserIdFromToken();
 
-    console.log("body: ",{ ...jobData, user_id: user })
+    // console.log("body: ",{ ...jobData, user_id: user })
 
     const createURL = `${BASE_URL}/createjob`;
     // console.log("Create URL:", createURL);
@@ -52,8 +52,9 @@ export async function updateJob(jobData) {
 
   try {
     const token = getToken();
+    const user = getUserIdFromToken();
 
-    console.log("body: ",{ ...jobData})
+    // console.log("body: ",{ ...jobData, user_id: user })
 
     const res = await fetch(updateURL, {
       method: "PATCH",
@@ -61,7 +62,7 @@ export async function updateJob(jobData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(jobData), 
+      body: JSON.stringify({ ...jobData, user_id: user }), 
     });
 
     console.log("api/job/updatejob PATCH Response:", res);
@@ -85,16 +86,16 @@ export async function deleteJob(jobData) {
 
   try {
     const token = getToken();
+    const user = getUserIdFromToken();
 
-    console.log("body: ",{ ...jobData})
-
+    // console.log("body: ",{ ...jobData, user_id: user })
     const res = await fetch(updateURL, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(jobData), 
+      body: JSON.stringify({ ...jobData, user_id: user }), 
     });
 
     console.log("api/job/deleteJob DELETE Response:", res);

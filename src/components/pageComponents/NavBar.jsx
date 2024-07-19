@@ -72,7 +72,7 @@ function NavBar({ handleLogout }) {
           </Box>
         </Link>
 
-        <Link to="/profile">
+        <Link to={`/profile`}>
           <Box align="center" mx={8} size={50}>
             <Image src="./profilelogo.png" alt="Profile" style={imageStyle} />
             <Text fontWeight="semibold">Profile</Text>
