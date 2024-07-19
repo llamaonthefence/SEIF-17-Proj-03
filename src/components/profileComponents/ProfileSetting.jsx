@@ -6,12 +6,21 @@ import ProfilePicUpload from "./ProfilePic";
 import WorkExp from "./WorkExp";
 import EduExp from "./EducationExp";
 import SkillsDetails from "./SkillsDetails";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { uploadImage } from "../../api/cloudinary";
+import { getUserIdFromToken } from "../../util/security";
+import { getUserDetails } from "../../service/users";
+import {
+  getProfileDetails,
+  updateProfile,
+  createProfile,
+} from "../../service/profiles";
 
 function ProfileSetting() {
+  const [userDetails, setUserDetails] = useState(null);
+  const [profileDetails, setProfileDetails] = useState(null);
+
   const [formData, setFormData] = useState({
-    //Initialising form data state - email address should be pre-filled
     personalDetails: {
       firstName: "",
       lastName: "",
@@ -25,30 +34,28 @@ function ProfileSetting() {
     profilePic: null,
     skills: "",
   });
-  
+
   const handleImageUpload = async (file) => {
     try {
-      const folder = "profile_pics"
+      const folder = "profile_pics";
       const imageURL = await uploadImage(file, folder);
       setFormData((prevFormData) => ({
-        ...prevFormData, 
-        profilePic: imageURL, 
+        ...prevFormData,
+        profilePic: imageURL,
       }));
     } catch (error) {
-      console.error('Error uploading image:', error)
+      console.error("Error uploading image:", error);
     }
-  }
+  };
 
- const handleInputChange = (section, data) => {
+  const handleInputChange = (section, data) => {
     setFormData((prevFormData) => {
       if (Array.isArray(prevFormData[section])) {
-        // If the existing section in formData is an array
         return {
           ...prevFormData,
-          [section]: [...data], // Assuming data is always an array for array fields
+          [section]: [...data],
         };
       } else if (typeof prevFormData[section] === "object") {
-        // If the existing section in formData is an object (non-array)
         return {
           ...prevFormData,
           [section]: {
@@ -57,31 +64,27 @@ function ProfileSetting() {
           },
         };
       } else {
-        // If it's neither an array nor an object, handle accordingly
         console.warn(`Unknown data type for section ${section}`);
-        return prevFormData; // Or handle the scenario based on your app logic
+        return prevFormData;
       }
     });
   };
 
   const handleSubmit = async () => {
+    console.log("FormData before submission:", formData);
+
     try {
-      console.log(formData);
-      const response = await fetch("http://localhost:3000/profile/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const user = getUserIdFromToken();
+      const userId = await getProfileDetails(user);
 
-      if (!response.ok) {
-        throw new Error("Failed to save profile.");
+      if (userId) {
+        const updatedFormData = { ...formData, listing_id: userId.listing_id };
+        await updateProfile(updatedFormData);
+        alert("Profile updated.");
+      } else {
+        await createProfile(formData);
+        alert("Profile created.");
       }
-
-      const result = await response.json();
-      alert("Profile saved.");
-      console.log("Saved profile:", result);
     } catch (error) {
       console.error("Error saving profile:", error);
     }
@@ -91,49 +94,120 @@ function ProfileSetting() {
     window.location.reload();
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const userId = getUserIdFromToken();
+      const details = await getUserDetails(userId);
+      setUserDetails(details);
+      // console.log("userDetails: ", details);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
+  const fetchProfileDetails = async () => {
+    try {
+      const userId = getUserIdFromToken();
+      const details = await getProfileDetails(userId);
+      setProfileDetails(details);
+      // console.log("profileDetails: ", details);
+    } catch (error) {
+      console.error("Error fetching profile details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+    fetchProfileDetails();
+  }, []);
+
+  useEffect(() => {
+    if (profileDetails) {
+      console.log(
+        "ProfileSettings - profileDetails Detected: ",
+        profileDetails
+      );
+      setFormData({
+        personalDetails: {
+          firstName: profileDetails.personal_details.firstName || "",
+          lastName: profileDetails.personal_details.lastName || "",
+          pronoun: profileDetails.personal_details.pronoun || "",
+          additionalName: profileDetails.personal_details.additionalName || "",
+        },
+        contactDetails: profileDetails.contact_details || {},
+        gaExperience: profileDetails.ga_experience || [],
+        workExperience: profileDetails.work_experience || [],
+        educationExperience: profileDetails.education_experience || [],
+        profilePic: profileDetails.profile_pic || null,
+        skills: profileDetails.skills || "",
+      });
+    } else if (userDetails) {
+      console.log("ProfileSettings - userDetails Detected: ", userDetails);
+      setFormData({
+        personalDetails: {
+          firstName: userDetails.firstName || "",
+          lastName: userDetails.lastName || "",
+          pronoun: "", // Default values for userDetails
+          additionalName: "",
+        },
+        contactDetails: {
+          email: userDetails.email || "",
+        },
+        gaExperience: [],
+        workExperience: [],
+        educationExperience: [],
+        profilePic: null,
+        skills: "",
+      });
+    }
+  }, [profileDetails, userDetails]);
+
   return (
-    <>
-      {/* ProfileSetting Component */}
-      <Box className="ProfileSetting" height="auto" alignContent="center">
-        <Image />
-
-        {/* Preview profile pic */}
-        {formData.profilePic  
-        // (<Image src={formData.profilePic} alt="user-profile-picture"/>)
-        }
-
-        <ProfilePicUpload onUpload={handleImageUpload} />
-
-        <PersonalDetails
-          onChange={(data) => handleInputChange("personalDetails", data)}
-        />
-
-        <ContactDetails
-          onChange={(data) => handleInputChange("contactDetails", data)}
-        />
-
-        <SkillsDetails onChange={(data) => handleInputChange("skills", data)} />
-
-        <GAExp onChange={(data) => handleInputChange("gaExperience", data)} />
-
-        <WorkExp
-          onChange={(data) => handleInputChange("workExperience", data)}
-        />
-
-        <EduExp
-          onChange={(data) => handleInputChange("educationExperience", data)}
-        />
-
-        <Box>
-          <Button colorScheme="red" m={5} onClick={handleSubmit}>
-            Save
-          </Button>
-          <Button colorScheme="red" m={5} onClick={handleCancel}>
-            Cancel
-          </Button>
-        </Box>
+    <Box className="ProfileSetting" height="auto" alignContent="center">
+      <Image />
+      {formData.profilePic && (
+        <Image src={formData.profilePic} alt="user-profile-picture" />
+      )}
+      <ProfilePicUpload onUpload={handleImageUpload} />
+      <PersonalDetails
+        onChange={(data) => handleInputChange("personalDetails", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <ContactDetails
+        onChange={(data) => handleInputChange("contactDetails", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <SkillsDetails
+        onChange={(data) => handleInputChange("skills", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <GAExp
+        onChange={(data) => handleInputChange("gaExperience", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <WorkExp
+        onChange={(data) => handleInputChange("workExperience", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <EduExp
+        onChange={(data) => handleInputChange("educationExperience", data)}
+        profileDetails={profileDetails}
+        userDetails={userDetails}
+      />
+      <Box>
+        <Button colorScheme="red" mt={5} onClick={handleSubmit}>
+          Save
+        </Button>
+        <Button colorScheme="red" mt={5} onClick={handleCancel}>
+          Cancel
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 }
 

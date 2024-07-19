@@ -10,7 +10,7 @@ import {
 import techstacks from "../../constants/techstacks";
 import React from "react";
 
-function SkillsDetails({ onChange }) {
+function SkillsDetails({ onChange, userDetails, profileDetails }) {
   const [selectedSkills, setSelectedSkills] = React.useState([]);
 
   const handleSkillChange = (e) => {

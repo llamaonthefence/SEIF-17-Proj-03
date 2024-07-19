@@ -10,7 +10,6 @@ import {
   OpportunitiesPage,
   HomePage,
   ProfilePage,
-  ProfileEditPage,
   CreatePostPage,
   EditPostPage,
 } from "./pages";
@@ -44,7 +43,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/signin" element={<SignInPage />} />
-                  
+
                 {/* Protected Routes */}
                 {user && (
                   <>
@@ -53,8 +52,11 @@ function App() {
                       path="/opportunities"
                       element={<OpportunitiesPage />}
                     />
-                    <Route path="/profile/:listing_id" element={<ProfileEditPage/>} />
-                    <Route path="/profile/*" element={<ProfilePage />} />
+                    {/* <Route
+                      path={`/profile/:${listing_id}`}
+                      element={<ProfileEditPage />}
+                    /> */}
+                    <Route path="/profile" element={<ProfilePage />} />
                     <Route
                       path="/opportunities/create-post"
                       element={<CreatePostPage />}
@@ -65,7 +67,7 @@ function App() {
                     />
                   </>
                 )}
-                
+
                 {/* Redirect to home if trying to access protected routes when not logged in */}
                 {!user && (
                   <>
@@ -74,7 +76,11 @@ function App() {
                       path="/opportunities"
                       element={<Navigate to="/" />}
                     />
-                    <Route path="/profile/*" element={<Navigate to="/" />} />
+                    <Route path="/profile" element={<Navigate to="/" />} />
+                    {/* <Route
+                      path={`/profile/:${listing_id}`}
+                      element={<ProfileEditPage />}
+                    /> */}
                     <Route
                       path="/opportunities/create-post"
                       element={<Navigate to="/" />}

@@ -150,3 +150,28 @@ export async function signoutUser(token, userData) {
     throw new Error("Invalid signout");
   }
 }
+
+export async function getUserDetails(userId) {
+  try {
+    const url = `${BASE_URL}/${userId}`; 
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    // console.log("data: ", data)
+    return data;
+
+  } catch (error) {
+    console.error(`Error fetching user details: ${error.message}`);
+    throw error; // Re-throw the error for further handling
+  }
+}

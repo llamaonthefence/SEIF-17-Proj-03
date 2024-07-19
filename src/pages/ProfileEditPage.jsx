@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 import {
   Box,
   Image,
@@ -19,7 +19,6 @@ import WorkExp from "../components/profileComponents/WorkExp";
 import EduExp from "../components/profileComponents/EducationExp";
 import SkillsDetails from "../components/profileComponents/SkillsDetails";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateProfile, getProfile } from '../api/profiles'; 
 import { updateProfile, getUserProfile } from "../service/profiles"; // Import the new getUserProfile function
 import { uploadImage } from "../api/cloudinary";
 
@@ -44,11 +43,11 @@ function ProfileEditPage() {
   // const fileInputRef = useRef(null);
   // const navigate = useNavigate();
 
-useEffect(() => {
+  useEffect(() => {
     const fetchProfile = async () => {
       try {
         const data = await getUserProfile(listing_id); // Fetch profile data using getUserProfile
-        console.log('Fetched Data:', data);
+        console.log("Fetched Data:", data);
 
         setFormData({
           personal_details: {
@@ -58,20 +57,20 @@ useEffect(() => {
             additionalName: data.personal_details.additionalName,
           },
           contactDetails: {
-            email: data.email || '',
-            phone: data.phone || '',
-            address: data.address || '',
+            email: data.email || "",
+            phone: data.phone || "",
+            address: data.address || "",
           },
           gaExperience: data.gaExperience || [],
           workExperience: data.workExperience || [],
           educationExperience: data.educationExperience || [],
           profilePic: data.profilePic || null,
-          skills: data.skills || '',
+          skills: data.skills || "",
         });
         setImagePreview(data.profilePic);
         setSelectedSkills(data.skills || []);
       } catch (error) {
-        console.error('Error fetching profile data:', error);
+        console.error("Error fetching profile data:", error);
       }
     };
 
@@ -202,35 +201,35 @@ useEffect(() => {
             </Box>
           </GridItem>
 
-        <GridItem>
-          <Box mb="8px" className="pronoun-box">
-            <Text mb="8px" textAlign="left">
-              Pronoun:
-            </Text>
-            <Input
-              value={formData.personal_details.pronoun}
-              onChange={handleChange}
-              placeholder="Enter Pronoun"
-              size="sm"
-            />
-          </Box>
-        </GridItem>
+          <GridItem>
+            <Box mb="8px" className="pronoun-box">
+              <Text mb="8px" textAlign="left">
+                Pronoun:
+              </Text>
+              <Input
+                value={formData.personal_details.pronoun}
+                onChange={handleChange}
+                placeholder="Enter Pronoun"
+                size="sm"
+              />
+            </Box>
+          </GridItem>
 
-        <GridItem>
-          <Box mb="8px">
-            <Text mb="8px" textAlign="left">
-              Additional Name:
-            </Text>
-            <Input
-              value={formData.personal_details.additionalName}
-              onChange={handleChange}
-              placeholder="Enter Additional Name"
-              size="sm"
-            />
-          </Box>
-        </GridItem>
-      </Grid>
-    </Box>
+          <GridItem>
+            <Box mb="8px">
+              <Text mb="8px" textAlign="left">
+                Additional Name:
+              </Text>
+              <Input
+                value={formData.personal_details.additionalName}
+                onChange={handleChange}
+                placeholder="Enter Additional Name"
+                size="sm"
+              />
+            </Box>
+          </GridItem>
+        </Grid>
+      </Box>
 
       {/* <ContactDetails value={formData.contactDetails}/>
 
