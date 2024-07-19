@@ -70,6 +70,7 @@ function EduExp({ onChange, profileDetails }) {
         handleEditEduExp={handleEditEduExp}
         handleDeleteEduExp={handleDeleteEduExp}
         profileDetails={profileDetails}
+        setEduExpList={setEduExpList}
       />
 
       <Button

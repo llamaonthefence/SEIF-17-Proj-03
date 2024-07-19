@@ -8,13 +8,21 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
 
 function EduExpList({
   eduExpList,
   handleEditEduExp,
   handleDeleteEduExp,
   profileDetails,
+  setEduExpList,
 }) {
+  useEffect(() => {
+    if (profileDetails && profileDetails.education_experience) {
+      setEduExpList(profileDetails.education_experience);
+    }
+  }, [profileDetails]);
+
   return (
     <Grid templateColumns="repeat(6, 1fr)">
       {eduExpList.map((item, index) => (
@@ -59,18 +67,20 @@ function EduExpList({
 // props validation
 
 EduExpList.propTypes = {
-  eduExpList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      qualificationType: PropTypes.string.isRequired,
-      fieldOfStudy: PropTypes.string.isRequired,
-      institutionName: PropTypes.string.isRequired,
-      yearAttained: PropTypes.string.isRequired,
-      qualificationName: PropTypes.string,
-    })
-  ).isRequired,
   handleEditEduExp: PropTypes.func.isRequired,
   handleDeleteEduExp: PropTypes.func.isRequired,
+  profileDetails: PropTypes.shape({
+    education_experience: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        qualificationType: PropTypes.string.isRequired,
+        fieldOfStudy: PropTypes.string.isRequired,
+        institutionName: PropTypes.string.isRequired,
+        yearAttained: PropTypes.string.isRequired,
+        qualificationName: PropTypes.string,
+      })
+    ),
+  }),
 };
 
 export default EduExpList;
