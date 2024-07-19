@@ -10,7 +10,7 @@ import GaExperienceEdit from "./GAexperienceEdit";
 
 //using ChakraUI "controlled input"
 
-function GAexperience({onChange}) {
+function GAexperience({onChange, profileDetails}) {
     const [gaCourseList, setGaCourseList] = React.useState([])
     const [gaCourse, setGaCourse] = React.useState('')
     const [gradYear, setGradYear] = React.useState(new Date())
@@ -73,8 +73,11 @@ function GAexperience({onChange}) {
 
     //handle change in gaCourseList array 
     useEffect(() => {
-        onChange(gaCourseList)
-    }, [gaCourseList])
+        if (profileDetails && profileDetails.ga_experience) {
+            console.log("gaExp")
+            setGaCourseList(profileDetails.ga_experience)
+        }
+    }, [profileDetails])
 
     const handleOpenModal = (event) => {
         event.stopPropagation()
