@@ -7,8 +7,10 @@ import {
   GridItem,
   FormControl,
   FormLabel,
+  IconButton,
 } from "@chakra-ui/react";
 import React from "react";
+import { EditIcon } from "@chakra-ui/icons";
 
 //using ChakraUI "controlled input"
 
@@ -51,7 +53,19 @@ function PersonalDetails({ onChange }) {
       overflow="hidden"
       m={10}
       p={5}
+      position="relative"
     >
+
+    <IconButton icon={<EditIcon/>}
+    aria-label="Edit"
+    position="absolute"
+    top={2}
+    right={2}
+    onClick={() => {
+      console.log("open edit modal")
+    }}>
+    </IconButton>
+
       <Heading
         as="h3"
         size="md"
