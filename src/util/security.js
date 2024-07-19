@@ -46,3 +46,13 @@ export function getToken() {
 export function removeToken() {
   localStorage.removeItem('token')
 }
+
+export function getUserIdFromToken() {
+  const token = getToken();
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  console.log("payload: ",payload)
+  return payload.payload.user;
+}
