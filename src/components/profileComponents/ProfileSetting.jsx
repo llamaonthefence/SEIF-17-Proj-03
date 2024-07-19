@@ -165,9 +165,9 @@ function ProfileSetting() {
   return (
     <Box className="ProfileSetting" height="auto" alignContent="center">
       <Image />
-      {formData.profilePic && (
-        <Image src={formData.profilePic} alt="user-profile-picture" />
-      )}
+      {formData.profilePic
+      // (<Image src={formData.profilePic} alt="user-profile-picture" />)
+      }
       <ProfilePicUpload onUpload={handleImageUpload} />
       <PersonalDetails
         onChange={(data) => handleInputChange("personalDetails", data)}
