@@ -1,10 +1,12 @@
-import {Box, Heading, Grid, GridItem, Select, FormControl, FormLabel, Button, Text} from "@chakra-ui/react";
-import React from "react";
+import {Box, Heading, Grid, GridItem, Select, FormControl, FormLabel, Button, Text, IconButton} from "@chakra-ui/react";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import React, { useEffect, useState } from "react";
 import { gaBootcamps } from "../../constants/ga-courses";
 import DateInputYear from "./DateInputYear";
 import { v4 as uuidv4 } from 'uuid'
 // import formatDate from "../../util/formatDate";
 import { getProfile } from "../../api/profiles";
+import GaExperienceEdit from "./GAexperienceEdit";
 
 //using ChakraUI "controlled input"
 
@@ -12,6 +14,8 @@ function GAexperience({onChange}) {
     const [gaCourseList, setGaCourseList] = React.useState([])
     const [gaCourse, setGaCourse] = React.useState('')
     const [gradYear, setGradYear] = React.useState(new Date())
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleGaCourseChange = (event) => {
         const value = event.target.value
@@ -52,9 +56,35 @@ function GAexperience({onChange}) {
     
             setGaCourse('');
             setGradYear(new Date());
-
         }
     }
+
+    const handleEditGaExp = (index) => {
+        console.log ("edit GA exp")
+    }
+
+    const handleDeleteGaExp = (index) => {
+        setGaCourseList(prevList => {
+            const updatedList = [...prevList]
+            updatedList.splice(index, 1)
+            return updatedList
+        })
+    }
+
+    //handle change in gaCourseList array 
+    useEffect(() => {
+        onChange(gaCourseList)
+    }, [gaCourseList])
+
+    const handleOpenModal = (event) => {
+        event.stopPropagation()
+        setIsModalOpen(true)
+      }
+    
+      const handleCloseModal = () => {
+        setIsModalOpen(false)
+      }
+
 
     return (
         <Box 
@@ -100,6 +130,7 @@ function GAexperience({onChange}) {
             <FormControl isRequired>
             <FormLabel mb='8px' textAlign="left">Graduation Year:</FormLabel>
             <DateInputYear 
+
             selectedDate={gradYear}
             onChange={handleGradYearChange}
             zIndex={9999}
@@ -123,16 +154,54 @@ function GAexperience({onChange}) {
         Add
         </Button>
 
-            {gaCourseList.length > 0 && (
-                <Box>
-                    {gaCourseList.map((course, index) => (
-                        <Text key={index}>
-                            {`Course: ${course.gaCourse}, Graduation Year: ${course.gradYear}`}
-                        </Text>
-                    ))}
+        <Grid templateColumns='repeat(6, 1fr)'>
 
+            {gaCourseList.map((course, index) => (
+
+            <GridItem key={course.id} colSpan={6}>
+            <Box maxW="100%" borderWidth="1px" borderRadius="lg" m={2} p={2}>
+
+            <Grid templateColumns='repeat(6, 1fr)'>
+                <GridItem colSpan={5}>
+                <Box textAlign="left" p={2}>
+                    
+                        <Text key={index}>
+                            {`Course: ${course.gaCourse} | Graduation Year: ${course.gradYear}`}
+                        </Text>
+                   
                 </Box>
-            )}
+                </GridItem>
+
+                <GridItem colSpan={1} display="flex" alignItems="center"> 
+                    <IconButton
+                      aria-label="Edit"
+                      icon={<EditIcon />}
+                      colorScheme="blue"
+                      onClick={handleOpenModal}
+                      mr={2}
+                    />
+                    <IconButton
+                      aria-label="Delete"
+                      icon={<DeleteIcon />}
+                      colorScheme="red"
+                      onClick={() => handleDeleteGaExp(index)}
+                    />
+
+                    </GridItem>
+            
+            </Grid>
+
+            </Box>
+             </GridItem>
+            ))}
+        </Grid>
+
+        {isModalOpen && (
+        <GaExperienceEdit isOpen={isModalOpen} closeModal={handleCloseModal}
+        data={{ gaCourse, gradYear }}
+        />
+      )}
+
 
         </Box>
     )

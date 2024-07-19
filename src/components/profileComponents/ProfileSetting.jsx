@@ -98,8 +98,9 @@ function ProfileSetting() {
         <Image />
 
         {/* Preview profile pic */}
-        {formData.profilePic && (
-          <Image src={formData.profilePic} alt="user-profile-picture"/>)}
+        {formData.profilePic  
+        // (<Image src={formData.profilePic} alt="user-profile-picture"/>)
+        }
 
         <ProfilePicUpload onUpload={handleImageUpload} />
 
@@ -124,10 +125,10 @@ function ProfileSetting() {
         />
 
         <Box>
-          <Button colorScheme="red" mt={5} onClick={handleSubmit}>
+          <Button colorScheme="red" m={5} onClick={handleSubmit}>
             Save
           </Button>
-          <Button colorScheme="red" mt={5} onClick={handleCancel}>
+          <Button colorScheme="red" m={5} onClick={handleCancel}>
             Cancel
           </Button>
         </Box>
