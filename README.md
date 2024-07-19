@@ -6,7 +6,11 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 
 ## Screenshots
 #### Landing Page
-![Landing page](src/assets/Screenshot 2024-07-20 001714.png)
+![Landing page](src/assets/Screenshot%202024-07-20%20001714.png)
+
+#### Sign Up
+
+#### Job Model
 
 
 ***
@@ -15,17 +19,18 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 * React JS 
 * MongoDB
 * Mongoose
+* ChakraUI 
 
 ***
 ## Process
 #### Planning & Workflow
-<img src="src/assets/">
+![Detailed plan](src/assets/Screenshot%202024-07-20%20003536.png)
 
 #### ERD
-<img src="src/assets/">
+![ERD for app backend](src/assets/ERD.png)
 
 #### UI Sketch (Figma)
-<img src="src/assets/">
+![Frontend plan](src/assets/Screenshot%202024-07-20%20003850.png)
 
 ***
 #### Favourites
@@ -34,8 +39,6 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 ***
 
 ## Challenges Faced 
-
-
 
 
 
@@ -57,4 +60,4 @@ This is a platform for GA's alumni to find each other, to share opportunities an
 ***
 ## Attributions
 * [ChakraUI](https://v2.chakra-ui.com/getting-started) 
-* 
+* Special thanks to Shao Quan & Waihon 
