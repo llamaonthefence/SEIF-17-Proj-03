@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/cloudinary";
+// const BASE_URL = "http://localhost:3000/api/cloudinary";
+const BASE_URL = "https://ga-alumni-network.onrender.com/api/cloudinary";
 
 export async function uploadImage(file, folder) {
   const formData = new FormData();
